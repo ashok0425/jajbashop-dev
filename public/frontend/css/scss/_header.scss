@@ -1,0 +1,183 @@
+.navbar-brand {
+    max-width: 75px;
+    padding: 0;
+}
+.navbar {
+    z-index: 9999;
+    padding: 8px;
+    .search {
+        border: 0;
+        border-radius: 2px 0 0 2px;
+        font-size: 14px;
+        max-width: 521.66px;
+        padding: 0 16px;
+        min-height: 36px;
+    }
+    .search-btn {
+        background-color: white;
+        border-radius: 0px 2px 2px 0;
+        max-height: 36px;
+        color: var(--custom-primary);
+    }
+
+    .navbar-nav {
+        font-weight: 500 !important;
+        .nav-item {
+            margin: 0 6px;
+            .btn {
+                border-radius: 2px;
+                background-color: white;
+                color: var(--custom-primary);
+                font-weight: 500;
+                padding: 5px 40px !important;
+                border: var(--custom-bs);
+            }
+        }
+        .nav-link {
+            color: white !important;
+        }
+    }
+}
+.nav-login {
+    .modal-dialog {
+        max-width: 650px;
+        .modal-body {
+            border: none;
+            position: relative;
+            .btn-close {
+                position: absolute;
+                right: -42px;
+                top: -10px;
+                background: none !important;
+                color: white;
+                font-size: 32px;
+                display: grid;
+                place-items: center;
+            }
+            .modal-login-form {
+                .otp-btn {
+                    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2%) !important;
+                    color: var(--custom-primary) !important;
+                }
+            }
+        }
+    }
+}
+
+.navbar-sm {
+    .navbar-sm-ul {
+        position: relative;
+        li {
+            &:hover {
+                .dropdown-child {
+                    display: flex;
+                }
+            }
+            .dropdown-child {
+                position: absolute;
+                top: 100%;
+                background-color: white;
+                border-radius: 4px;
+                box-shadow: var(--custom-bs);
+                border: var(--custom-border);
+                display: flex;
+                justify-content: space-between;
+                min-width: 1245px;
+                display: none;
+                left: 0;
+                
+               z-index: 99999;
+                ul{
+                    width: 100%;
+                    
+                }
+            }
+        }
+    }
+}
+
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 9999999; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: white;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.08%);
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 0px 0px 0px;
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.overlay{
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 99999;
+    display: none;
+    overflow: hidden;
+    
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+/* responsive sm */
+@media (max-width: 1275px) {
+  
+.navbar-sm {
+    .navbar-sm-ul {
+        li {
+            .dropdown-child {
+                min-width: 991px;
+            }
+        }
+    }
+}
+}
+/* responsive sm */
+@media (max-width: 575px) {
+    .nav-login {
+        .modal-dialog {
+            .modal-body {
+                .btn-close {
+                    right: 10px;
+                    top: 0px;
+                    background: none !important;
+                    color: white;
+                    font-size: 32px;
+                    display: grid;
+                    place-items: center;
+                }
+            }
+        }
+    }
+}

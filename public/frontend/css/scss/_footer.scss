@@ -1,0 +1,22 @@
+.brand-cat {
+    color: var(--custom-dark);
+    font-size: var(--custom-fs-14);
+    a {
+        font-size: var(--custom-fs-12);
+        padding: 0 5px;
+        color: var(--custom-dark);
+    }
+    a:not(:last-child) {
+        border-right: 1px solid #333;
+    }
+}
+
+.footer-sm-according{
+    .accordion-button{
+        font-size: var(--custom-fs-13);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+        padding-right: 50px !important;
+    }
+}

@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/alfacode/jajbashop.in/
+    - /bin/cp * $DEPLOYPATH
+

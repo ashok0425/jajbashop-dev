@@ -1,0 +1,10 @@
+.btn-style-1{
+    font-size: var(--custom-fs-13);
+    padding: 10px 20px;
+    height: max-content;
+    color: #fff !important;
+    border-radius: var(--custom-br);
+    :hover{
+        color: #fff !important;
+    }
+}

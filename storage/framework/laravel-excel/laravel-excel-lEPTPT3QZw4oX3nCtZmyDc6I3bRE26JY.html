@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="csrf-token" content="AJGOkqbgihej1fxXRa2fnpC0gEG9fEe8wOErVtcG">
+
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+	<title>soengsouy.com</title>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+	<link href="http://127.0.0.1:8000/admin/css/app.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<style>
+.card{
+	border-top: 5px solid rgb(1, 79, 124);
+}
+
+.file-upload-wrapper {
+	position: relative;
+	width: 100%;
+	height: 40px;
+    border: 1px solid #17e67e;
+
+}
+#myTable_filter{
+	margin-bottom: 2rem!important;
+}
+.file-upload-wrapper:after {
+	content: attr(data-text);
+	font-size: 18px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+	padding: 0px 15px;
+	display: block;
+	width: calc(100% - 40px);
+	pointer-events: none;
+	z-index: 20;
+	height: 10px;
+	line-height: 40px;
+	color: #999;
+	border-radius: 5px 10px 10px 5px;
+	font-weight: 300;
+}
+
+.file-upload-wrapper:before {
+	content: 'Choose file';
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: inline-block;
+	height: 40px;
+	background: #4daf7c;
+	color: #fff;
+	font-weight: 700;
+	z-index: 25;
+	font-size: 16px;
+	line-height: 40px;
+	padding: 0 15px;
+	text-transform: uppercase;
+	pointer-events: none;
+	border-radius: 0 5px 5px 0;
+}
+
+.file-upload-wrapper:hover:before {
+	background: #17e67e;
+}
+
+.file-upload-wrapper input {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 99;
+	height: 20px;
+	margin: 0;
+	padding: 0;
+	display: block;
+	cursor: pointer;
+	width: 100%;
+}
+h3{
+	background:rgb(1, 101, 119);
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.1rem;
+	padding: .2rem 1rem;
+}
+</style>
+<body>
+	<div class="wrapper">
+        
+<nav id="sidebar" class="sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="index.html">
+  <span class="align-middle">Soeng Souy</span>
+</a>
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-header">
+                Pages
+            </li>
+
+            <li class="sidebar-item ">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/vendor/dashboard" >
+      <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+    </a>
+            </li>
+
+            <li class="sidebar-item  ">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/vendor/profile">
+      <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+    </a>
+            </li>
+
+
+         
+
+            <li class="sidebar-item   active">
+                <a data-target="#shipment" data-toggle="collapse" class="sidebar-link" aria-expanded="false"> <i class="fas fa-male"></i> 
+       <span class="align-middle">Shipment</span>
+    </a>
+                <ul id="shipment" class="sidebar-dropdown list-unstyled collapse show" data-parent="#sidebar" style="">
+               
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/vendor/shipment/pending ">Pending Shipmnet</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/vendor/shipment">All Shipment</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/vendor/shipment/create">Create Shipment</a></li>
+                </ul>
+            </li>
+
+            <li class="sidebar-header">
+                My Payment
+            </li>
+            <li class="sidebar-item ">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/vendor/payment">
+      <i class="fas fa-comments-dollar"></i> <span class="align-middle">My Collection</span>
+    </a>
+            </li>
+
+            <li class="sidebar-header">
+                Manage Ticket
+            </li>
+            <li class="sidebar-item   ">
+                <a data-target="#ticket" data-toggle="collapse" class="sidebar-link" aria-expanded="false"> <i class="fas fa-male"></i> 
+       <span class="align-middle">Ticket</span>
+    </a>
+                <ul id="ticket" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar" style="">
+               
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/vendor/ticket/create ">Create</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/vendor/ticket/list">All Ticket</a></li>
+               
+                </ul>
+            </li>
+
+            <li class="sidebar-header">
+                Message
+            </li>
+            <li class="sidebar-item ">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/vendor/message/list">
+      <i class="fas fa-comments-dollar"></i> <span class="align-middle">Message</span>
+    </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+		<div class="main">
+        
+
+<nav class="navbar navbar-expand navbar-light navbar-bg">
+    <a class="sidebar-toggle d-flex">
+<i class="hamburger align-self-center"></i>
+</a>
+          
+
+              <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown">
+                <a class="nav-icon dropdown-toggle" href="" id="messagesDropdown" data-toggle="dropdown">
+                    <div class="position-relative">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                </a></li>
+
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
+                    <div class="position-relative">
+                        <i class="align-middle" data-feather="bell"></i>
+                        <span class="indicator"> 0</span>
+                    </div>
+                </a>
+      
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
+                    <div class="dropdown-menu-header">
+                        0 success shipment for today
+                    </div>
+                    <div class="list-group" style="height: 300px;overflow-y:scroll;">
+                                              
+                       
+                    </div>
+                    
+                    <div class="dropdown-menu-footer">
+                        <a href="http://127.0.0.1:8000/admin/shipment/pending" class="text-muted">Show all pending Shipment</a>
+                    </div>
+                </div>
+            </li>
+        
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
+                    <div class="position-relative">
+                        <i class="fas fa-envelope fa-.5x"></i>
+                        <span class="indicator"> 1</span>
+                    </div>
+                </a>
+      
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
+                    <div class="dropdown-menu-header">
+                        1 message
+                    </div>
+                    <div class="list-group" style="height: 300px;overflow-y:scroll;">
+                                                <a href="http://127.0.0.1:8000/vendor/message/show/2" class="list-group-item">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-2">
+                                    <i class="text-danger" data-feather="alert-circle"></i>
+                                </div>
+                                <div class="col-10">
+                                    <div class="text-dark">Hello</div>
+                                  
+                                    <div class="text-muted small mt-1">3 hours ago</div>
+                                </div>
+                            </div>
+                        </a>
+                                              
+                       
+                    </div>
+                    
+                    <div class="dropdown-menu-footer">
+                        <a href="http://127.0.0.1:8000/vendor/message/list" class="text-muted">Show all pending Shipment</a>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+    <i class="align-middle" data-feather="settings"></i>
+  </a>
+
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
+    <img src="http://127.0.0.1:8000/upload/vendor/570251561vendor.png" class="avatar img-fluid rounded mr-1" alt="Charles Hall" /> <span class="text-dark"></span>
+  </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="http://127.0.0.1:8000/vendor/profile"><i class="align-middle mr-1" data-feather="user"></i> Profile</a>
+                    <a class="dropdown-item" href="http://127.0.0.1:8000/vendor/profile"><i class="fas fa-cog"></i> Setting</a>
+                    <a class="dropdown-item" href="http://127.0.0.1:8000/vendor/logout"><i class="fas fa-power-off"></i> Log out</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+			<main class="content">
+                 
+       
+    <div class="container">
+    <div class="card py-3 px-4">
+        <div class="d-flex justify-content-between">
+            <h3>All Shipment List</h3>
+            <a href="http://127.0.0.1:8000/vendor/shipment/create" class="btn btn-info btn-lg" ><i class="fas fa-plus"></i> Create New</a>
+        </div>
+        <br>
+
+        <table id="myTable" class="table table-responsive table-striped table-bordered " style="border-collapse: collapse" >
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Customer name</th>
+                    <th>Customer address</th>
+                    <th>Customer contact</th>
+                    <th> Rider</th>
+                    <th>Amount</th>
+                    <th>Charge</th>
+                    <th>Status</th>
+                    <th>Action</th>
+            
+                </tr>
+            </thead>
+            <tbody>
+                
+                                    <tr>
+                        <td>1</td>
+                        <td>2021-05-22</td>
+
+                        <td>Ashok Mehta</td>
+                        <td>inaruwa</td>
+                        <td>+9779813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>10</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">Success</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/1" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td>2021-05-19</td>
+
+                        <td>reciver2</td>
+                        <td>sunsari</td>
+                        <td>434</td>
+
+                        <td>
+                                                        
+
+                                                    </td>
+                        <td>10</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">Success</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/2" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td>2021-05-22</td>
+
+                        <td>Reciver3</td>
+                        <td>inaruwa</td>
+                        <td>33333333</td>
+
+                        <td>
+                                                        
+
+                                                    </td>
+                        <td>10</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">Success</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/3" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td>2021-05-25</td>
+
+                        <td>Ashok Mehta</td>
+                        <td>inaruwa</td>
+                        <td>+9779813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>500</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">call for delivery</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/4" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td>2021-05-25</td>
+
+                        <td>Ashok Mehta</td>
+                        <td>inaruwa</td>
+                        <td>+9779813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>10</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">call for delivery</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/5" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td>2021-05-25</td>
+
+                        <td>Karen Matthews</td>
+                        <td>6501 Virgilian</td>
+                        <td>9813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>1000</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">call for delivery</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/6" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>7</td>
+                        <td>2021-05-25</td>
+
+                        <td>Karen Matthews</td>
+                        <td>6501 Virgilian</td>
+                        <td>9813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>1000</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">call for delivery</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/7" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>8</td>
+                        <td>2021-05-26</td>
+
+                        <td>Ashok Mehta</td>
+                        <td>inaruwa</td>
+                        <td>+9779813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>1000</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">call for delivery</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/8" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>9</td>
+                        <td>2021-05-25</td>
+
+                        <td>Ashok Mehta</td>
+                        <td>inaruwa</td>
+                        <td>+9779813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>10000</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">call for delivery</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/9" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td>10</td>
+                        <td>2021-05-25</td>
+
+                        <td>Ashok Mehta</td>
+                        <td>inaruwa</td>
+                        <td>+9779813519397</td>
+
+                        <td>
+                                                         
+                            <span class="badge bg-danger">Not Assigned</span>
+
+
+                                                </td>
+                        <td>10000</td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-success">call for delivery</span>
+</td>
+                        <td>
+                            <a href="http://127.0.0.1:8000/vendor/shipment/show/10" class="btn btn-warning" title="show shipment detail"><i class="far fa-eye"></i></a>
+
+                          
+                            
+                            
+                         
+                        </td>
+                    </tr>
+                            </tbody>
+              </table>
+    </div>
+</div>
+
+
+			
+			</main>
+
+		
+		</div>
+	</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<script src="http://127.0.0.1:8000/admin/js/app.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	
+	
+<script>
+$(document).ready(function(){
+$(document).on('click','.data',function(){
+		
+		let datas=$(this).attr('data-text');
+		let id=$(this).val();
+if(datas=='subcategory'){
+let option=	$('.category').val();
+	loadData(datas,id,option)	
+
+}else{
+	loadData(datas,id)	
+
+}
+	})
+})
+	
+	function loadData(table,id,option){
+$.ajax({
+	
+	url:'http://127.0.0.1:8000/admin/loaddata/'+table+'/'+id+'/'+option,
+	DataType:'json',
+	type:'GET',
+	success:function($data){
+		console.log($data)
+		if(table=='category'){
+				$('.subcategory').html();
+				$('.model').html();
+
+			$('.subcategory').html($data);
+		}
+		if(table=='subcategory'){
+				$('.model').html();
+			$('.model').html($data);
+		}
+	}
+})
+	}
+
+</script>
+
+
+<script>
+
+     </script>
+	
+
+    
+    <script>
+        $("form").on("change", ".file-upload-field", function(){ 
+    $(this).parent(".file-upload-wrapper").attr("data-text",         $(this).val().replace(/.*(\/|\\)/, '') );
+});
+    </script>
+
+	
+	<script >
+		$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+
+	</script>
+
+<script>
+ $(document).on("click", "#delete", function(e){
+        e.preventDefault();
+        var link = $(this).attr("href");
+           swal({
+             title: "Are you Want to delete?",
+             text: "Once Delete, This will be Permanently Delete!",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+           })
+           .then((willDelete) => {
+             if (willDelete) {
+                  window.location.href = link;
+             } else {
+               swal("Safe Data!");
+             }
+           });
+       });
+</script>
+</body>
+
+</html>
