@@ -91,3 +91,7 @@ function __getadminAmount($amount){
     
     }
     
+
+    function __getimagePath($image){
+   return 'https://ecomm.jajbashop.in/'.$image;
+    }

@@ -126,8 +126,42 @@ $(document).ready(function () {
       }
     }
   );
+ 
 });
 
+$(document).ready(function () {
+  $(".items-10").owlCarousel(
+    {
+      items: 10,
+      dots: false,
+      nav: false,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
+      slideBy: 5,
+      responsiveClass: true,
+      margin: 10,
+      responsive: {
+        0: {
+          items: 3,
+          slideBy: 2,
+        },
+        575: {
+          items: 4,
+          slideBy: 3,
+        },
+        768: {
+          items: 6,
+          slideBy: 4,
+        },
+        991: {
+          items: 10,
+          slideBy: 5,
+        },
+      }
+    }
+  );
+});
 // Product IMG 
 
 var slideIndex = 1;

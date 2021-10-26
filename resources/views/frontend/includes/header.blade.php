@@ -17,10 +17,13 @@
                                 </div>
                             </div>
                             <div class="col-sm-8 px-4 py-5">
-                                <form action="{{ route('login') }}" class="modal-login-form" method="POST">
+                                <x-errormsg/>
+                                <form action="{{ route('member.login.store') }}" class="modal-login-form" method="POST">
+
+                                    @csrf
                                     <div class="input-wrap mb-5 custom-b-bot">
-                                        <input type="email" name="email" class="w-100 pe-1 py-2 border-0"
-                                            placeholder="Enter Email" id="email" required>
+                                        <input type="text" name="userid" class="w-100 pe-1 py-2 border-0"
+                                            placeholder="Email/Password" id="email" required>
                                     </div>
                                     <div
                                         class="d-flex mb-5 justify-content-between align-items-center input-wrap custom-b-bot mb-3">
