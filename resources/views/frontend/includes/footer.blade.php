@@ -88,7 +88,7 @@
                 </div>
 
 <div class="col-lg-1 col-6">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14302.438586353122!2d87.043413!3d26.3391367!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5343632e81073a08!2sJajbashop!5e0!3m2!1sen!2snp!4v1635300958556!5m2!1sen!2snp" width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14302.438586353122!2d87.043413!3d26.3391367!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5343632e81073a08!2sJajbashop!5e0!3m2!1sen!2snp!4v1635300958556!5m2!1sen!2snp" width="100" height="100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
 
 
