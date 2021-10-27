@@ -1,11 +1,11 @@
 <style>
     .rounded_circle{
-      width: 70px!important;
-      height:70px!important;
+      width: 50px!important;
+      height:50px!important;
 
     }
   </style>
-<section class="custom-bs bg-white my-2 mt-lg-0 custom-b py-1">
+<section class="custom-bs bg-white my-2 mt-lg-0 custom-b">
     <div class="container-sm">
             <div class="owl-carousel product-carousel items-10">
                 {{-- fetching category from database 2  --}}
