@@ -2,7 +2,7 @@
     .rounded_circle{
       width: 50px!important;
       height:50px!important;
-
+       margin: auto!important;
     }
   </style>
 <section class="custom-bs bg-white my-2 mt-lg-0 custom-b">
