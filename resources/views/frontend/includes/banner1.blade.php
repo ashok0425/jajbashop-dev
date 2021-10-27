@@ -1,7 +1,10 @@
-<section class="d-lg-block my-2 d-none">
+@php
+    $banner=DB::connection('mysql2')->table('banners')->where('status',1)->orderBy('id','desc')->first();
+@endphp
+<section class="d-lg-block my-2 ">
     <div class="container">
         <a href="#">
-            <img src="assets/img/e81dfd9a39bc85a2.jpg" alt="" class="img-fluid">
+            <img src="{{ __getimagePath($banner->image) }}" alt="banner image" class="img-fluid">
         </a>
     </div>
 </section>

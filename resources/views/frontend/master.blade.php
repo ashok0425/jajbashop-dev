@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/css/main.css')}}">
     <title>JAJBASHOP</title>
+  
 </head>
 
 <body class="custom-bg-gray">

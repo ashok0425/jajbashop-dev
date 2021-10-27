@@ -88,10 +88,17 @@
                         <a href="#" class="nav-link"><i class="fas fa-shopping-cart me-1"></i></a>
                     </li>
                     <li class="nav-item d-flex  align-items-center">
-                        <button type="button" class=" border-0 text-white custom-bg-primary" data-bs-toggle="modal"
+                        @auth
+                        <a href="{{ route('member.dashboard') }}" class=" border-0 text-white custom-bg-primary" >
+                        Profile
+                    </a>
+                            @else   
+   <button type="button" class=" border-0 text-white custom-bg-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Login
                         </button>
+                        @endauth
+                     
                     </li>
                 </ul>
             </div>
@@ -107,14 +114,21 @@
             <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
                 <ul class="navbar-nav  mb-2 mb-lg-0">
                     <li class="nav-item d-flex align-items-center">
+                        @auth
+                        <a href="{{ route('member.dashboard') }}" class=" btn btn-primary" >
+                            Profile
+                        </a>
+                        @else  
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Login
                         </button>
+                        @endauth
+
                     </li>
 
 
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             More
@@ -127,7 +141,7 @@
                             </li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link"><i class="fas fa-shopping-cart me-1"></i> Cart</a>
                     </li>

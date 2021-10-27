@@ -7,11 +7,27 @@
     @endphp
        <div class="row p-3 text-white custom-bg-primary">
         <div class="col-2">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-user mt-3"></i>
         </div>
         <div class="col-8">
-            <p class="mb-0 custom-cursor-pointer" onclick="closeNav()" data-bs-toggle="modal"
-                data-bs-target="#exampleModal"> Login & Signup</p>
+          @auth
+        <a href="{{ route('member.dashboard') }}" class="text-light py-0 my-0">
+                <p class="py-0 my-0">
+                          
+            {{ Auth::user()->userid }} 
+                </p>
+          <small>
+            {{ Str::limit(Auth::user()->name,11) }}
+          </small>
+
+           </a>
+
+
+              @else   
+              <p class="mb-0 custom-cursor-pointer  text-light" onclick="closeNav()" data-bs-toggle="modal"
+              data-bs-target="#exampleModal"> Login & Signup</p>
+          @endauth
+          
         </div>
     </div>
     @foreach ($category as $item)
