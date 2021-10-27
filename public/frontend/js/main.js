@@ -155,7 +155,7 @@ $(document).ready(function () {
       margin: 10,
       responsive: {
         0: {
-          items: 3,
+          items: 5,
         },
         575: {
           items: 4,
