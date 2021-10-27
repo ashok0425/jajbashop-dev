@@ -1,4 +1,4 @@
-<div class="d-none d-md-block">
+<div class="d-md-block">
     <section class="custom-b-bot text-white custom-bg-blue">
         <div class="container">
             <div class="row">

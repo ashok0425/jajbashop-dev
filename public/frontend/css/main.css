@@ -936,6 +936,10 @@ ul {
 
 /* responsive sm */
 @media (max-width: 575px) {
+  :root{
+    --custom-fs-14:10px;
+    --custom-fw:500px;
+  }
   .d-grid-10 {
     grid-gap: 10px;
   }
