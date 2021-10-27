@@ -1,12 +1,13 @@
 @extends('frontend.master')
 @section('content')
     
-    <!-- Carousel SM  -->
-    @include('frontend.includes.carousel1')
+  
 
     <!-- Brand Section  -->
     @include('frontend.includes.banner1')
     
+      <!-- Carousel SM  -->
+      @include('frontend.includes.carousel1')
 
     <!-- Banner Section  -->
     @include('frontend.includes.banner2')

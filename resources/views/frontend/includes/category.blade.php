@@ -1,8 +1,7 @@
 <style>
     .rounded_circle{
-      width: 80px!important;
-      height:80px!important;
-      border-radius: 50%!important;
+      width: 70px!important;
+      height:70px!important;
 
     }
   </style>
@@ -17,7 +16,7 @@
                  
                 <a href="#" class="wrap text-center">
                     <div class="img-wrap mb-2 ">
-                        <img src="{{ __getimagePath($item->image) }}" alt="category image" class="" >
+                        <img src="{{ __getimagePath($item->image) }}" alt="category image" class="rounded_circle img-fluid" >
                     </div>
                     <h3 class="custom-text-black custom-fs-14 custom-fw-500 mb-1">{{ $item->category }}</h3>
                 </a>
