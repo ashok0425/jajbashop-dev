@@ -1,10 +1,10 @@
 :root {
   --custom-font-roboto: 'Roboto', sans-serif;
   --custom-primary: #00a0e3;
-  --custom-secondary: #ffe500;
+  --custom-secondary: #2b5327;
   --custom-dark-secondary: #ff9f00;
   --custom-black: #212121;
-  --custom-white: ;
+  --custom-white: #fff;
   --custom-gray: #f1f3f6;
   --custom-dark: #878787;
   --custom-orange: #e63d24;
@@ -272,7 +272,12 @@
 .custom-text-secondary {
   color: var(--custom-secondary) !important;
 }
-
+.custom-text-green {
+  color: var(--custom-green) !important;
+}
+.custom-text-blue {
+  color: var(--custom-blue) !important;
+}
 .custom-text-black {
   color: var(--custom-black) !important;
 }
@@ -290,13 +295,15 @@
 }
 
 .custom-text-white {
-  color: var(--custom-secowhitendary) !important;
+  color: var(--custom-white) !important;
 }
 
 .custom-bg-primary {
   background-color: var(--custom-primary) !important;
 }
-
+.custom-bg-green {
+  background-color: var(--custom-green) !important;
+}
 .custom-bg-secondary {
   background-color: var(--custom-secondary) !important;
 }
@@ -725,7 +732,6 @@ section {
 .hero-sm {
   width: 100%;
   height: 100%;
-  background: url(../assets/img/a7e9892910b4592f.jpg) no-repeat;
   background-position: bottom;
   min-height: 361px;
   background-color: white;
@@ -775,7 +781,7 @@ section {
 }
 
 .product-carousel .owl-nav .disabled {
-  display: none;
+  /* display: none; */
 }
 
 .product-carousel .owl-nav .owl-prev,
@@ -917,6 +923,10 @@ ul {
 
 /* responsive md */
 @media (max-width: 768px) {
+  .voice-icon{
+    right: 3rem!important;
+}
+
   .navbar .modal-dialog {
     max-width: 500px !important;
   }

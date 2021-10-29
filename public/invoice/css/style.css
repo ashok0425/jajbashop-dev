@@ -1,0 +1,152 @@
+:root {
+    /* Colors */
+    --custom-white: #ffffff;
+    --custom-gray: #cbcbcb;
+    --custom-black: #000;
+    /* Fonts */
+
+    /* Font Size */
+    --custom-fs-8: 8px;
+    --custom-fs-11: 13px;
+    --custom-fs-13: 15px;
+    --custom-fs-14: 16px;
+    --custom-fs-16: 17px;
+    --custom-fs-18: 20px;
+    --custom-fs-20: 20px;
+    --custom-fs-22: 20px;
+    --custom-fs-24: 21px;
+    --custom-fs-25: 22px;
+    --custom-fs-28: 23px;
+    --custom-fs-30: 24px;
+    --custom-fs-35: 25px;
+    --custom-fs-40: 27px;
+    --custom-fs-50: 28px;
+    --custom-fs-64: 30px;
+    --custom-fs-75: 32px;
+
+    --custom-fw-100: 100;
+    --custom-fw-300: 300;
+    --custom-fw-400: 400;
+    --custom-fw-500: 500;
+    --custom-fw-700: 700;
+    --custom-fw-900: 900;
+}
+body{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+     font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+}
+/* Custom Class */
+.custom-bg-gray {
+    background-color: var(--custom-gray);
+}
+.custom-bg-black {
+    background-color: var(--custom-black);
+}
+.custom-text-white {
+    color: var(--custom-white);
+}
+.custom-text-black {
+    color: var(--custom-black);
+}
+.custom-fs-8 {
+    font-size: var(--custom-fs-8);
+}
+.custom-fs-11 {
+    font-size: var(--custom-fs-11);
+}
+.custom-fs-13 {
+    font-size: var(--custom-fs-13);
+}
+.custom-fs-14 {
+    font-size: var(--custom-fs-14);
+}
+.custom-fs-16 {
+    font-size: var(--custom-fs-16);
+}
+.custom-fs-18 {
+    font-size: var(--custom-fs-18);
+}
+.custom-fs-20 {
+    font-size: var(--custom-fs-20);
+}
+.custom-fs-22 {
+    font-size: var(--custom-fs-22);
+}
+.custom-fs-24 {
+    font-size: var(--custom-fs-24);
+}
+.custom-fs-25 {
+    font-size: var(--custom-fs-25);
+}
+.custom-fs-28 {
+    font-size: var(--custom-fs-28);
+}
+.custom-fs-30 {
+    font-size: var(--custom-fs-30);
+}
+.custom-fs-35 {
+    font-size: var(--custom-fs-35);
+}
+.custom-fs-40 {
+    font-size: var(--custom-fs-40);
+}
+.custom-fs-45 {
+    font-size: var(--custom-fs-45);
+}
+
+.custom-fw-100 {
+    font-weight: var(--custom-fw-100);
+}
+.custom-fw-300 {
+    font-weight: var(--custom-fw-300);
+}
+.custom-fw-500 {
+    font-weight: var(--custom-fw-500) !important;
+}
+.custom-fw-700 {
+    font-weight: var(--custom-fw-700) !important;
+}
+.custom-fw-900 {
+    font-weight: var(--custom-fw-900);
+}
+
+.sur {
+    max-width: 150px;
+}
+p {
+    margin-bottom: 0 !important;
+}
+h2 {
+    margin-bottom: 0 !important;
+}
+table {
+    border: 2px solid var(--custom-black) !important;
+}
+
+.page {
+    border: 2px dashed var(--custom-black);
+    padding-bottom: 3rem;
+}
+@media (max-width: 575px) {
+    :root {
+        /* Font Size */
+        --custom-fs-11: 11px;
+        --custom-fs-13: 13px;
+        --custom-fs-14: 14px;
+        --custom-fs-16: 13px; /*edited */
+        --custom-fs-18: 18px;
+        --custom-fs-20: 16px; /*edited */
+        --custom-fs-22: 22px;
+        --custom-fs-24: 24px;
+        --custom-fs-25: 20px; /*edited */
+        --custom-fs-28: 28px;
+        --custom-fs-30: 25px; /*edited */
+        --custom-fs-35: 35px;
+        --custom-fs-40: 40px;
+        --custom-fs-50: 50px;
+        --custom-fs-64: 64px;
+        --custom-fs-75: 75px;
+    }
+}

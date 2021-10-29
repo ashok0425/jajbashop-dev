@@ -13,7 +13,6 @@
         <th>#</th>
         <th>Order ID</th>
         <th> Amount {{__getPriceunit()}}</th>
-        <th> BV</th>
         <th>Action</th>
 
 
@@ -34,9 +33,7 @@
 <td>
     {{$item->total}}
 </td>
-<td>
-    {{$item->bv}}
-</td>
+
 <td>
     <a href="{{route('super.report.show',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
      <a href="{{route('super.report.print',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>

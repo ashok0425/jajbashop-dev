@@ -2,123 +2,225 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
+// For member 
+
 Route::middleware('guest')->group(function () {
-    Route::post('/member/login/store','Member\AuthController@store')->name('member.login.store');
+    Route::post('/member/login/store','Frontend\AuthController@store')->name('login.store');
 
 });
 
-
-Route::middleware(['auth'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-
-
-Route::middleware('auth')->group(function () {
-   // Member profile
-   Route::get('member/kyc','Member\KycController@index')->name('member.kyc');
-   Route::post('member/kyc','Member\KycController@update')->name('member.kyc.update');
+// Route::get('auth/google','Frontend\GoogleController@redirectToGoogle');
+// Route::get('auth/google/callback','Frontend\GoogleController@handleGoogleCallback');
+// Route::get('auth/facebook', 'Frontend\FbController@redirectToFacebook');
+// Route::get('auth/facebook/callback','Frontend\FbController@facebookSignin');
 
 
-   Route::get('member/dashboard','Member\AuthController@show')->name('member.dashboard');
-   Route::get('member/profile','Member\AuthController@profile')->name('member.profile');
-   Route::get('member/password/change','Member\AuthController@password')->name('member.changepassword');
-
-   Route::post('member/update-profile','Member\AuthController@update')->name('member.profile.update');
-   Route::post('member/change-password','Member\AuthController@changePassword')->name('member.password');
-   Route::post('member/logout','Member\AuthController@destory')->name('member.logout');
-   Route::get('member/logout','Member\AuthController@destory')->name('logouts');
-   Route::get('/member/register','Member\AuthController@register')->name('member.register');
-   Route::get('/my/idcard','Member\AuthController@idcard')->name('member.idcard');
-   Route::get('/my/level/reward/voucher','Member\AuthController@levelVoucher')->name('member.level.reward.voucher');
-
-
-   Route::post('/member/register','Member\AuthController@registerstore')->name('member.register');
-
-
-// Epin
-
-Route::get('member/epin/used','Member\EpinController@used')->name('member.epin.used');
-Route::get('member/epin/unused','Member\EpinController@unused')->name('member.epin.unused');
-Route::get('member/epin/request','Member\EpinController@request')->name('member.epin.request');
-Route::get('member/epin/transfer/','Member\EpinController@transfer')->name('member.epin.transfer');
-Route::post('member/epin/transfer/','Member\EpinController@transerferpin')->name('member.epin.store');
-Route::post('member/ticket/store','Member\EpinController@store')->name('member.ticket.store');
-Route::get('member/epin/transfer/history','Member\EpinController@transferhistory')->name('member.epin.transferhistory');
-Route::get('member/epin/recive/history','Member\EpinController@recivehistory')->name('member.epin.recivehistory');
-Route::get('/loadepin','Member\EpinController@loadepin');
-
-
-// Member
-Route::get('member/all','Member\MemberController@all')->name('member.member.all');
-Route::get('member/inactive','Member\MemberController@inactive')->name('member.member.inactive');
-
-Route::get('member/show/{id}','Member\MemberController@show')->name('member.member.show');
-Route::get('member/level','Member\MemberController@level')->name('member.member.level');
-Route::get('member/level','Member\MemberController@level')->name('member.member.level');
-Route::get('member/level/show/{level}','Member\MemberController@levelshow')->name('member.member.level.show');
-Route::get('member/level/treeview','Member\MemberController@treeview')->name('member.member.treeview');
-Route::get('loadmemberdetail/{id}','Member\MemberController@loaddetail');
-
-// Member Activation
-Route::post('member/activation','Member\MemberController@activation')->name('member.activation');
-
-Route::post('member/activation','Member\MemberController@activation')->name('member.activation');
-
-Route::post('member/epin/activation','Member\MemberController@activation')->name('member.epin.unused.active');
-
-// Level income
-Route::get('member/income/level','Member\LevelearningController@level')->name('member.income.level');
-Route::get('member/income/level','Member\LevelearningController@level')->name('member.income.level');
-Route::get('member/income/level/show/{level}','Member\LevelearningController@levelincomeshow')->name('member.income.level.show');
-
-Route::get('member/income/earning','Member\LevelearningController@levelearning')->name('member.income.earning');
-Route::get('member/income/all','Member\LevelearningController@allearning')->name('member.income.all');
-
-
-// Deposite
-Route::get('member/deposite/request/create','Member\DepositeController@create')->name('member.deposite.request.create');
-Route::post('member/deposite/request/store','Member\DepositeController@store')->name('member.deposite.request.store');
-Route::get('member/deposite/pending','Member\DepositeController@pending')->name('member.deposite.pending');
-Route::get('member/deposite/rejected','Member\DepositeController@rejected')->name('member.deposite.rejected');
-Route::get('member/deposite/accepted','Member\DepositeController@accepted')->name('member.deposite.approved');
-
-
-
-// Withdrawal
-Route::get('member/withdrawal/request/create','Member\WithdrawalController@create')->name('member.withdrawal.request.create');
-Route::post('member/withdrawal/request/store','Member\WithdrawalController@store')->name('member.withdrawal.request.store');
-Route::get('member/withdrawal/pending','Member\WithdrawalController@pending')->name('member.withdrawal.pending');
-Route::get('member/withdrawal/rejected','Member\WithdrawalController@rejected')->name('member.withdrawal.rejected');
-Route::get('member/withdrawal/accepted','Member\WithdrawalController@accepted')->name('member.withdrawal.approved');
-
-// purchase report 
-Route::get('memember/buy/report','Member\ReportController@buy')->name('member.buy.report');
-Route::get('memember/report/show/{id}/{orderId}','Member\ReportController@show')->name('member.report.show');
-Route::get('memember/report/print/{id}/{orderId}','Member\ReportController@print')->name('member.report.print');
-});
-
-
-// Repurchase 
-Route::get('member/self/bv/','Member\RepurchaseController@selfBv')->name('member.self.bv');
-Route::get('member/self/comission/','Member\RepurchaseController@selfComission')->name('member.self.comission');
-Route::get('member/team/bv/','Member\RepurchaseController@teamBv')->name('member.team.bv');
-Route::get('member/team/comission/','Member\RepurchaseController@teamComission')->name('member.team.comission');
-Route::get('member/team/level/bv','Member\RepurchaseController@levelbv')->name('member.team.levelbv');
-Route::get('member/team/level/bv/show/{level}','Member\RepurchaseController@levelbvshow')->name('member.level.bv.show');
-
-
-Route::get('/',function(){
+Route::get('/', function () {
     return view('frontend.index');
 })->name('/');
 
+Route::middleware(['auth', 'verified'])->group(function () {
 
-Route::get('/register/refer/{name}/{userid}/{id}',function($name,$userid,$id){
-    return view('register',compact('userid'));
-})->name('refer.register');
+    Route::get('/dashboard',function(){
+        return view('frontend.profile');
+    })->name('dashboard');
+        
+});
 
- Route::post('/member/register/refer','Member\AuthController@registerstore')->name('member.register.refer');
+Route::get('logout',function(){
+    Auth::logout();
+    session()->flush();
+    $notification=array(
+        'alert-type'=>'success',
+        'messege'=>'Logged out successfully!',
+
+     );
+
+    return redirect()->route('login')->with($notification);
+})->name('logout');
+
+
+Route::middleware(['auth','Isactive'])->group(function () {
+////profile
+Route::get('/load-profile-data/{load}','Frontend\AuthController@loaddata');
+Route::get('/profile','Frontend\AuthController@index')->name('profile');
+Route::post('/profile/update/save','Frontend\AuthController@update')->name('profile.update');
+Route::post('/shipping/update/save','Frontend\AuthController@shippingupdate')->name('shipping.update');
+Route::post('/profile/change/password','Frontend\AuthController@changePassword')->name('profile.password');
+Route::get('/profile/logout','Frontend\AuthController@destory')->name('profile.logout');
+Route::post('/user/kyc','Frontend\KycController@update')->name('kyc.update');
+
+//order
+Route::get('orders/list/','Frontend\OrderController@index')->name('order');
+Route::get('orders/show/{id}/{orderId}','Frontend\OrderController@show')->name('order.show');
+Route::get('print-invoice/{order_id}','Frontend\OrderController@print')->name('order.print');
+Route::get('orders/cancel/{id}/{orderId}','Frontend\OrderController@cancel')->name('order.cancel');
+Route::post('orders/refund/','Frontend\OrderController@refund')->name('order.refund');
 
 
 
+
+
+
+
+//buy now
+Route::get('product/buy/now','Frontend\CartController@buynow')->name('buynow');
+
+
+//checkout
+Route::get('checkout/{value}/{id}','Frontend\CheckoutController@index')->name('checkout');
+Route::post('checkout/store','Frontend\CheckoutController@store')->name('checkout.store');//cod
+Route::get('payment/failed','Frontend\CheckoutController@failed')->name('payment.error');
+Route::get('payment/success/{orderid}','Frontend\CheckoutController@success')->name('payment.success');
+
+
+
+//wishlist
+Route::get('wishlist/list','Frontend\WishlistController@index')->name('wishlist');
+Route::get('/wishlist/store/{id}','Frontend\WishlistController@store')->name('wishlist.store');
+Route::get('add/cart/{id}','Frontend\WishlistController@cart')->name('wishlist.cart');
+Route::get('wishlist/remove/{id}','Frontend\WishlistController@destroy')->name('wishlist.remove');
+
+//compare list 
+Route::get('compare/list','Frontend\CompareController@index')->name('compare');
+Route::get('/compare/store/{id}','Frontend\CompareController@store')->name('compare.store');
+Route::get('compare/remove/{id}','Frontend\CompareController@destroy')->name('compare.remove');
+
+//payemet with razor pay 
+Route::get('checkout/razorpay','Frontend\RazorpayController@index')->name('razorpay');
+Route::post('checkout/razorpay/pay','Frontend\RazorpayController@pay')->name('razorpay.pay');
+
+
+
+
+});
+
+
+
+// track order
+Route::post('order/track/status','Frontend\OrderController@orderTrack')->name('track.my.order');
+
+
+//search product using ajax
+Route::get('loadproduct/{name}/{catgeory?}','Frontend\ProductController@search');
+Route::get('product/quickview/{id}/{value}','Frontend\ProductController@quickview');
+
+
+//cart
+Route::get('cart/list','Frontend\CartController@index')->name('cart');
+Route::get('cartqty/{val}/{id}/{price}/{charge}','Frontend\CartController@update');
+Route::get('/product/cart/store','Frontend\CartController@store')->name('cart.store');
+Route::post('/coupon','Frontend\CartController@coupon')->name('coupon');
+Route::get('/coupon/delete','Frontend\CartController@CouponRemove')->name('coupon.remove');
+Route::get('/cart/delete/{id}','Frontend\CartController@destroy')->name('cart.remove');
+
+
+
+
+//Product details
+Route::get('product/{id}/{slug?}','Frontend\ProductController@productDetail')->name('product.detail');
+Route::get('loadimage/{val}/','Frontend\ProductController@loadImage');
+Route::get('loadprice/{vid}','Frontend\ProductController@loadPrice');
+Route::get('loadproduct-detail/{load}/{id}','Frontend\ProductController@loadproductDetail');
+
+
+//product rating
+
+Route::get('product/review/store/save','Frontend\ProductreviewController@store')->name('product.rating.store');
+Route::get('product/review/edit/{id}','Frontend\ProductreviewController@edit')->name('product.rating.edit');
+Route::post('product/review/update','Frontend\ProductreviewController@update')->name('product.rating.update');
+Route::get('product/review/delete/{id}','Frontend\ProductreviewController@destroy')->name('product.rating.delete');
+
+//product rating Reply
+
+Route::get('product/review/reply/save','Frontend\ProductreviewController@replystore')->name('product.rating.reply.store');
+Route::get('product/review/edit/{id}','Frontend\ProductreviewController@ratingEdit')->name('product.rating.edit');
+Route::post('product/review/update','Frontend\ProductreviewController@ratingUpdate')->name('product.rating.update');
+Route::get('product/review/delete/{id}','Frontend\ProductreviewController@ratingDestroy')->name('product.rating.delete');
+
+//product question 
+
+Route::get('product/question/store/save','Frontend\ProductqaController@store')->name('product.question.store');
+Route::get('product/answer/store/save','Frontend\ProductqaController@answer')->name('product.answer.store');
+
+
+//store
+Route::get('store/{id}','Frontend\ProductController@allProduct')->name('store.all');
+Route::get('store/search/','Frontend\ProductController@productSearch')->name('store.search');
+Route::get('store/category/{id}/{name}','Frontend\ProductController@categoryproduct')->name('store.category');
+Route::get('store/category/subcategory/{id}/{name}','Frontend\ProductController@subcategoryproduct')->name('store.subcategory');
+Route::get('store/category/subcateg/brand/{id}/{name}','Frontend\ProductController@brandproduct')->name('store.brand');
+Route::GET('filterproduct/ajax','Frontend\ProductController@filterProductAjax');
+
+//faq
+Route::get('faq','Frontend\BlogController@faq')->name('faq');
+
+
+//blog
+Route::get('blog/','Frontend\BlogController@index')->name('blog');
+Route::get('blogdetail/{id}/{title}','Frontend\BlogController@single')->name('blog.single');
+
+//subscriber
+Route::post('subscriber/store','Frontend\ContactController@subscriber')->name('subscriber');
+
+//contact
+Route::get('contact/','Frontend\ContactController@index')->name('contact');
+Route::post('contact/store','Frontend\ContactController@store')->name('contact.store');
+Route::post('subscribe/store','Frontend\ContactController@subscribe')->name('subscribe.store');
+
+//Vendor detail page
+Route::get('seller/{id}/{name?}','Frontend\SellerController@index')->name('seller');
+Route::get('seller-detail/{load}/{id}','Frontend\SellerController@loadDetail');
+//product rating
+Route::get('seller/review/store/save','Frontend\SellerreviewController@store')->name('seller.rating.store');
+Route::get('seller/review/edit/{id}','Frontend\SellerreviewController@edit')->name('seller.rating.edit');
+Route::post('seller/review/update','Frontend\SellerreviewController@update')->name('seller.rating.update');
+Route::get('seller/review/delete/{id}','Frontend\SellerreviewController@destroy')->name('seller.rating.delete');
+//seller rating Reply
+Route::get('seller/review/reply/save','Frontend\SellerreviewController@replystore')->name('seller.rating.reply.store');
+Route::get('seller/review/edit/{id}','Frontend\SellerreviewController@ratingEdit')->name('seller.rating.edit');
+Route::post('seller/review/update','Frontend\SellerreviewController@ratingUpdate')->name('seller.rating.update');
+Route::get('seller/review/delete/{id}','Frontend\SellerreviewController@ratingDestroy')->name('seller.rating.delete');
+
+//product question 
+
+
+//pages
+Route::get('/about-us', function () {
+    return view('frontend.about');
+})->name('about');
+Route::get('/term-condition', function () {
+    return view('frontend.term');
+})->name('term');
+Route::get('/seller/handbook', function () {
+    return view('frontend.price');
+})->name('price');
+Route::get('/privacy-policy', function () {
+    return view('frontend.privacy');
+})->name('privacy');
+
+Route::get('/return-refund-policy', function () {
+    return view('frontend.refund');
+})->name('return');
+
+Route::get('/seller-guide', function () {
+    return view('frontend.sellerguide');
+})->name('seller.guide');
+
+
+Route::get('/advertise-guide', function () {
+    return view('frontend.advertise');
+})->name('advertise.guide');
+
+Route::get('/business-guide', function () {
+    return view('frontend.bussinessguide');
+})->name('business.guide');
+
+Route::get('/help-center', function () {
+    return view('frontend.help');
+})->name('help');
+
+Route::get('/invoice/load','Frontend\CheckoutController@invoice')->name('invoice');
 

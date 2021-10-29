@@ -6,39 +6,34 @@
     <!-- Brand Section  -->
     @include('frontend.includes.banner1')
     
-      <!-- Carousel SM  -->
-      @include('frontend.includes.carousel1')
+     <!-- Product Wrap  -->
+     @include('frontend.includes.featured')
 
     <!-- Banner Section  -->
     @include('frontend.includes.banner2')
-   
+     
+     <!-- Product Wrap  -->
+     @include('frontend.includes.topoffer')
+
+   <!-- Banners Section  -->
+  @include('frontend.includes.banner3')
 
     <!-- Product Wrap  -->
-    @include('frontend.includes.category1')
+    @include('frontend.includes.bestseller')
   
-    <!-- Banners Section  -->
-    @include('frontend.includes.banner3')
    
-
-   
-
-    <!-- Banners Section  -->
    
     @include('frontend.includes.banner4')
 
+    <!-- Product Wrap  -->
+    @include('frontend.includes.newarrival')
+    
+
     <!-- Sponsored Section  -->
-    @include('frontend.includes.featured')
+    @include('frontend.includes.brand')
     
 
-    <!-- Banners Section  -->
-    @include('frontend.includes.carousel1')
-    
 
-    <!-- Product Wrap  -->
-   
-
-    <!-- Product Wrap  -->
-
-    @include('frontend.includes.discount_banner')
+    @include('frontend.includes.banner5')
 
     @endsection

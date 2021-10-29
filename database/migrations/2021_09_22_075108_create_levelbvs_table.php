@@ -16,7 +16,6 @@ class CreateLevelbvsTable extends Migration
         Schema::create('levelbvs', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-
             $table->string('l1')->nullable();
             $table->string('l2')->nullable();
             $table->string('l3')->nullable();
@@ -31,8 +30,7 @@ class CreateLevelbvsTable extends Migration
             $table->string('l12')->nullable();
             $table->string('l13')->nullable();
             $table->string('l14')->nullable();
-            $table->string('l15')->nullable();
-            
+            $table->string('l15')->nullable();  
             $table->timestamps();
         });
     }

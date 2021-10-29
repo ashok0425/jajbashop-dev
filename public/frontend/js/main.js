@@ -29,7 +29,8 @@ $(document).ready(function () {
   $(".carousel-banner").owlCarousel(
     {
       items: 1,
-      dots: false,
+      dots: true,
+      nav: true,
       autoplay: true,
       autoplayTimeout: 3000,
       autoplayHoverPause: true,
@@ -99,9 +100,9 @@ $(document).ready(function () {
   );
 });
 $(document).ready(function () {
-  $(".items-3").owlCarousel(
+  $(".items-6").owlCarousel(
     {
-      items: 3,
+      items: 6,
       dots: false,
       nav: true,
       slideBy: 3,
@@ -113,7 +114,7 @@ $(document).ready(function () {
       responsive: {
 
         0: {
-          items: 1,
+          items: 2,
           slideBy: 1,
           touchDrag: true,
           mouseDrag: true,
@@ -129,7 +130,7 @@ $(document).ready(function () {
           nav: false,
         },
         768: {
-          items: 3,
+          items: 6,
           slideBy: 3,
           touchDrag: false,
           mouseDrag: false,
@@ -145,7 +146,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   $(".items-10").owlCarousel(
     {
-      items: 10,
+      items: 9,
       dots: false,
       nav: false,
       mouseDrag: true,
@@ -164,7 +165,7 @@ $(document).ready(function () {
           items: 6,
         },
         991: {
-          items: 10,
+          items: 9,
         },
       }
     }

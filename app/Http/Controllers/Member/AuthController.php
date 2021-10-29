@@ -33,56 +33,6 @@ class AuthController extends Controller
     }
 
 
-    public function store(Request $request){ //login memeber
-        $request->validate([
-            'userid'=>'required',
-            'password'=>'required'
-        ]);
-        try {
-            //code...
-
-$check=User::where('userid',$request->userid)->first();
-if($check){
-// $request->email=$check->email;
-       if(!Auth::attempt($request->only('userid','password'),$request->filled('remember'))){
-
-           $notification=array(
-              'messege'=>'Invalid Credientials ',
-               'alert-type'=>'error'
-           );
-
-         return redirect()->back()->with($notification);
-       }
-       if(Auth::user()->isactive!=1){
-        Auth::logout();
-        session()->flush();
-        $notification=array(
-            'messege'=>'You had been block.Please contact with administration',
-             'alert-type'=>'error'
-         );
-
-       return redirect('/login')->with($notification);
-    }
-          return redirect()->route('member.dashboard');
-
-    }else{
-        $notification=array(
-            'messege'=>'Invalid username or password',
-             'alert-type'=>'error'
-         );
-
-       return redirect()->back()->with($notification);
-    }
-} catch (\Throwable $th) {
-    $notification=array(
-        'messege'=>'Something went wrong.Please try again later',
-         'alert-type'=>'error'
-     );
-
-   return redirect()->back()->with($notification);
-}
-}
-
 public function update(Request $request){//update profile of memeber
 
 try {

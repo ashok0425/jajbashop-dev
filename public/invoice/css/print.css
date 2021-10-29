@@ -1,0 +1,27 @@
+@media print {
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .container {
+        max-width: 100%;
+    }
+    p, h1, h2, h3, h4, h5, h6, th, td {
+        font-size: 8px !important;
+    }
+    .img-fluid {
+        width: 45px !important;
+    }
+    .flex-lg-row {
+        flex-direction: row !important;
+    }
+    .footer{
+        font-size: 8px !important;
+    }
+    th,td{
+        padding: 0 2px !important;
+    }
+    th{
+        vertical-align: middle;
+    }
+}

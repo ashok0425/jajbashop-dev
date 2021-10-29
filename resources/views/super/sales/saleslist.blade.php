@@ -31,7 +31,7 @@
         </tr>
     @endforeach
     <tr>
-        <td colspan="3">Grand Total</td>
+        <td colspan="4">Grand Total</td>
         <td>
             <?php $total=0 ?>
                 @if($sales)

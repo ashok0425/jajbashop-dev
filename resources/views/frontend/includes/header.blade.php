@@ -1,67 +1,23 @@
+<style>
+     .search_result{
+        z-index: 99;
+        width: 95%;
+        background: #fff;
+        color: #000!important;
+        left: 2%!important;
+        border-radius: 5px;
+    }
+    .voice-icon{
+        font-size: 1.3rem;
+        cursor: pointer;
+        right: 6rem;
+    }
+    
+</style>
 <nav class="navbar sticky-top navbar-expand-lg navbar-light custom-bg-primary text-white custom-bs ">
     <div class="container-sm">
         <div class="row w-100">
-            <!-- Modal -->
-            <div class="nav-login modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content border-0">
-                        <div class="modal-body p-0 row">
-                            <div class="col-sm-4 bg-transparent ">
-                                <div class="custom-bg-primary px-4 py-5 h-100 rounded">
-                                    <h2
-                                        class="text-white custom-fs-28 custom-fw-700 mb-sm-3 mb-0 text-center text-sm-start">
-                                        Login
-                                    </h2>
-                                
-                                </div>
-                            </div>
-                            <div class="col-sm-8 px-4 py-5">
-                                <x-errormsg/>
-                                <form action="{{ route('member.login.store') }}" class="modal-login-form" method="POST">
-
-                                    @csrf
-                                    <div class="input-wrap mb-5 custom-b-bot">
-                                        <input type="text" name="userid" class="w-100 pe-1 py-2 border-0"
-                                            placeholder="Email/Password" id="email" required>
-                                    </div>
-                                    <div
-                                        class="d-flex mb-5 justify-content-between align-items-center input-wrap custom-b-bot mb-3">
-                                        <input type="password" name="password" class="w-100 pe-1 py-2 border-0"
-                                            placeholder="Enter Password" id="password" required>
-                                        <a href="#"
-                                            class="custom-text-primary custom-fs-15 custom-fw-500">Forgot?</a>
-                                    </div>
-                                    <p class="custom-text-dark custom-fs-12 custom-fw-400">
-                                        By continuing, you agree to Jajbashop's <a href="#"
-                                            class="custom-text-primary">Terms of Use and Privacy Policy.</a>
-                                    </p>
-                                    <div class="btn-wrap mb-3">
-                                        <button class="btn custom-fw-700 btn-style-1 custom-bg-orange w-100">
-                                            Login
-                                        </button>
-                                    </div>
-                                    {{-- <div class="text-center custom-text-dark mb-3 custom-fs-14 w-100">
-                                        OR
-                                    </div>
-                                    <div class="btn-wrap mb-5">
-                                        <button class="btn custom-fw-700 btn-style-1 otp-btn bg-white w-100">
-                                            Request OTP
-                                        </button>
-                                    </div> --}}
-                                    <div class="text-center mt-5">
-                                        <a href="{{ route('register') }}" class="custom-fs-14 custom-text-primary custom-fw-500">New to
-                                            Jajbashop? Create an account</a>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                                    class="fas fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
             <div class="col-lg-2 col-6 px-0 d-flex">
                 <div onclick="openNav()"
                     class="d-inline-block d-lg-none text-white py-1 pe-3 custom-cursor-pointer">
@@ -104,18 +60,21 @@
             </div>
 
             <div class="col-lg-6 px-0 d-flex justify-content-center">
-                <form class="d-flex justify-content-center justify-content-lg-start w-100 h-100 align-items-center">
-                    <input class="form-control w-100 search" type="search"
+                <form class="d-flex justify-content-center justify-content-lg-start w-100 h-100 align-items-center position-relative" action="{{ route('store.search') }}" method="GET">
+                    <input class="form-control w-100 search main_search" type="search"
                         placeholder="Search for products, brands and more" aria-label="Search">
+                            <i class="fas fa-microphone position-absolute voice-icon  text-dark " id="voice-icon"></i>
                     <button class="btn search-btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
+                <div class="search_result position-absolute "></div>
+
             </div>
 
             <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
                 <ul class="navbar-nav  mb-2 mb-lg-0">
                     <li class="nav-item d-flex align-items-center">
                         @auth
-                        <a href="{{ route('member.dashboard') }}" class=" btn btn-primary" >
+                        <a href="{{ route('profile') }}" class=" btn btn-primary" >
                             Profile
                         </a>
                         @else  
@@ -152,3 +111,79 @@
 
     </div>
 </nav>
+
+
+
+    <!--Login Modal -->
+    <div class="nav-login modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+            <div class="modal-body p-0 row">
+                <div class="col-sm-4 bg-transparent ">
+                    <div class="custom-bg-primary px-4 py-5 h-100 rounded">
+                        <h2
+                            class="text-white custom-fs-28 custom-fw-700 mb-sm-3 mb-0 text-center text-sm-start">
+                            Login
+                        </h2>
+                    
+                    </div>
+                </div>
+                <div class="col-sm-8 px-4 py-5">
+                    <x-errormsg/>
+                    <form action="{{ route('login.store') }}" class="modal-login-form" method="POST">
+
+                        @csrf
+                        <div class="input-wrap mb-5 custom-b-bot">
+                            <input type="text" name="userid" class="w-100 pe-1 py-2 border-0 input_type"
+                                placeholder="UserID/Phone" id="email" required>
+                        </div>
+                        <div
+                            class="d-flex mb-5 justify-content-between align-items-center input-wrap custom-b-bot mb-3">
+                            <input type="password" name="password" class="w-100 pe-1 py-2 border-0"
+                                placeholder="Enter Password" id="password" required>
+                            <a href="#"
+                                class="custom-text-primary custom-fs-15 custom-fw-500">Forgot?</a>
+                        </div>
+                        <p class="custom-text-dark custom-fs-12 custom-fw-400">
+                            By continuing, you agree to Jajbashop's <a href="#"
+                                class="custom-text-primary">Terms of Use and Privacy Policy.</a>
+                        </p>
+                        <div class="btn-wrap mb-3">
+                            <button class="btn custom-fw-700 btn-style-1 custom-bg-orange w-100 submit">
+                                Login
+                            </button>
+                        </div>
+                        {{-- <div class="text-center custom-text-dark mb-3 custom-fs-14 w-100">
+                            OR
+                        </div>
+                        <div class="btn-wrap mb-5">
+                            <button class="btn custom-fw-700 btn-style-1 otp-btn bg-white w-100">
+                                Request OTP
+                            </button>
+                        </div> --}}
+                        <div class="text-center mt-5">
+                            <a href="{{ route('register') }}" class="custom-fs-14 custom-text-primary custom-fw-500">New to
+                                Jajbashop? Create an account</a>
+                        </div>
+                    </form>
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+@push('scripts')
+<script>
+    $('.input_type').change(function(){
+      val=$(this).val();
+      if(Number.isInteger(parseInt(val))){
+           $(this).attr('name','phone')
+      }
+
+    })
+</script>
+    
+@endpush

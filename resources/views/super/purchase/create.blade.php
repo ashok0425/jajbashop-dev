@@ -129,7 +129,7 @@
                     method: 'GET',
                     dataType: 'json',
                     success: function (data) {                        
-                        $('#price').val(data.price);
+                        $('#price').val(data.offer_price);
 
                     }
                 });

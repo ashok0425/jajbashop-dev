@@ -1,115 +1,74 @@
+@php
+    $img=DB::connection('mysql2')->table('websites')->first();
+@endphp
+@push('style')
+<style>
+    .hero-sm{ background: url(__getimagePath($img->newarival)) no-repeat;}
+</style>
+@endpush
+
+
 <section class="my-2 custom-bs">
-    <div class="container">
-        <div class="row bg-white">
-            <div class="col-lg-2 ps-0">
-                <div class="hero-sm">
-                    <div class="hero-body w-100 text-center">
-                        <h3 class="hero-title custom-fs-30 custom-fw-400 ">
-                            Top Offer
-                        </h3>
-                        <a href="#" class="btn-style-1 mt-3 custom-fw-500 custom-bg-primary btn">
-                            VIEW All
+    @php
+    $product=DB::connection('mysql2')->table('products')->where('status',1)->where('offer_price','!=',null)->orderBy('offer_price','desc')->limit(20)->get();
+@endphp
+
+        <div class="container">
+            <div class="row bg-white">
+              
+                <div class="col-lg-10 ">
+                    <div class="owl-carousel product-carousel items-5">
+                        @foreach ($product as $item)
+                        <a href="{{ route('product.detail',['id'=>$item->id,'slug'=>$item->slug]) }}" class="card product-card">
+                            <img src="{{ __getimagePath($item->image) }}"
+                                class="card-img-top" alt="{{ $item->name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $item->name }}</h5>
+                                <div class="card-text text-dark d-flex justify-content-between">
+                                    @if ($item->offer_price!=null)
+                                    <span>
+                                 {{ __getpriceUnit() . $item->offer_price }}
+                                    </span>
+                                  
+                                    <span>
+                                        <s>
+                                            MRP {{ __getPriceUnit() }}{{ $item->price }}
+        
+                                        </s>
+                                    </span>
+                                   
+                                    @else    
+                                    <span>
+                                        {{ __getpriceUnit() }} {{ $item->price }}
+                                           </span>
+
+                                    @endif
+                                    
+                                </div>
+                                <p class="card-text py-0 my-0">
+                                   BV:- {{ $item->bv }}
+                                </p>
+                             
+                            </div>
                         </a>
+                        @endforeach
+
+                       
+                    </div>
+                </div>
+
+                <div class="col-lg-2 ps-0">
+                    <div class="hero-sm">
+                        <div class="hero-body w-100 text-center">
+                            <h3 class="hero-title custom-fs-30 custom-fw-400 ">
+                             TOP OFFER
+                            </h3>
+                            <a href="#" class="btn-style-1 mt-3 custom-fw-500 custom-bg-primary btn">
+                                VIEW All
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 ">
-                <div class="owl-carousel product-carousel items-4">
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                    <a href="product-view.html" class="card product-card">
-                        <img src="assets/img/34-8907319761184-biba-original-imag5zhzuddkyhzf.jpeg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Metronaut, Provogue, Roadser</h5>
-                            <p class="card-text">
-                                50-80% OFF
-                            </p>
-                            <p class="custom-text-dark custom-fs-14 my-2 mb-0">Crazy Deals on Kurtas & Sets</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-2 pe-0 d-none d-lg-inline-block">
-                <a href="#" class="side-img">
-                    <img src="assets/img/ab240ddaba31e108.jpeg" class="img-fluid" alt="">
-                </a>
-            </div>
         </div>
-    </div>
-</section>
+    </section>

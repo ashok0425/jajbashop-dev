@@ -3,7 +3,7 @@
 @endphp
 <section class="my-2 ">
     <div class="container-fluid">
-        <div class="owl-carousel carousel-banner">
+        <div class="owl-carousel product-carousel carousel-banner">
             @foreach ($banner as $item)
             <a href="{{ $item->title }}">
                 <img src="{{ __getimagePath($item->image) }}" alt="banner image" class="img-fluid">

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Super;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Traits\status;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -26,18 +25,17 @@ class SaleController extends Controller
 
     public function index()
     {
-        $product=DB::table('inventories')->leftjoin('products','products.id','inventories.product_id')->join('categories','categories.id','products.category_id')->select('products.*','categories.category')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('products.name','products.image','products.id as pid','categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->join('jajbashop_ecommerce.categories','jajbashop_ecommerce.categories.id','jajbashop_ecommerce.products.category_id')->select('jajbashop_ecommerce.products.*','jajbashop_ecommerce.categories.category')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','jajbashop_ecommerce.categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
        return view('super.inventory.index',compact('product'));
     }
 
     public function create()
     {
-        $product=DB::table('inventories')->leftjoin('products','products.id','inventories.product_id')->join('categories','categories.id','products.category_id')->select('products.*','categories.category')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('products.name','products.image','products.id as pid','categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->join('jajbashop_ecommerce.categories','jajbashop_ecommerce.categories.id','jajbashop_ecommerce.products.category_id')->select('jajbashop_ecommerce.products.*','jajbashop_ecommerce.categories.category')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','jajbashop_ecommerce.categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
        return view('super.sales.create',compact('product'));
     }
 
 // Stroing  product  using ajax like qty and price from inventory
-
     public function getData($pid){
         $product=DB::table('inventories')->where('buyer',3)->where('user_id',__getSuper()->id)->where('id',$pid)->first();
       return response()->json($product);
@@ -49,7 +47,6 @@ class SaleController extends Controller
             'product_id'=>'required',
             'sales_quantity'=>'required',
             'price'=>'required',
-
         ]);
         $product_id=Inventory::where('id',$request->product_id)->value('product_id');
         $sales = new Salescart;
@@ -64,7 +61,7 @@ class SaleController extends Controller
 
 //  sales cart item  using ajax
     public function saleslist(){
-        $sales=DB::table('salescarts')->join('products','products.id','salescarts.product_id')->select('products.name','salescarts.*')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
+        $sales=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('jajbashop_ecommerce.products.name','salescarts.*')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
         return view('super.sales.saleslist',compact('sales'));
     }
 
@@ -115,9 +112,9 @@ public function checkout(Request $request){
   return redirect()->back()->with($notification);
     }
     $id=$check->id;
-    try {
+    // try {
         //code...
-        $sale=DB::table('salescarts')->join('products','products.id','salescarts.product_id')->select('salescarts.*','products.dc','products.bv')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
+        $sale=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','jajbashop_ecommerce.products.dc','jajbashop_ecommerce.products.bv')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
     $total=0;
     $bv=0;
     $comission=0;
@@ -139,8 +136,15 @@ public function checkout(Request $request){
       );
      return redirect()->back()->with($notification);
     }else{
+        // deducating amount from distributor acccount 
       $account->amount=$account->amount-$total;
       $account->save();
+      
+    // Adding amount from distributor acccount to super distributor account
+      $superaccount=Account::where('user_id',__getSuper()->id)->where('user_type',3)->first();
+       $superaccount->amount=$superaccount->amount+$total;
+       $superaccount->save();
+
 
     }
    }
@@ -233,9 +237,15 @@ public function checkout(Request $request){
 
 
 ];
-   $pdf = PDF::loadView('email.checkout', $set);
    $sale=DB::table('salescarts')->where('user_id',__getSuper()->id)->where('seller',3)->delete();
+   $notification=array(
+    'alert-type'=>'success',
+    'messege'=>' Sold Sucessfully.',
 
+ );
+   return redirect()->back()->with($notification);
+
+   $pdf = PDF::loadView('email.checkout', $set);
 
 // sending email
    Mail::send('email.order', $set, function($message)use($set, $pdf) {
@@ -252,15 +262,15 @@ public function checkout(Request $request){
 return redirect()->back()->with($notification);
     }
 
-} catch (\Throwable $th) {
+// } catch (\Throwable $th) {
 
-    $notification=array(
-        'alert-type'=>'error',
-        'messege'=>'Something went wrong.Please try again later',
+//     $notification=array(
+//         'alert-type'=>'error',
+//         'messege'=>'Something went wrong.Please try again later',
 
-     );
-    return redirect()->back()->with($notification);
-}
+//      );
+//     return redirect()->back()->with($notification);
+// }
 
 }
 

@@ -22,7 +22,7 @@ function __getSuper(){
 
 
 function __getPriceunit(){
-return 'Rs ';
+return '₹';
 }
 
  function __getlevelprice($level)
@@ -93,5 +93,5 @@ function __getadminAmount($amount){
     
 
     function __getimagePath($image){
-   return 'https://ecomm.jajbashop.in/'.$image;
+   return 'http://127.0.0.1:1000/'.$image;
     }

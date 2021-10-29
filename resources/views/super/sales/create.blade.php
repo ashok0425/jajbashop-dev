@@ -128,6 +128,7 @@
             $('.product_id').on('change', function (e) {
                 e.preventDefault()
                 var pid = $(this).val();
+                alert(pid)
                 var path = "{{url('super/getproductdata')}}/"+pid;
                 $.ajax({
                     url: path,

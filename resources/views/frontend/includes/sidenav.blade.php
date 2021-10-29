@@ -11,7 +11,7 @@
         </div>
         <div class="col-8">
           @auth
-        <a href="{{ route('member.dashboard') }}" class="text-light py-0 my-0">
+        <a href="{{ route('profile') }}" class="text-light py-0 my-0">
                 <p class="py-0 my-0">
                           
             {{ Auth::user()->userid }} 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Super;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Traits\status;
 use App\Models\Cart;
@@ -11,7 +10,6 @@ use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Shipping;
-use App\Models\Super;
 use App\Models\Account;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
@@ -27,14 +25,14 @@ class PurchaseController extends Controller
 
     public function create()
     {
-      $product=DB::table('products')->join('categories','categories.id','products.category_id')->select('products.*','categories.category')->orderBy('products.id','desc')->get();
-       return view('super.purchase..create',compact('product'));
+      $product=DB::connection('mysql2')->table('products')->join('categories','categories.id','products.category_id')->select('products.*','categories.category')->where('products.status',1)->where('products.repurchase',1)->orderBy('products.id','desc')->get();
+       return view('super.purchase.create',compact('product'));
     }
 
     // Stroing  product  using ajax like qty and price from inventory
 
     public function getData($pid){
-      $product=DB::table('products')->where('id',$pid)->first();
+      $product=DB::connection('mysql2')->table('products')->where('id',$pid)->first();
 
     return response()->json($product);
   }
@@ -60,7 +58,8 @@ class PurchaseController extends Controller
 
 //  sales cart item  using ajax
   public function saleslist(){
-      $sales=DB::table('carts')->join('products','products.id','carts.product_id')->select('products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
+      $sales=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('jajbashop_ecommerce.products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
+ 
       return view('super.purchase.saleslist',compact('sales'));
   }
 
@@ -84,7 +83,7 @@ public function checkout(Request $request){
   $id=__getSuper()->id;
   try {
       //code...
-      $sale=DB::table('carts')->join('products','products.id','carts.product_id')->select('carts.*','products.sc','products.bv')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
+      $sale=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('carts.*','jajbashop_ecommerce.products.sc','jajbashop_ecommerce.products.bv')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
   $total=0;
   $bv=0;
   $comission=0;
@@ -189,10 +188,17 @@ public function checkout(Request $request){
   'email'=>$ship->email,
   'orderId'=>$order->order_id,
   'date'=>$order->created_at,
-
-
-
 ];
+
+
+$notification=array(
+  'alert-type'=>'success',
+  'messege'=>' Buy Sucessfully.',
+
+);
+return redirect()->back()->with($notification);
+
+
  $pdf = PDF::loadView('email.checkout', $set);
  $sale=DB::table('salescarts')->where('user_id',__getSuper()->id)->where('seller',3)->delete();
 
