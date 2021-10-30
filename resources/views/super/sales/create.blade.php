@@ -46,8 +46,8 @@
 
                     </div>
                     <div class="form-group my-2">
-                        <label for="price">Price per/pices*</label>
-                        <input type="number" class="form-control" name="price" id="price" placeholder="price" required>
+                        <label for="price">Price per/pieces*</label>
+                        <input type="number" class="form-control" name="price" id="price" placeholder="price" required readonly>
                     </div>
                     <div class="form-group my-2">
                         <label for="sales_quantity">Sales Quantity</label>
@@ -128,7 +128,6 @@
             $('.product_id').on('change', function (e) {
                 e.preventDefault()
                 var pid = $(this).val();
-                alert(pid)
                 var path = "{{url('super/getproductdata')}}/"+pid;
                 $.ajax({
                     url: path,

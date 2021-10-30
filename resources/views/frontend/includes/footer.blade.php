@@ -77,7 +77,7 @@
                     @php
                     $social=DB::connection('mysql2')->table('websites')->first();
                 @endphp
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-2 col-6">
                     <h5 class="custom-text-dark mb-3 custom-fs-14 text-uppercase">Contact ifno</h5>
                     <ul class="custom-fs-12 footer-ul">
                         <li class="mb-2 d-flex custom-fs-14 align-items-center"><i class="fas fa-envelope mr-2"></i><a href="#" class="text-white"> &nbsp; {{ $social->email}}</a></li>
@@ -87,8 +87,10 @@
                     </ul>
                 </div>
 
-<div class="col-lg-1 col-6">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14302.438586353122!2d87.043413!3d26.3391367!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5343632e81073a08!2sJajbashop!5e0!3m2!1sen!2snp!4v1635300958556!5m2!1sen!2snp" width="100" height="100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+<div class="col-lg-2 col-6">
+    <h5 class="custom-text-dark mb-3 custom-fs-14 text-uppercase">Office Address</h5>
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14302.438586353122!2d87.043413!3d26.3391367!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5343632e81073a08!2sJajbashop!5e0!3m2!1sen!2snp!4v1635300958556!5m2!1sen!2snp" width="100%" height="100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
 
 
