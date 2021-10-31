@@ -35,7 +35,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>1])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>1])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -49,7 +49,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>2])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>2])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -64,7 +64,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>3])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>3])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -79,7 +79,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>4])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>4])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -94,7 +94,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>5])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>5])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -109,7 +109,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>6])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>6])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -124,7 +124,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>7])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>7])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -139,7 +139,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>8])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>8])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -154,7 +154,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>9])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>9])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -169,7 +169,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>10])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>10])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -184,7 +184,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>11])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>11])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -199,7 +199,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>12])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>12])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -214,7 +214,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>13])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>13])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -229,7 +229,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>14])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>14])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -244,7 +244,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['level'=>15])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['level'=>15])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
@@ -253,7 +253,7 @@
 </table>
 </div>
     </div>
-    <a href="{{route('member.member.all')}}" class="btn btn-info">Back</a>
+    <a href="{{route('member.all')}}" class="btn btn-info">Back</a>
 
 </div>
 @endsection

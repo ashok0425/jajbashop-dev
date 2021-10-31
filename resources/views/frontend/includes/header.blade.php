@@ -74,7 +74,7 @@
                 <ul class="navbar-nav  mb-2 mb-lg-0">
                     <li class="nav-item d-flex align-items-center">
                         @auth
-                        <a href="{{ route('profile') }}" class=" btn btn-primary" >
+                        <a href="{{ route('member.dashboard') }}" class=" btn btn-primary" >
                             Profile
                         </a>
                         @else  

@@ -326,7 +326,7 @@ $member=DB::table('levels')->where('l15',Auth::user()->userid)->get();
 </div>
     </div>
 </div>
-<a href="{{route('member.member.all')}}" class="btn btn-info">Back</a>
+<a href="{{route('member.all')}}" class="btn btn-info">Back</a>
 
 </div>
 

@@ -73,13 +73,13 @@
        <span class="align-middle"> Manage Member</span>
     </a>
                 <ul id="member" class="sidebar-dropdown list-unstyled collapse <?php echo PAGE=='member'?'show':'' ?>" data-parent="#sidebar" style="">
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('member.member.inactive')}}">Inactive Member</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('member.member.all')}}">All Member</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('member.inactive')}}">Inactive Member</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('member.all')}}">All Member</a></li>
 
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('member.member.level')}}">Level  Member</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('member.level')}}">Level  Member</a></li>
                     <li class="sidebar-item">
 
-                        <a class="sidebar-link" href="{{route('member.member.treeview')}}">Tree View</a></li>
+                        <a class="sidebar-link" href="{{route('member.treeview')}}">Tree View</a></li>
 
 
                 </ul>

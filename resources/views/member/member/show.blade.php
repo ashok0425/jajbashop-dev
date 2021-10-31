@@ -133,7 +133,7 @@
 @endif
 
       </div>
-<a href="{{route('member.member.all')}}" class="btn btn-info">Back</a>
+<a href="{{route('member.all')}}" class="btn btn-info">Back</a>
 
 </div>
 @endsection

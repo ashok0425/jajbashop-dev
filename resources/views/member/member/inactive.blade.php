@@ -95,7 +95,7 @@ Level 15
         @endif
     </td>
     <td>{{carbon\carbon::parse($item->created_at)->format('d F Y')}}</td>
-<td><a href="{{route('member.member.show',['id'=>$item->userid])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.show',['id'=>$item->userid])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>
