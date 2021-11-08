@@ -1,5 +1,5 @@
 @php
-    define('PAGE','super')
+    define('PAGE','distributor')
 @endphp
 @extends('admin.master')
 @section('main-content')

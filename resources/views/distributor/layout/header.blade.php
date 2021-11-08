@@ -11,7 +11,7 @@
         @endphp
 
     <h4 class='font-weight-bold'>
-    Wallet Amount: {{__getPriceunit(). $earning}}
+    Wallet Amount: {{__getPriceunit().number_format( $earning,2)}}
     </h4>
         <ul class="navbar-nav navbar-align">
              {{-- back to admin after login to Distributor login --}}
@@ -27,37 +27,6 @@
 
                     </div>
                 </a></li>
-
-                {{-- cart item  --}}
-                <li class="nav-item dropdown">
-                    <a class="nav-icon dropdown-toggle" href="" id="alertsDropdown" title='view cart' >
-                        <div class="position-relative">
-                            <i class="align-middle" data-feather="shopping-cart"></i>
-                            @php
-                                $cart=DB::table('carts')->join('products','carts.product_id','products.id')->where('user_id',__getDist()->id)->where('buyer',3)->select('carts.*','products.name','products.image','products.price')->get();
-                            @endphp
-                            <span class="indicator">{{count($cart)}}</span>
-                        </div>
-                    </a>
-                    </li>
-
-
-
-
-                {{-- sales item  --}}
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-icon dropdown-toggle" href="" id="alertsDropdown" title='view bag'>
-                        <div class="position-relative">
-                            <i class="align-middle" data-feather="shopping-bag"></i>
-                            @php
-                                $sale=DB::table('sales')->join('products','sales.product_id','products.id')->where('user_id',__getDist()->id)->where('seller',3)->select('sales.*','products.name','products.image','products.price')->get();
-                            @endphp
-                            <span class="indicator">{{count($sale)}}</span>
-                        </div>
-                    </a>
-                </li> --}}
-
-
 
 
             <li class="nav-item dropdown">

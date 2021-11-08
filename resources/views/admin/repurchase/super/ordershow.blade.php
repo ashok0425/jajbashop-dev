@@ -42,8 +42,9 @@ if($order->seller==4){
        <div class="col-md-6">
           <h6>SELLER DETAIL</h6>
            <div class="card shadow">
+<div class="card-body">
 
-               <table>
+               <table class="table">
                    <tr>
                        <th>Name</th>
                        <td>{{ $seller->name }}</td>
@@ -71,15 +72,21 @@ if($order->seller==4){
                    
                     <td>{{ $order->bv }}</td>
                 </tr>
+                <tr>
+                    <th>Payment Mode</th>
+                    <td>{{ $order->payment_mode }}</td>
+                </tr>
+             
                </table>
+            </div>
 
            </div>
        </div>
        <div class="col-md-6">
            <h6>BUYER DETAIL</h6>
         <div class="card shadow">
-
-            <table>
+<div class="card-body">
+            <table class="table">
                 <tr>
                     <th> Name</th>
                     <td>{{ $ship->name }}</td>
@@ -105,14 +112,14 @@ if($order->seller==4){
                     <th>City</th>
                     <td>{{ $ship->city }}</td>
                 </tr>
+                
                 <tr>
                     <th>Pin Code</th>
                     <td>{{ $ship->pincode }}</td>
                 </tr>
-             
-             
+               
             </table>
-
+        </div>
         </div>
     </div>
    </div>
@@ -130,7 +137,7 @@ if($order->seller==4){
     @foreach ($product as $item)
     <tr>
     <td>
-       <img src=" {{ asset($item->image) }}" alt="Product image" class="img-fluid" width="80">
+       <img src=" {{ __getimagePath($item->image) }}" alt="Product image" class="img-fluid" width="80">
 
     </td>
   <td>

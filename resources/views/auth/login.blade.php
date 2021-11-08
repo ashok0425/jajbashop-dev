@@ -115,7 +115,7 @@ body {
 
 		<div class="login-page">
 			<div class="form">
-			  <form class="register-form" action="{{route('member.login.store')}}" method="POST">
+			  <form class="register-form" action="{{route('login.store')}}" method="POST">
 				@csrf
 				<h1>Member Login</h1>
 

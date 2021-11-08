@@ -7,7 +7,7 @@
 @section('main-content')
 
 @php
-    define('PAGE','super')
+    define('PAGE','distributor')
 @endphp
 <div class="container-fluid mt-4">
 

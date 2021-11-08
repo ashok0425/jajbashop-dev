@@ -27,18 +27,34 @@
                 <div class="card-body py-4 d-flex justify-content-between">
 
                 <div>
+                    @if (Auth::user()->status==null)
+
                     <h5 class="card-title mb-1 text-white">ID Status </h5>
+                    @endif
                     <h1 class="mt-1 mb-1 text-white font-weight-bold">
-                        @if (Auth::user()->status!=null)
-                       Active
-                        @else
+                        @if (Auth::user()->status==null)
                         Inactive
                         <span type="button" class="btn btn-primary active_btn" data-toggle="modal" data-target="#exampleModal" >
                             Active Now
                         </span>
-
+                        @else
+                       <small>
+                        Level
+                       </small>
+                       <br>
+                       
+                        <strong class="text-warning">
+                              {{   __getMyrank()}}
+                           </strong>
                     @endif
+                
                     </h1>
+                     
+                 
+
+
+                      
+
                 </div>
                 <div>
                     <i class="fas fa-user text-white fa-3x"></i>
@@ -149,32 +165,7 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
 
 
         <div class="col-sm-3  col-6 ">
-            @php
-            $earning2=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l2',Auth::user()->userid)->sum('levelearnings.l2');
-        @endphp
-         @php
-         $earning3=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l3',Auth::user()->userid)->sum('levelearnings.l3');
-     @endphp
-      @php
-      $earning4=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l4',Auth::user()->userid)->sum('levelearnings.l4');
-  @endphp
-   @php
-   $earning5=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l5',Auth::user()->userid)->sum('levelearnings.l5');
-@endphp
-@php
-$earning6=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l6',Auth::user()->userid)->sum('levelearnings.l6');
-@endphp @php
-$earning7=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l7',Auth::user()->userid)->sum('levelearnings.l7');
-@endphp
-@php
-$earning8=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l8',Auth::user()->userid)->sum('levelearnings.l8');
-@endphp
-@php
-$earning9=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l9',Auth::user()->userid)->sum('levelearnings.l9');
-@endphp
-@php
-$earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l10',Auth::user()->userid)->sum('levelearnings.l10');
-@endphp
+           
 
             <div class="card shadow">
                 <div class="card-body py-4 d-flex justify-content-between">
@@ -182,7 +173,7 @@ $earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','le
                 <div>
                     <h5 class="card-title mb-1 ">Level income  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-{{$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10}}
+                         {{  __getTotalLevelearning(10,3,2) }}
                     </h1>
                 </div>
                 <div>
@@ -204,7 +195,8 @@ $earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','le
                 <div>
                     <h5 class="card-title mb-1 ">Total income  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-                        {{$earn=$earning+$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10}}
+                        {{  __getTotalLevelearning(10,3) }}
+
 
                     </h1>
                 </div>
@@ -247,7 +239,7 @@ $earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','le
       <div>
                     <h5 class="card-title mb-1 ">Pending Income  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-                        {{$earn-$withdrawal}}
+                         {{  __getTotalLevelearning(10,3)-$withdrawal}}
 
                     </h1>
                 </div>
@@ -279,60 +271,7 @@ $earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','le
             </div>
         </div>
 
-
-
-
-
-        @php
-        $earning1=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l1',Auth::user()->userid)->sum('levelbvs.l1');
-    @endphp
-    @php
-        $earning2=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l2',Auth::user()->userid)->sum('levelbvs.l2');
-    @endphp
-     @php
-     $earning3=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l3',Auth::user()->userid)->sum('levelbvs.l3');
-    @endphp
-    @php
-    $earning4=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l4',Auth::user()->userid)->sum('levelbvs.l4');
-    @endphp
-    @php
-    $earning5=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l5',Auth::user()->userid)->sum('levelbvs.l5');
-    @endphp
-    @php
-    $earning6=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l6',Auth::user()->userid)->sum('levelbvs.l6');
-    @endphp @php
-    $earning7=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l7',Auth::user()->userid)->sum('levelbvs.l7');
-    @endphp
-    @php
-    $earning8=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l8',Auth::user()->userid)->sum('levelbvs.l8');
-    @endphp
-    @php
-    $earning9=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l9',Auth::user()->userid)->sum('levelbvs.l9');
-    @endphp
-    @php
-    $earning10=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l10',Auth::user()->userid)->sum('levelbvs.l10');
-    @endphp
-    @php
-    $earning11=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l11',Auth::user()->userid)->sum('levelbvs.l11');
-    @endphp
-    @php
-    $earning12=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l12',Auth::user()->userid)->sum('levelbvs.l12');
-    @endphp
-    @php
-    $earning13=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l13',Auth::user()->userid)->sum('levelbvs.l13');
-    @endphp
-    @php
-    $earning14=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l14',Auth::user()->userid)->sum('levelbvs.l14');
-    @endphp
-    @php
-    $earning15=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.l15',Auth::user()->userid)->sum('levelbvs.l15');
-    @endphp
-
-
-
-
         {{-- My bv  --}}
-
         <div class="col-sm-3  col-6 ">
             @php
             $mybv=DB::table('userbvs')->where('user_id',Auth::user()->id)->value('bv');
@@ -344,7 +283,7 @@ $earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','le
                     <h5 class="card-title mb-1 ">Self BV  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
                         @if (isset($mybv))
-                        {{$mybv-($earning1+$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10+$earning11+$earning12+$earning13+$earning14+$earning15)}}
+                        {{$mybv-__getTotalLevelbv(15,3)}}
                           @else   
                           0  
                         @endif
@@ -369,7 +308,7 @@ $earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','le
         <div>
             <h5 class="card-title mb-1 ">Team BV  </h5>
             <h1 class="mt-1 mb-1  font-weight-bold">
-{{$earning1+$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10+$earning11+$earning12+$earning13+$earning14+$earning15}}
+         {{__getTotalLevelbv(15,3)}}
             </h1>
         </div>
         <div>
@@ -438,57 +377,14 @@ $earning10=DB::table('levels')->join('levelearnings','levelearnings.user_id','le
 {{-- Level comisiion income  --}}
 
 <div class="col-sm-3  col-6 ">
-    @php
-    $earning1=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l1',Auth::user()->userid)->sum('levelcomissions.l1');
-@endphp
-@php
-    $earning2=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l2',Auth::user()->userid)->sum('levelcomissions.l2');
-@endphp
- @php
- $earning3=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l3',Auth::user()->userid)->sum('levelcomissions.l3');
-@endphp
-@php
-$earning4=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l4',Auth::user()->userid)->sum('levelcomissions.l4');
-@endphp
-@php
-$earning5=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l5',Auth::user()->userid)->sum('levelcomissions.l5');
-@endphp
-@php
-$earning6=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l6',Auth::user()->userid)->sum('levelcomissions.l6');
-@endphp @php
-$earning7=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l7',Auth::user()->userid)->sum('levelcomissions.l7');
-@endphp
-@php
-$earning8=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l8',Auth::user()->userid)->sum('levelcomissions.l8');
-@endphp
-@php
-$earning9=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l9',Auth::user()->userid)->sum('levelcomissions.l9');
-@endphp
-@php
-$earning10=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l10',Auth::user()->userid)->sum('levelcomissions.l10');
-@endphp
-@php
-$earning11=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l11',Auth::user()->userid)->sum('levelcomissions.l11');
-@endphp
-@php
-$earning12=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l12',Auth::user()->userid)->sum('levelcomissions.l12');
-@endphp
-@php
-$earning13=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l13',Auth::user()->userid)->sum('levelcomissions.l13');
-@endphp
-@php
-$earning14=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l14',Auth::user()->userid)->sum('levelcomissions.l14');
-@endphp
-@php
-$earning15=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.l15',Auth::user()->userid)->sum('levelcomissions.l15');
-@endphp
+   
     <div class="card shadow">
         <div class="card-body py-4 d-flex justify-content-between">
 
         <div>
             <h5 class="card-title mb-1 ">Team Repurchase Income  </h5>
             <h1 class="mt-1 mb-1  font-weight-bold">
-{{$earning1+$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10+$earning11+$earning12+$earning13+$earning14+$earning15}}
+{{__getTotalrepurchasecomm(25,3)}}
             </h1>
         </div>
         <div>
@@ -512,7 +408,7 @@ $earning15=DB::table('levels')->join('levelcomissions','levelcomissions.user_id'
                     <h1 class="mt-1 mb-1  font-weight-bold">   
                         @if ($mycomission)
                            
-{{$mycomission+$earning1+$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10+$earning11+$earning12+$earning13+$earning14+$earning15}} 
+{{$mycomission+__getTotalrepurchasecomm(15,6)}} 
 @else     
                 0            
 @endif 
@@ -539,10 +435,9 @@ $earning15=DB::table('levels')->join('levelcomissions','levelcomissions.user_id'
                     <h1 class="mt-1 mb-1  font-weight-bold">   
                         @if ($mycomission)
                            
-{{$mycomission+$earning1+$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10+$earning11+$earning12+$earning13+$earning14+$earning15+$earn}} 
-@else     
-                0            
-@endif 
+                        {{$mycomission +  __getTotalrepurchasecomm(10,3) }}
+                      @endif
+
                     </h1>
                 </div>
                 <div>
@@ -557,7 +452,7 @@ $earning15=DB::table('levels')->join('levelcomissions','levelcomissions.user_id'
 <div class="row">
     <div class="col-md-12">
         <div class="card ">
-
+<div class="card-body">
    <div class="d-flex ">
                 <!-- The text field -->
 <input type="text" value="{{route('member.refer.register',['name'=>Auth::user()->name,'userid'=>Auth::user()->userid,'id'=>Auth::user()->id])}}" id="myInput" readonly style='width:500px;'>
@@ -565,6 +460,7 @@ $earning15=DB::table('levels')->join('levelcomissions','levelcomissions.user_id'
 <!-- The button used to copy the text -->
 <button onclick="myFunction()" class="btn btn-sm btn-info" >Copy Link</button>
    </div>
+</div>
         </div>
     </div>
 </div>

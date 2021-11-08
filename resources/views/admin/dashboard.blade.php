@@ -107,62 +107,21 @@
         </div>
 
 
-
-
-
-
-
-
-        <div class="col-sm-3 ">
-            @php
-                       $earning2=DB::table('levelearnings')->sum('l2');
-                       $earning3=DB::table('levelearnings')->sum('l3');
-                       $earning4=DB::table('levelearnings')->sum('l4');
-                       $earning5=DB::table('levelearnings')->sum('l5');
-                       $earning6=DB::table('levelearnings')->sum('l6');
-                       $earning7=DB::table('levelearnings')->sum('l7');
-                       $earning8=DB::table('levelearnings')->sum('l8');
-                       $earning9=DB::table('levelearnings')->sum('l9');
-                       $earning10=DB::table('levelearnings')->sum('l10');
-
-
-        @endphp
-
-
-            <div class="card shadow">
-                <div class="card-body py-4 d-flex justify-content-between">
-
-                <div>
-                    <h5 class="card-title mb-1 ">Level income  </h5>
-                    <h1 class="mt-1 mb-1  font-weight-bold">
-{{$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10}}
-                    </h1>
-                </div>
-                <div>
-                    <i class="fas fa-dollar-sign fa-3x text-info"></i>
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
         <div class="col-sm-3 ">
 
             <div class="card shadow">
                 <div class="card-body py-4 d-flex justify-content-between">
 
                 <div>
-                    <h5 class="card-title mb-1 ">Total income  </h5>
+                    <h5 class="card-title mb-1 ">Total Level income  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-                        {{$earn=$earning+$earning2 + $earning3+ $earning4 + $earning5+ $earning6+ $earning7 +$earning8+ $earning9 + $earning10}}
+                        {{ __getTotalLevelearning(10) }}
+
 
                     </h1>
                 </div>
                 <div>
-                    <i class="fas fa-comments-dollar fa-3x text-success"></i>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
                 </div>
                 </div>
             </div>
@@ -185,7 +144,7 @@
                     </h1>
                 </div>
                 <div>
-                    <i class="fas fa-comments-dollar fa-3x text-success"></i>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
                 </div>
                 </div>
             </div>
@@ -200,12 +159,12 @@
       <div>
                     <h5 class="card-title mb-1 ">Pending Income  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-                        {{$earn-$withdrawal}}
+                        {{__getTotalLevelearning(10)-$withdrawal}}
 
                     </h1>
                 </div>
                 <div>
-                    <i class="fas fa-comments-dollar fa-3x text-danger"></i>
+                    <i class="fas fa-rupee-sign fa-3x text-danger"></i>
                 </div>
                 </div>
             </div>
@@ -226,7 +185,173 @@
                     </h1>
                 </div>
                 <div>
-                    <i class="fas fa-comment-dollar fa-3x text-success"></i>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-3 ">
+            @php
+            $deposite=DB::table('orders')->sum('bv')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total BV  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$deposite}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-3 ">
+            @php
+            $bv=DB::table('orders')->where('buyer',1)->sum('bv')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total Member BV  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$bv}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-ad fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 ">
+            @php
+            $bv=DB::table('orders')->where('buyer',2)->sum('bv')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total Distributor BV  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$bv}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-ad fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 ">
+            @php
+            $bv=DB::table('orders')->where('buyer',3)->sum('bv')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total Super BV  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$bv}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-ad fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 ">
+            @php
+            $total=DB::table('orders')->sum('total')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total Sold Amount  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$total}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 ">
+            @php
+            $total=DB::table('orders')->where('buyer',1)->sum('total')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total Member Amount  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$total}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+
+        <div class="col-sm-3 ">
+            @php
+            $total=DB::table('orders')->where('buyer',2)->sum('total')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total Distributor Amount  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$total}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="col-sm-3 ">
+            @php
+            $total=DB::table('orders')->where('buyer',3)->sum('total')
+        @endphp
+            <div class="card shadow">
+                <div class="card-body py-4 d-flex justify-content-between">
+      <div>
+                    <h5 class="card-title mb-1 ">Total Super Amount  </h5>
+                    <h1 class="mt-1 mb-1  font-weight-bold">
+                        {{$total}}
+
+                    </h1>
+                </div>
+                <div>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
                 </div>
                 </div>
             </div>

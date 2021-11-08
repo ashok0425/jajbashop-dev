@@ -22,7 +22,7 @@
             <div class="col-md-6 offset-md-3">
 <label>User ID/Phone number</label>
 
-    <input type="text" name="userid" id="userid" class="form-control">
+    <input type="text" name="userid" id="userid" class="form-control" autocomplete="off">
             </div>
          
            
@@ -60,7 +60,7 @@
 
                     </div>
                     <div class="form-group my-2">
-                        <label for="price">Price per/pices*</label>
+                        <label for="price">Price per/pcs*</label>
                         <input type="number" class="form-control" name="price" id="price" placeholder="price"  readonly>
                     </div>
                     <div class="form-group my-2">
@@ -89,17 +89,18 @@
 
                 </div>
                 
-                <a   class="btn btn-danger form-control my-2" onclick="return print()" ><i class="fa fa-print"></i> Print Bill</a>
                 <form action="{{route('distributor.sale.checkout')}}" method='POST'>
                     @csrf
                     <div class="form-group mt-2 ">
                         <h4>Payment Mode</h4>
                         <label class="d-flex align-items-center">
-                            <input type="radio" name="payment_mode" value="cash">&nbsp;&nbsp; Cash</label>
-                        <label class="d-flex align-items-center"><input type="radio" name="payment_mode" value="account">&nbsp;&nbsp; Account Fund</label>
+                            <input type="radio" name="payment_mode" value="cash" required>&nbsp;&nbsp; Cash</label>
+                        <label class="d-flex align-items-center"><input type="radio" name="payment_mode" value="account" required>&nbsp;&nbsp; Account Fund</label>
             
                     </div>
-                    <input type="hidden" name="userid" id="user_id">
+                <a   class="btn btn-danger form-control my-2" onclick="return print()" ><i class="fa fa-print"></i> Print Bill</a>
+
+                    <input type="hidden" name="userid" id="user_id" required>
                 <button class="btn btn-info form-control" ><i class="fa fa-download " ></i> Make Sale & Download invoice</button>
     </form>
 
@@ -206,7 +207,6 @@
                 dataType:'html',
                 type:'GET',
                 success:function($data){
-                  console.log(data)
                   $('#userdata').html($data)
                   $('#user_id').val(data)
 
@@ -216,15 +216,17 @@
         }
 
 
-        $('#userid').change(function(){
-            data=$(this).val()
-            loaduserdata(data)
-        })
-        $('#phone').change(function(){
-            data=$(this).val()
+        $('#userid').keyup(function(){
+            $('#userdata').html('')
 
-            loaduserdata(data)
+            data=$(this).val()
+            if(data.length>=5){
+                loaduserdata(data)
+            }else{
+                $('#userdata').html("<div class='text-center text-danger mt-1'>No valid Disributor found</div>")
 
+            }
         })
+
     </script>
 @endpush

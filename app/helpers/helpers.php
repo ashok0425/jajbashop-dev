@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Userbv;
 use App\Models\Repurchasecommision;
+use App\Models\RepurchaseTopup;
 use Illuminate\Support\Facades\DB;
  function __getAdmin(){
 return Auth::guard('admin')->user();
@@ -25,23 +26,28 @@ function __getPriceunit(){
 return '₹ ';
 }
 
+// Get repurchase level topup price 
+
  function __getlevelprice($level)
 {
     $price=DB::table('levelprices')->where('id',$level)->value('price');
     return $price;
 }
 
-
+// calculating vat amount 
 function __getVatamount($amount){
     $price=($amount*15)/100;
     return $price;
     }
+
+// calculating vat amount 
 
 function __getadminAmount($amount){
         $price=($amount*10)/100;
     return $price;
         }
 
+// calculating vat amount 
 
   function __gettdsAmount($amount){
             $price=($amount*5)/100;
@@ -50,7 +56,7 @@ function __getadminAmount($amount){
 
 
 
-            // distribution of bv  
+ // distribution of bv  
  function __getpercentdata($id,$bv,$prev,$levelbv,$level,$levelcom){
     // *****for level **********
     $user1=User::where('userid',$id)->value('id');
@@ -69,7 +75,8 @@ function __getadminAmount($amount){
     }
     $finalbv=$lbv1->bv;
 
-    $levelearning=Levelbv::find($levelbv);//finding levelbv that was insertterted in order to update
+    $levelearning=Levelbv::find($levelbv);
+    //finding levelbv that was insertterted in order to update
     $levelearning->$level=$bv;
     $levelearning->save();
 
@@ -91,8 +98,193 @@ function __getadminAmount($amount){
     
     }
     
-
+// Image path from other database
     function __getimagePath($image){
         return 'http://ecomm.jajbashop.in/'.$image;
 
     }
+
+    
+   //  finding total level income for both admin and member 
+    function __getTotalLevelearning($level,$id=null,$levelincome=null){
+       if($id==null){ //for admin
+         $earning=0;
+         for ($i=1; $i <=$level ; $i++) { 
+             $earning+=DB::table('levelearnings')->sum('l'.$i);
+             
+         }
+           return $earning;
+       }
+          else{
+ 
+              if($levelincome==null){
+               $earning=0;
+               for ($i=1; $i <=$level ; $i++) { 
+                    $level='l'.$i;
+                  $earning+=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelearnings.'.$level.'');
+                   
+               }
+                 return $earning;
+              }else{
+               $earning=0;
+               for ($i=2; $i <=$level ; $i++) { 
+                    $level='l'.$i;
+                  $earning+=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where("levels.$level",Auth::user()->userid)->sum("levelearnings.$level");
+                   
+               }
+                 return $earning;
+              }
+
+
+          }
+    }
+
+   //  rank of member 
+    function __getMyrank(){
+        $mybv=DB::table('userbvs')->where('user_id',Auth::user()->id)->sum('bv');
+       if ($mybv>=0&&$mybv<=1000){
+          return   'STAR';
+       }
+
+       if ($mybv>=1000&&$mybv<=5000){
+        return   'SILVER';
+     }
+
+
+     if ($mybv>=5001&&$mybv<=10000){
+        return   'GOLD';
+     }
+
+
+
+     if ($mybv>=10001&&$mybv<=25000){
+        return   'PLATINUM';
+     }
+
+
+     if ($mybv>=25001&&$mybv<=50000){
+        return   'TOPAZ';
+     }
+
+     if ($mybv>=50001&&$mybv<=100000){
+        return   'EMRALD';
+     }
+
+     if ($mybv>=100001&&$mybv<=250000){
+        return   'RUBY';
+     }
+
+     if ($mybv>=250001&&$mybv<=500000){
+        return   'DIAMOND';
+     }
+
+
+
+     if ($mybv>=500001&&$mybv<=1000000){
+        return   'DOUBLE DIAMOND
+        ';
+     }
+
+     if ($mybv>=1000001&&$mybv<=2500000){
+        return   'ROYAL DIAMOND
+        ';
+     }
+
+     if ($mybv>=2500001&&$mybv<=5000000){
+        return   'SAPPHIRE';
+     }
+
+     if ($mybv>=5000001&&$mybv<=10000000){
+        return   'CROWN';
+     }
+
+     if ($mybv>=10000001&&$mybv<=25000000){
+        return   'CROWN AMBASSADOR
+        ';
+     }
+    }
+
+   //  finding total level income for both admin and member 
+   function __getTotalLevelbv($level,$id=null,$levelincome=null){
+      if($id==null){ //for admin
+        $earning=0;
+        for ($i=1; $i <=$level ; $i++) { 
+            $earning+=DB::table('levelearnings')->sum('l'.$i);
+            
+        }
+          return $earning;
+      }
+         else{
+
+             if($levelincome==null){
+              $earning=0;
+              for ($i=1; $i <=$level ; $i++) { 
+                   $level='l'.$i;
+                 $earning+=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelbvs.'.$level.'');
+                  
+
+              }
+                return $earning;
+             }else{
+              $earning=0;
+              for ($i=2; $i <=$level ; $i++) { 
+                   $level='l'.$i;
+                   $earning+=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelbvs.'.$level.'');
+
+                  
+              }
+                return $earning;
+             }
+
+
+         }
+   }
+
+
+
+
+
+      //  finding total level income for both admin and member 
+      function __getTotalrepurchasecomm($level,$id=null,$levelincome=null){
+         if($id==null){ //for admin
+           $earning=0;
+           for ($i=1; $i <=$level ; $i++) { 
+               $earning+=DB::table('levelearnings')->sum('l'.$i);
+               
+           }
+             return $earning;
+         }
+            else{
+   
+                if($levelincome==null){
+                 $earning=0;
+                 for ($i=1; $i <=$level ; $i++) { 
+                      $level='l'.$i;
+                    $earning+=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelcomissions.'.$level.'');
+                       
+                 }
+                   return $earning;
+                }else{
+                 $earning=0;
+                 for ($i=2; $i <=$level ; $i++) { 
+                      $level='l'.$i;
+                      $earning+=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelcomissions.'.$level.'');
+
+   
+                     
+                 }
+                   return $earning;
+                }
+   
+   
+            }
+      }
+
+
+
+// Get repurchase level topup price according to bv purchased by member 
+      function __getrepurchaseprice($level,$bv)
+      {
+          $price=RepurchaseTopup::where('level',$level)->value('percent');
+          return $price;
+      }

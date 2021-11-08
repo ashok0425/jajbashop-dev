@@ -31,7 +31,7 @@
                 <div>
                     <h5 class="card-title mb-1 ">Comission Amount  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-{{$earning}}
+{{number_format($earning,2)}}
                     </h1>
                 </div>
                

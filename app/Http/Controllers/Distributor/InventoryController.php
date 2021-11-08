@@ -27,7 +27,8 @@ class InventoryController extends Controller
 
     public function index()
     {
-        $product=DB::table('inventories')->join('products','products.id','inventories.product_id')->join('categories','categories.id','products.category_id')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('products.name','products.image','products.id as pid','categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->select('jajbashop_ecommerce.products.*')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
+
        return view('distributor.inventory.index',compact('product'));
     }
 

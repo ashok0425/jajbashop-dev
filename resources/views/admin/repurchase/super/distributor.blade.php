@@ -42,7 +42,26 @@
     @endif
 </td>
     <td>{{carbon\carbon::parse($item->created_at)->format('d F Y')}}</td>
-<td><a href="{{route('admin.user.show',['id'=>$item->id])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+    <td>
+      <a href="{{route('admin.distributor.show',['id'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="Super distributor detail" class="btn-info btn"><i class="fas fa-eye "></i>
+      </a>
+  
+     
+      <a href="{{route('admin.distributor.sales',['id'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="Sales Report" class="btn-info btn"><i class="fas fa-dollar-sign"  ></i>
+      </a>
+  
+      <a href="{{route('admin.distributor.purchase',['id'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="Purchase Report" class="btn-primary btn"><i class="fas fa-dollar-sign"  ></i>
+      </a>
+  
+      <a href="{{route('admin.distributor.edit',['id'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="Edit Super distributor" class="btn-info btn"><i class="fas fa-edit"  ></i>
+      </a>
+  
+      @if ($item->status==1)
+      <a  href="{{route('admin.distributor.deactive',['id'=>$item->id,'table'=>'distributors'])}}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactive SuperD"><i class="fas fa-thumbs-down"></i></a>
+      @else
+      <a  href="{{route('admin.distributor.active',['id'=>$item->id,'table'=>'distributors'])}}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Active SuperD"><i class="fas fa-thumbs-up"></i></a>
+      @endif
+  </td>
 
 
         </tr>

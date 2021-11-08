@@ -114,6 +114,7 @@ public  function activation(Request $request){
 
        $levelearning=new Levelearning;
        $levelearning->user_id=$id->id;
+    //    if user activating their id by 1000 topup 
        if($check->package==1){
        $levelearning->l1=__getlevelprice(1);
        $levelearning->l2=__getlevelprice(2);
@@ -127,6 +128,8 @@ public  function activation(Request $request){
        $levelearning->l10=__getlevelprice(10);
 
     }else{
+    //    if user activating their id by 650 topup 
+
         $levelearning->l1=__getlevelprice(11);
         $levelearning->l2=__getlevelprice(12);
         $levelearning->l3=__getlevelprice(13);

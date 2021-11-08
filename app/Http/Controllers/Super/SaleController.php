@@ -23,15 +23,11 @@ class SaleController extends Controller
 
     use status;
 
-    public function index()
-    {
-        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->join('jajbashop_ecommerce.categories','jajbashop_ecommerce.categories.id','jajbashop_ecommerce.products.category_id')->select('jajbashop_ecommerce.products.*','jajbashop_ecommerce.categories.category')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','jajbashop_ecommerce.categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
-       return view('super.inventory.index',compact('product'));
-    }
+
 
     public function create()
     {
-        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->join('jajbashop_ecommerce.categories','jajbashop_ecommerce.categories.id','jajbashop_ecommerce.products.category_id')->select('jajbashop_ecommerce.products.*','jajbashop_ecommerce.categories.category')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','jajbashop_ecommerce.categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->select('jajbashop_ecommerce.products.*')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
        return view('super.sales.create',compact('product'));
     }
 
@@ -213,7 +209,6 @@ public function checkout(Request $request){
       $inventory=Inventory::find($check->id);
        $inventory->qty=$item->qty+$check->qty;
        $inventory->price=$item->price;
-       $inventory->bv=$item->bv;
        $inventory->save();
        }else{
         $inventory=new Inventory;
@@ -223,7 +218,6 @@ public function checkout(Request $request){
         $inventory->product_id=$item->product_id;
         $inventory->buyer=2;
         $inventory->seller=3;
-        $inventory->bv=$item->bv;
         $inventory->save();
        }
    }

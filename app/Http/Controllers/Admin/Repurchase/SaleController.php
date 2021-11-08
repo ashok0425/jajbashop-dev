@@ -27,14 +27,15 @@ class SaleController extends Controller
 
     public function create()
     {
-      $product=DB::table('products')->join('categories','categories.id','products.category_id')->select('products.*','categories.category')->orderBy('products.id','desc')->get();
-       return view('admin.sale.create',compact('product'));
+      $product=DB::connection('mysql2')->table('products')->join('categories','categories.id','products.category_id')->select('products.*','categories.category')->where('products.status',1)->where('products.repurchase',1)->orderBy('products.id','desc')->get();
+
+       return view('admin.repurchase.sales.create',compact('product'));
     }
 
     // Stroing  product  using ajax like qty and price from inventory
 
     public function getData($pid){
-      $product=DB::table('products')->where('id',$pid)->first();
+      $product=DB::connection('mysql2')->table('products')->where('id',$pid)->first();
 
     return response()->json($product);
   }
@@ -52,17 +53,17 @@ class SaleController extends Controller
       $sales->product_id =$request->product_id ;
       $sales->qty = $request->sales_quantity;
       $sales->price = $request->price ;
-      $sales->user_id = 1;
+      $sales->user_id = 0;
       $sales->buyer = 3;
-      $sales->seller = 4;
       $sales->save();
       return 'success';
   }
 
 //  sales cart item  using ajax
   public function saleslist(){
-      $sales=DB::table('carts')->join('products','products.id','carts.product_id')->select('products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',1)->get();
-      return view('admin.sale.saleslist',compact('sales'));
+    $sales=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('jajbashop_ecommerce.products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',0)->get();
+
+      return view('admin.repurchase.sales.saleslist',compact('sales'));
   }
 
   // destroy sales cart item 
@@ -80,12 +81,21 @@ public function checkout(Request $request){
       'payment_mode'=>'required',
 
    ]);
- 
   
-  $id=__getSuper()->id;
-  try {
+  $superD=DB::table('supers')->where('email',$request->email)->where('phone',$request->phone)->first();
+  $id=$superD->id;
+  if(!$superD){
+    $notification=array(
+      'alert-type'=>'error',
+      'messege'=>'Super Distributor not find',
+
+   );
+  return redirect()->back()->with($notification);
+  }
+  // try {
       //code...
-      $sale=DB::table('carts')->join('products','products.id','carts.product_id')->select('carts.*','products.sc','products.bv')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
+      $sale=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('carts.*','jajbashop_ecommerce.products.sc','jajbashop_ecommerce.products.bv')->where('carts.buyer',3)->where('carts.user_id',0)->get();
+
   $total=0;
   $bv=0;
   $comission=0;
@@ -93,9 +103,8 @@ public function checkout(Request $request){
       $total+=$item->qty*$item->price;
       $bv+=$item->qty*$item->bv;
       $comission+=(($item->price*$item->sc)/100)*$item->qty;
-
-
   }
+
  //  Checking Payment mode in order to deduct amount if its is from account fund
  $account=Account::where('user_id',$id)->where('user_type',3)->first();
  if($request->payment_mode=='account'){
@@ -138,13 +147,13 @@ public function checkout(Request $request){
   $order->seller=4;
   if($order->save()){
     $ship=new Shipping;
-    $ship->name=__getSuper()->name;
-    $ship->email=__getSuper()->email;
-    $ship->phone=__getSuper()->phone;
-    $ship->state=__getSuper()->state;
-    $ship->district=__getSuper()->district;
-    $ship->city=__getSuper()->city;
-    $ship->pincode=__getSuper()->pincode;
+    $ship->name=$superD->name;
+    $ship->email=$superD->email;
+    $ship->phone=$superD->phone;
+    $ship->state=$superD->state;
+    $ship->district=$superD->district;
+    $ship->city=$superD->city;
+    $ship->pincode=$superD->pincode;
     $ship->order_id=$order->id;
      $ship->save();
   //   storing cart item
@@ -170,7 +179,7 @@ public function checkout(Request $request){
     $inventory=Inventory::find($check->id);
      $inventory->qty=$item->qty+$check->qty;
      $inventory->price=$item->price;
-     $inventory->bv=$item->bv;
+     
      $inventory->save();
      }else{
       $inventory=new Inventory;
@@ -180,10 +189,18 @@ public function checkout(Request $request){
       $inventory->product_id=$item->product_id;
       $inventory->buyer=3;
       $inventory->seller=4;
-      $inventory->bv=$item->bv;
+      
       $inventory->save();
      }
  }
+
+ $notification=array(
+  'alert-type'=>'success',
+  'messege'=>' Sold Sucessfully.',
+
+);
+return redirect()->back()->with($notification);
+
 //    loading pdf
  $set=[
   'order_id'=>$order->id,
@@ -207,21 +224,21 @@ public function checkout(Request $request){
 
  $notification=array(
   'alert-type'=>'success',
-  'messege'=>' Buy Sucessfully.',
+  'messege'=>' Sold Sucessfully.',
 
 );
 return redirect()->back()->with($notification);
   }
 
-} catch (\Throwable $th) {
+// } catch (\Throwable $th) {
 
-  $notification=array(
-      'alert-type'=>'error',
-      'messege'=>'Something went wrong.Please try again later',
+//   $notification=array(
+//       'alert-type'=>'error',
+//       'messege'=>'Something went wrong.Please try again later',
 
-   );
-  return redirect()->back()->with($notification);
-}
+//    );
+//   return redirect()->back()->with($notification);
+// }
 
 }
 

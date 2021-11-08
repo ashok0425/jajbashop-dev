@@ -21,38 +21,38 @@ class SuperController extends Controller
     use status;
     public function index(){
         $super=Super::orderBy('id','desc')->get();
-        return view('admin.repurchse.super.index',compact('super'));
+        return view('admin.repurchase.super.index',compact('super'));
     }
 
 
     public function show($id){
         $super=Super::find($id);
-        return view('admin.repurchse.super.show',compact('super'));
+        return view('admin.repurchase.super.show',compact('super'));
     }
 
     public function distributor($id){
         $dist=Distributor::where('sponsor_id',$id)->orderBy('id','desc')->get();
         $super=Super::find($id);
-        return view('admin.repurchse.super.distributor',compact('dist','super'));
+        return view('admin.repurchase.super.distributor',compact('dist','super'));
     }
 
     public function sales($id){
         $order=Order::where('seller_id',$id)->where('seller',3)->orderBy('id','desc')->get();
         $super=Super::find($id);
-        return view('admin.repurchse.super.sales',compact('order','super'));
+        return view('admin.repurchase.super.sales',compact('order','super'));
     }
 
     public function purchase($id){
         $order=Order::where('user_id',$id)->where('buyer',3)->orderBy('id','desc')->get();
         $super=Super::find($id);
-        return view('admin.repurchse.super.purchase',compact('order','super'));
+        return view('admin.repurchase.super.purchase',compact('order','super'));
     }
 
 
     public function orderdetail($id,$orderId){
         $ship=Shipping::where('order_id',$id)->first();
-        $product=DB::table('order_details')->join('orders','orders.id','order_details.order_id')->join('products','products.id','order_details.product_id')->join('categories','categories.id','products.category_id')->where('order_details.order_id',$id)->select('products.name','products.image','products.id as pid','categories.category','order_details.*')->orderBy('order_details.id','desc')->get();
-       return view('admin.repurchse.super.ordershow',compact('product','ship','orderId','id'));
+        $product=DB::table('order_details')->join('orders','orders.id','order_details.order_id')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->where('order_details.order_id',$id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','order_details.*')->orderBy('order_details.id','desc')->get();
+       return view('admin.repurchase.super.ordershow',compact('product','ship','orderId','id'));
     }
 
 
@@ -97,7 +97,7 @@ class SuperController extends Controller
     public  function edit($id){
 
         $user=Super::where('id',$id)->first();
-        return view('admin.repurchse.super.edit',compact('user'));
+        return view('admin.repurchase.super.edit',compact('user'));
 
     }
 
@@ -171,7 +171,7 @@ public function print($id,$orderId){
 
 //redirect to register page to register dealer
 public function  create(){
-    return view('admin.repurchse.super.create');
+    return view('admin.repurchase.super.create');
 }
 
 
@@ -193,7 +193,7 @@ $request->validate([
 ]);
 
 
-// try {
+try {
   //code...
 
 $phone=$request->phone;
@@ -217,7 +217,7 @@ $data=[
 'username'=>$request->email,
 'password'=>$password,
 ];
-// Mail::to($request->email)->send(new Register($data));
+Mail::to($request->email)->send(new Register($data));
 session()->flash('register','Registration Complete.Email: '.$request->email .' and Password: '. $password );
 $notification=array(
 'alert-type'=>'success',
@@ -227,15 +227,15 @@ $notification=array(
 return redirect()->back()->with($notification);;
 }
 
-// } catch (\Throwable $th) {
-//     $notification=array(
-//         'alert-type'=>'error',
-//         'messege'=>'Something Went wrong.Please try again later.',
+} catch (\Throwable $th) {
+    $notification=array(
+        'alert-type'=>'error',
+        'messege'=>'Something Went wrong.Please try again later.',
 
-//      );
-//     return redirect()->back()->with($notification);;
+     );
+    return redirect()->back()->with($notification);;
 
-// }
+}
 }
 
 

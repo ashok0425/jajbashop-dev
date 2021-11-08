@@ -168,7 +168,6 @@ public function checkout(Request $request){
     $inventory=Inventory::find($check->id);
      $inventory->qty=$item->qty+$check->qty;
      $inventory->price=$item->price;
-     $inventory->bv=$item->bv;
      $inventory->save();
      }else{
       $inventory=new Inventory;
@@ -178,7 +177,6 @@ public function checkout(Request $request){
       $inventory->product_id=$item->product_id;
       $inventory->buyer=3;
       $inventory->seller=4;
-      $inventory->bv=$item->bv;
       $inventory->save();
      }
  }

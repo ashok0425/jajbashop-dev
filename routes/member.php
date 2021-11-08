@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 // note member login route is in web route 
 Route::middleware(['auth'])->get('/dashboard', function () {
     return view('dashboard');

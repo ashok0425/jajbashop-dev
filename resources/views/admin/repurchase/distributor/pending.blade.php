@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @php
-       define('PAGE','super')
+       define('PAGE','distributor')
 @endphp
 @section('main-content')
 <div class="container-fluid">

@@ -38,8 +38,8 @@
                     </div>
                    
                     <div class="form-group my-2">
-                        <label for="price">Price per/pices*</label>
-                        <input type="number" class="form-control" name="price" id="price" placeholder="price" required>
+                        <label for="price">Price per/pcs*</label>
+                        <input type="number" class="form-control" name="price" id="price" placeholder="price" required readonly>
                     </div>
                     <div class="form-group my-2">
                         <label for="sales_quantity">Purchase Quantity</label>

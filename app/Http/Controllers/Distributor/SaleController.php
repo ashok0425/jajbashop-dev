@@ -18,6 +18,7 @@ use App\Models\Userbv;
 use App\Models\Levelbv;
 use App\Models\Level;
 use App\Models\Levelcomission;
+use App\Models\Levelearning;
 use App\Models\Mycomission;
 use Illuminate\Support\Facades\Mail;
 class SaleController extends Controller
@@ -30,7 +31,8 @@ class SaleController extends Controller
 
     public function create()
     {
-        $product=DB::table('inventories')->join('products','products.id','inventories.product_id')->join('categories','categories.id','products.category_id')->select('products.*','categories.category')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('products.name','products.image','products.id as pid','categories.category','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
+
        return view('distributor.sales.create',compact('product'));
     }
 
@@ -72,7 +74,7 @@ class SaleController extends Controller
 
 //  sales cart item  using ajax
     public function saleslist(){
-        $sales=DB::table('salescarts')->join('products','products.id','salescarts.product_id')->select('products.name','salescarts.*','products.bv')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
+        $sales=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('jajbashop_ecommerce.products.name','salescarts.*','products.bv')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
         return view('distributor.sales.saleslist',compact('sales'));
     }
 
@@ -94,12 +96,12 @@ public function checkout(Request $request){
      ]);
 
 
-    //  checking whether the distributor is available or not
-    $check=User::where('userid',$request->userid)->first();
+    //  checking whether the Member is available or not
+    $check=User::where('userid',$request->userid)->orwhere('phone',$request->userid)->first();
     if(!$check){
   $notification=array(
       'alert-type'=>'error',
-      'messege'=>'Sorry,No  User/member find with this given data',
+      'messege'=>'No  User/member find with this given data',
 
    );
   return redirect()->back()->with($notification);
@@ -107,17 +109,17 @@ public function checkout(Request $request){
 
     $id=$check->id;
 
-    try {
+    // try {
         //code...
-        $sale=DB::table('salescarts')->join('products','products.id','salescarts.product_id')->select('salescarts.*','products.dc','products.bv')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
+        $sale=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','jajbashop_ecommerce.products.dc','jajbashop_ecommerce.products.bv')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
     $total=0;
     $bv=0;
     foreach($sale as $item){
         $total+=$item->qty*$item->price;
         $bv+=$item->qty*$item->bv;
     }
-    if($request->payment_mode!='voucher'){//cking whether payment mode is not voucher
-        
+
+    if($request->payment_mode!='voucher'){//cheking whether payment mode is not voucher 
      //storing or updating bv to userbv table 
     $userbv=Userbv::where('user_id',$id)->first();
     if($userbv){
@@ -130,6 +132,31 @@ public function checkout(Request $request){
           $userbv->save();
 
     }
+    //  for not active user if they are repurchase directly
+    if($check->status==null){
+        dd($userbv->bv);
+        if($userbv->bv>=500){
+         $users=User::find($id);
+         $users->status='RepurchaseTopup';
+         $users->save();
+
+        }else{
+            $levelearning=new Levelearning;
+            $levelearning->l1=__getrepurchaseprice(1,$bv);
+            $levelearning->l2=__getrepurchaseprice(2,$bv);
+            $levelearning->l3=__getrepurchaseprice(3,$bv);
+            $levelearning->l4=__getrepurchaseprice(4,$bv);
+            $levelearning->l5=__getrepurchaseprice(5,$bv);
+            $levelearning->l6=__getrepurchaseprice(6,$bv);
+            $levelearning->l7=__getrepurchaseprice(7,$bv);
+            $levelearning->l8=__getrepurchaseprice(8,$bv);
+            $levelearning->l9=__getrepurchaseprice(9,$bv);
+            $levelearning->l10=__getrepurchaseprice(10,$bv);
+        }
+        $comissionbv=0;
+    }else{
+        // if user is already activated by epin 
+
     $finalbv=$userbv->bv;
     // fetching repurchase comission 
     $maincomission=Repurchasecommision::where('min_bv','<=',$finalbv)->where('max_bv','>=',$finalbv)->first();
@@ -146,7 +173,7 @@ public function checkout(Request $request){
       $mycomm->save();
 
     }
-    // inserting level bv earning 
+    // inserting level bv earning so that we can update it later for all level
     $levelearning=new Levelbv;
     $levelearning->user_id=$id;
     $levelearning->save();
@@ -167,67 +194,18 @@ if(!empty($level->l1)){
     __getpercentdata($level->l1,$bv,$check->userid,$levelbv,'l1',$levelcom);
 }
 
-//for level 2
-if(!empty($level->l2)){
-__getpercentdata($level->l2,$bv,$level->l1,$levelbv,'l2',$levelcom);
-}
-//for level 3
-if(!empty($level->l3)){
-__getpercentdata($level->l3,$bv,$level->l2,$levelbv,'l3',$levelcom);
-}
-//for level 4
-if(!empty($level->l4)){
-__getpercentdata($level->l4,$bv,$level->l3,$levelbv,'l4',$levelcom);
-}
-//for level 5
-if(!empty($level->l5)){
-__getpercentdata($level->l5,$bv,$level->l4,$levelbv,'l5',$levelcom);
-}
-//for level 6
-if(!empty($level->l6)){
-__getpercentdata($level->l6,$bv,$level->l5,$levelbv,'l6',$levelcom);
-}
-//for level 7
-if(!empty($level->l7)){
-__getpercentdata($level->l7,$bv,$level->l6,$levelbv,'l7',$levelcom);
-}
-//for level 9
-if(!empty($level->l8)){
-__getpercentdata($level->l8,$bv,$level->l7,$levelbv,'l8',$levelcom);
-}
-//for level 9
-if(!empty($level->l9)){
-__getpercentdata($level->l9,$bv,$level->l8,$levelbv,'l9',$levelcom);
-}
-//for level 10
-if(!empty($level->l10)){
-__getpercentdata($level->l10,$bv,$level->l9,$levelbv,'l10',$levelcom);
-}
-//for level 11
-if(!empty($level->l11)){
-__getpercentdata($level->l11,$bv,$level->l10,$levelbv,'l11',$levelcom);
-}
-//for level 12
-if(!empty($level->l12)){
-__getpercentdata($level->l12,$bv,$level->l11,$levelbv,'l12',$levelcom);
-}
-//for level 13
-if(!empty($level->l13)){
-__getpercentdata($level->l13,$bv,$level->l12,$levelbv,'l13',$levelcom);
-}
-//for level 14
-if(!empty($level->l4)){
-__getpercentdata($level->l14,$bv,$level->l13,$levelbv,'l14',$levelcom);
-}
-//for level 15
-if(!empty($level->l5)){
-__getpercentdata($level->l15,$bv,$level->l14,$levelbv,'l15',$levelcom);
+// looping to check and insert bv and comission for all level member for current login member 
+for ($i=2; $i <=15 ; $i++) { 
+    $levelM='l'.$i;
+    $preId=$i-1;
+    $prelevel='l'.$preId;
+//for level $i2
+if(!empty($level->$levelM)){
+    __getpercentdata($level->$levelM,$bv,$level->$prelevel,$levelbv,$levelM,$levelcom);
+    }
 }
 
-
-       
-
-
+    }
 
     }
 
@@ -262,7 +240,6 @@ __getpercentdata($level->l15,$bv,$level->l14,$levelbv,'l15',$levelcom);
       $orderdetail->price=$item->price;
       $orderdetail->qty=$item->qty;
       $orderdetail->bv=$item->bv;
-      $orderdetail->comission=$item->dc;
       $orderdetail->save();
      }
 
@@ -281,16 +258,16 @@ __getpercentdata($level->l15,$bv,$level->l14,$levelbv,'l15',$levelcom);
     'orderId'=>$order->order_id,
     'date'=>$order->created_at,
 ];
-   $pdf = PDF::loadView('email.checkout', $set);
-   $sale=DB::table('salescarts')->where('user_id',__getDist()->id)->where('seller',2)->delete();
+//    $pdf = PDF::loadView('email.checkout', $set);
+//    $sale=DB::table('salescarts')->where('user_id',__getDist()->id)->where('seller',2)->delete();
 
 
-// sending email
-   Mail::send('email.order', $set, function($message)use($set, $pdf) {
-       $message->to($set['email'])
-               ->subject("Thank you for your order. Your order number has been placed.")
-               ->attachData($pdf->output(), "orderinvoice.pdf");
-   });
+// // sending email
+//    Mail::send('email.order', $set, function($message)use($set, $pdf) {
+//        $message->to($set['email'])
+//                ->subject("Thank you for your order. Your order number has been placed.")
+//                ->attachData($pdf->output(), "orderinvoice.pdf");
+//    });
 
    $notification=array(
     'alert-type'=>'success',
@@ -300,15 +277,15 @@ __getpercentdata($level->l15,$bv,$level->l14,$levelbv,'l15',$levelcom);
 return redirect()->back()->with($notification);
     }
 
-} catch (\Throwable $th) {
+// } catch (\Throwable $th) {
 
-    $notification=array(
-        'alert-type'=>'error',
-        'messege'=>'Something went wrong.Please try again later',
+//     $notification=array(
+//         'alert-type'=>'error',
+//         'messege'=>'Something went wrong.Please try again later',
 
-     );
-    return redirect()->back()->with($notification);
-}
+//      );
+//     return redirect()->back()->with($notification);
+// }
 
 }
 

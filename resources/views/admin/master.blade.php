@@ -32,8 +32,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	{{-- summernote css  --}}
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	@stack('style')
 
-</head>
 <style>
 *{
     font-family: 'Montserrat', sans-serif;
@@ -189,6 +189,8 @@ z-index: 9999;
     border: 1px solid #f00c0c;
 }
    </style>
+</head>
+
 <body>
 	<div class="loading">
 

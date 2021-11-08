@@ -21,42 +21,37 @@ class DistributorController extends Controller
     use status;
     public function index(){
         $super=Distributor::orderBy('id','desc')->get();
-        return view('admin.repurchse.distributor.index',compact('super'));
+        return view('admin.repurchase.distributor.index',compact('super'));
     }
 
     public function pending(){
         $super=Distributor::where('status',2)->orderBy('id','desc')->get();
-        return view('admin.repurchse.distributor.pending',compact('super'));
+        return view('admin.repurchase.distributor.pending',compact('super'));
     }
 
     public function show($id){
         $super=Distributor::find($id);
-        return view('admin.repurchse.distributor.show',compact('super'));
+        return view('admin.repurchase.distributor.show',compact('super'));
     }
 
-    public function distributor($id){
-        $dist=Distributor::where('sponsor_id',$id)->orderBy('id','desc')->get();
-        $super=Distributor::find($id);
-        return view('admin.repurchse.distributor.distributor',compact('dist','super'));
-    }
-
+   
     public function sales($id){
         $order=Order::where('seller_id',$id)->where('seller',2)->orderBy('id','desc')->get();
         $super=Distributor::find($id);
-        return view('admin.repurchse.distributor.sales',compact('order','super'));
+        return view('admin.repurchase.distributor.sales',compact('order','super'));
     }
 
     public function purchase($id){
         $order=Order::where('user_id',$id)->where('buyer',2)->orderBy('id','desc')->get();
         $super=Distributor::find($id);
-        return view('admin.repurchse.distributor.purchase',compact('order','super'));
+        return view('admin.repurchase.distributor.purchase',compact('order','super'));
     }
 
 
     public function orderdetail($id,$orderId){
         $ship=Shipping::where('order_id',$id)->first();
         $product=DB::table('order_details')->join('orders','orders.id','order_details.order_id')->join('products','products.id','order_details.product_id')->join('categories','categories.id','products.category_id')->where('order_details.order_id',$id)->select('products.name','products.image','products.id as pid','categories.category','order_details.*')->orderBy('order_details.id','desc')->get();
-       return view('admin.repurchse.distributor.ordershow',compact('product','ship','orderId','id'));
+       return view('admin.repurchase.distributor.ordershow',compact('product','ship','orderId','id'));
     }
 
 
@@ -100,7 +95,7 @@ class DistributorController extends Controller
     public  function edit($id){
 
         $user=Distributor::where('id',$id)->first();
-        return view('admin.repurchse.distributor.edit',compact('user'));
+        return view('admin.repurchase.distributor.edit',compact('user'));
 
     }
 

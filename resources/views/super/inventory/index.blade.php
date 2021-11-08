@@ -21,11 +21,9 @@
     <tr>
         <th>#</th>
         <th>Image</th>
-        <th>Category</th>
         <th>Name</th>
         <th>qty(in Stock)</th>
         <th>price</th>
-        <th>B.V</th>
 
 
 
@@ -40,10 +38,9 @@
 <tr>
     <td>{{$loop->iteration}}</td>
     <td>
-        <img class="img-fluid" src="{{asset($item->image)}}" alt="{{$item->name}}" width="60">
+        <img class="img-fluid" src="{{__getimagePath($item->image)}}" alt="{{$item->name}}" width="60">
 
     </td>
-<td>{{$item->category}}</td>
 <td>
     {{$item->name}}
 </td>
@@ -65,9 +62,7 @@
 <td>
     {{__getPriceunit() .$item->price}}
 </td>
-<td>
-    {{$item->bv}}
-</td>
+
 
 </tr>
 

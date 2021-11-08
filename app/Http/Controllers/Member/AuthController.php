@@ -178,33 +178,13 @@ $admin->save();
     //      );
     //     return redirect()->back()->with($notification);;
     // }
-    try {
+    // try {
         //code...
 
         $check=User::where('userid',$request->sponsor)->first();
     if($check){
-  $l1=$request->sponsor;
-  $l2=$check->sponsor_id;
-  $l3=User::where('userid',$l2)->value('sponsor_id');
-  $l4=User::where('userid',$l3)->value('sponsor_id');
-  $l5=User::where('userid',$l4)->value('sponsor_id');
-  $l6=User::where('userid',$l5)->value('sponsor_id');
-  $l7=User::where('userid',$l6)->value('sponsor_id');
-  $l8=User::where('userid',$l7)->value('sponsor_id');
-  $l9=User::where('userid',$l8)->value('sponsor_id');
-  $l10=User::where('userid',$l9)->value('sponsor_id');
-  $l11=User::where('userid',$l10)->value('sponsor_id');
-  $l12=User::where('userid',$l11)->value('sponsor_id');
-  $l13=User::where('userid',$l12)->value('sponsor_id');
-  $l14=User::where('userid',$l13)->value('sponsor_id');
-  $l15=User::where('userid',$l14)->value('sponsor_id');
-
-
-
-
-
-
-
+//    fetching all level member of sponsor id.so that insert it into other row for new member 
+$levelmember=Level::where('user_id',$check->id)->first();
   $last=DB::table('users')->latest()->first();
 $ids=$last->id+1;
 
@@ -232,22 +212,15 @@ if($user->save()){
 
 $level=new Level;
 $level->user_id=$user->id;
-$level->l1=$l1;
-$level->l2=$l2;
-$level->l3=$l3;
-$level->l4=$l4;
-$level->l5=$l5;
-$level->l6=$l6;
-$level->l7=$l7;
-$level->l8=$l8;
-$level->l9=$l9;
-$level->l10=$l10;
-$level->l11=$l11;
-$level->l12=$l12;
-$level->l13=$l13;
-$level->l14=$l14;
-$level->l15=$l15;
+$level->l1=$request->sponsor;
+// looping for inserting value as much as level increased 
+for ($i=2; $i <=15 ; $i++) { 
+    $l='l'.$i;
+    $lvid=$i-1;
+    $lv='l'.$lvid;
+    $level->$l=$levelmember->$lv;
 
+}
 $level->save();
 $data=[
     'name'=>$request->name,
@@ -281,15 +254,15 @@ return redirect()->back()->with($notification);;
 
     }
 
-} catch (\Throwable $th) {
-    $notification=array(
-        'alert-type'=>'error',
-        'messege'=>'Something Went wrong.Please try again later.',
+// } catch (\Throwable $th) {
+//     $notification=array(
+//         'alert-type'=>'error',
+//         'messege'=>'Something Went wrong.Please try again later.',
 
-     );
-    return redirect()->back()->with($notification);;
+//      );
+//     return redirect()->back()->with($notification);;
 
-}
+// }
 }
 
 

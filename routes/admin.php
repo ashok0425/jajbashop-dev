@@ -57,6 +57,13 @@ Route::get('/level/price','Admin\LevelController@index')->name('level.price');
 Route::get('/level/price/edit/{id}','Admin\LevelController@edit')->name('level.price.edit');
 Route::post('/level/price/update','Admin\LevelController@update')->name('level.price.update');
 
+// Level repurchase topup price
+Route::get('/repurchasetopup/price','Admin\Repurchase\RepurchasetopupController@index')->name('repurchasetopup');
+Route::get('/repurchasetopup/price/edit/{id}','Admin\Repurchase\RepurchasetopupController@edit')->name('repurchasetopup.edit');
+Route::post('/repurchasetopup/price/update','Admin\Repurchase\RepurchasetopupController@update')->name('repurchasetopup.update');
+
+
+
 // user
 Route::get('/user/all','Admin\MemberController@index')->name('user.all');
 Route::get('/user/inactive','Admin\MemberController@inactive')->name('user.inactive');
@@ -119,7 +126,6 @@ Route::get('/category/delete/{id}/{table}','Admin\Repurchase\CategoryController@
 
 
 // Subcategory
-
 Route::get('/subcategory','Admin\Repurchase\SubcategoryController@index')->name('subcategory');
 Route::get('/subcategory/create','Admin\Repurchase\SubcategoryController@create')->name('subcategory.create');
 Route::post('/subcategory/store','Admin\Repurchase\SubcategoryController@store')->name('subcategory.store');
@@ -184,17 +190,6 @@ Route::get('/distributor/edit/list/{id}','Admin\Repurchase\DistributorController
 Route::post('/distributor/update/','Admin\Repurchase\DistributorController@update')->name('distributor.update');
 Route::get('/distributor/order/detail/{id}/{orderId}','Admin\Repurchase\DistributorController@orderdetail')->name('distributor.order.show');
 Route::get('/distributor/order/print/{id}/{orderId}','Admin\Repurchase\DistributorController@print')->name('distributor.order.print');
-
-
-
-
-
-
-
-
-
-
-
 
 // Repurchase 
 Route::get('/repurchase/commission/list','Admin\Repurchase\RepurchaseController@index')->name('repurchase.comission');
