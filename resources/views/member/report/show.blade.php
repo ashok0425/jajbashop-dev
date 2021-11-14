@@ -33,8 +33,8 @@ if($order->seller==4){
        <div class="d-flex justify-content-between mb-3">
         <h4>Invoice Detail of order ID {{ $orderId }}</h4>
    <div class='d-flex'>
-    <a href="{{route('super.report.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>
-<a href="{{ route('super.buy.report') }}" class="btn btn-info text-white">Back</a>
+    <a href="{{route('member.report.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>
+<a href="{{ route('member.buy.report') }}" class="btn btn-info text-white">Back</a>
    </div>
        </div>
 

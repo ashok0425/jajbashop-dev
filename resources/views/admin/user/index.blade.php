@@ -80,7 +80,7 @@
 </a>
 
 <a href="{{route('admin.user.income.level',['id'=>$item->userid])}}"><i class="fas fa-dollar-sign btn-info btn" data-toggle="tooltip" data-placement="top" title="Member Level Income"></i>
-    <a href="{{route('admin.user.edit',['id'=>$item->userid])}}"><i class="fas fa-edit btn-primary btn" data-toggle="tooltip" data-placement="top" title=" Member Earning Details"></i>
+    <a href="{{route('admin.user.edit',['id'=>$item->userid])}}"><i class="fas fa-edit btn-primary btn" data-toggle="tooltip" data-placement="top" title="Edit Member  Details"></i>
 </a>
 
 @if ($item->isactive==1)

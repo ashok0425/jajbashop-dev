@@ -43,7 +43,7 @@
                     @php
                     $epin=DB::table('epintransfers')->where('epintransfers.epin_id',$item->id)->latest()->first();
               @endphp
-              @if ($epin->receiver==Auth::user()->userid)
+              @if (strtolower($epin->receiver)==strtolower(Auth::user()->userid))
 
 
                     <tr>
@@ -105,8 +105,8 @@
             <input type="text"  readonly  name="epin" id="epin" class="form-control">
         <div class="modal-body">
 <div class="form-group">
-<input type="text" class="form-control" name="userid"  autocomplete="off">
-<div class="epindata"></div>
+<input type="text" class="form-control sponsor_id" name="userid"  autocomplete="off">
+<div class="name mt-1 text-success text-center"></div>
 </div>
 <br>
 <input type="submit" value="submit" class="form-control">
@@ -131,4 +131,25 @@
      })
     })
 </script>
+@endpush
+
+
+
+@push('scripts')
+<script>
+    $('.sponsor_id').keyup(function(){
+        $('.name').html('')
+        let value=$(this).val();
+        $.ajax({
+            url:'{{ url('member/load-sponsor-data')}}/'+value,
+            type:"GET",
+            success:function(data){
+                    $('.name').html(data)
+
+               
+            }
+        })
+    })
+</script>
+    
 @endpush

@@ -25,166 +25,33 @@
     </thead>
     <tbody>
 
-        <tr>
-            <td>1</td>
-            <td>Level 1</td>
-             <td>
+  {{-- lopping tr for all level and fetching data according to level indexed  --}}
+  @for ($i=1;$i<=10;$i++)
+  @php
+      $l='l'.$i;
+  @endphp
+  {{-- table row start  --}}
+  <tr>
+      <td>{{ $i }}</td>
+      <td>Level {{ $i }}</td>
+       <td>
 @php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l1',Auth::user()->userid)->sum('levelearnings.l1');
+    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.'.$l,Auth::user()->userid)->sum('levelearnings.'.$l);
+
 @endphp
 {{$member}}
-             </td>
+       </td>
 
-<td><a href="{{route('member.income.level.show',['level'=>1])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td>
+    <a href="{{route('member.income.level.show',['level'=>$i])}}"><i class="fas fa-eye btn-info btn"></i></a>
+</td>
 
-
-        </tr>
-
-
-
-
-        <tr>
-            <td>2</td>
-            <td>Level 2</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l2',Auth::user()->userid)->sum('levelearnings.l2');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>2])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+  </tr>
+    {{-- table row end  --}}
+  @endfor
 
 
-        </tr>
-
-
-        <tr>
-            <td>3</td>
-            <td>Level 3</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l3',Auth::user()->userid)->sum('levelearnings.l3');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>3])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-
-        <tr>
-            <td>4</td>
-            <td>Level 4</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l4',Auth::user()->userid)->sum('levelearnings.l4');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>4])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-
-        <tr>
-            <td>5</td>
-            <td>Level 5</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l5',Auth::user()->userid)->sum('levelearnings.l5');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>5])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-
-        <tr>
-            <td>6</td>
-            <td>Level 6</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l6',Auth::user()->userid)->sum('levelearnings.l6');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>6])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-
-        <tr>
-            <td>7</td>
-            <td>Level 7</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l7',Auth::user()->userid)->sum('levelearnings.l7');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>7])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-        <tr>
-            <td>8</td>
-            <td>Level 8</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l8',Auth::user()->userid)->sum('levelearnings.l8');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>8])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-        <tr>
-            <td>9</td>
-            <td>Level 9</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l9',Auth::user()->userid)->sum('levelearnings.l9');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>9])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-        <tr>
-            <td>10</td>
-            <td>Level 10</td>
-             <td>
-@php
-    $member=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.l10',Auth::user()->userid)->sum('levelearnings.l10');
-@endphp
-{{$member}}
-             </td>
-
-<td><a href="{{route('member.income.level.show',['level'=>10])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
-
-
-        </tr>
-
-
-
+    </tbody>
 </table>
 </div>
     </div>

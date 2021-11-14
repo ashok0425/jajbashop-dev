@@ -30,11 +30,11 @@
 
 <tr>
     <td>{{$loop->iteration}}</td>
+
  {{-- TOTAL BV FROM SELECTED USER  --}}
     <td>
     {{ DB::table('orders')->where('buyer',1)->where('user_id',$item->user_id)->sum('bv')}}
     </td>
-
  {{-- CURRENT MONTH BV FROM SELECTED USER  --}}
     <td>  
         {{ DB::table('orders')->where('buyer',1)->where('user_id',$item->user_id)->whereMonth('created_at',date('m'))->sum('bv')}}

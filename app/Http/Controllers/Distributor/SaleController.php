@@ -134,7 +134,6 @@ public function checkout(Request $request){
     }
     //  for not active user if they are repurchase directly
     if($check->status==null){
-        dd($userbv->bv);
         if($userbv->bv>=500){
          $users=User::find($id);
          $users->status='RepurchaseTopup';
@@ -195,7 +194,7 @@ if(!empty($level->l1)){
 }
 
 // looping to check and insert bv and comission for all level member for current login member 
-for ($i=2; $i <=15 ; $i++) { 
+for ($i=2; $i <=100 ; $i++) { 
     $levelM='l'.$i;
     $preId=$i-1;
     $prelevel='l'.$preId;

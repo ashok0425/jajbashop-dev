@@ -69,7 +69,12 @@
                         <label >Sponser ID<span class="text-danger">*</span>
 </label>
 
-                        <input type="text" name="sponsor" class="form-control" required value="{{old('sponsor')}}">
+                        <input type="text" name="sponsor" class="form-control sponsor_id" required value="{{old('sponsor')}}">
+                    </div>
+
+                    <div class="col-md-6 my-2">
+                        <span class="name text-success"></span>
+
                     </div>
                     <div class="col-md-12">
 <input type="submit" class="form-control" value="Register">
@@ -90,8 +95,24 @@
 @endsection
 
 
+@push('scripts')
+<script>
+    $('.sponsor_id').keyup(function(){
+        $('.name').html('')
+        let value=$(this).val();
+        $.ajax({
+            url:'{{ url('member/load-sponsor-data')}}/'+value,
+            type:"GET",
+            success:function(data){
+                    $('.name').html('Sponsor Name :'+ data)
 
-
+               
+            }
+        })
+    })
+</script>
+    
+@endpush
 
 
 

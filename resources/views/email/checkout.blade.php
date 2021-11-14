@@ -177,9 +177,8 @@ padding-bottom: 1rem;
         <?php
        $web=DB::table('websites')->first();
        $order=DB::table('orders')->where('id',$order_id)->first();
-
        $ship=DB::table('shippings')->where('order_id',$order_id)->first();
-       $cart=DB::table('order_details')->join('products','products.id','order_details.product_id')->select('products.name','products.image','order_details.*','products.gst')->where('order_id',$order_id)->get();
+       $cart=DB::table('order_details')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','order_details.*','order_details.gst')->where('order_id',$order_id)->get();
 
        if($order->seller==4){
          $seller=DB::table('websites')->first();
@@ -199,7 +198,7 @@ padding-bottom: 1rem;
                     <table>
                         <tr>
                             <td class="title ">
-                              <a href="{{route('/')}}" class='add' >
+                              <a href="https://jajbashop.in" class='add' >
                                     <img src="{{ asset('logo.png') }}"  style="width: 110px!important;"/>
                               </a>
                           <div class="text">

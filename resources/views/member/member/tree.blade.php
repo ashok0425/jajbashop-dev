@@ -50,280 +50,32 @@ text-align: center;
          <div class="me">
              <img  src="{{asset('download.jpg')}}" alt="" class="img-fluid">
          </div>
-
-
-         <div class="text-center mt-4 mb-0 pb-0">
-            Level 1
-<div class="mainbox mt-0 pt-0">
-
+         {{-- looping through for loop to get level data up to 100 level  --}}
+         @for ($i=1;$i<=100;$i++)
          @php
-    $member=DB::table('levels')->where('l1',Auth::user()->userid)->get();
-@endphp
+             $l='l'.$i;
+         @endphp
+       
+                <div class="text-center mt-4 mb-0 pb-0">
+                    Level {{ $i }}
+        <div class="mainbox mt-0 pt-0">
+        
+                 @php
+            $member=DB::table('levels')->where("$l",Auth::user()->userid)->get();
+        @endphp
+        
+        @foreach ($member as $item)
+        <div class="box">
+            <img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
+        
+        </div>
+        @endforeach
+        </div>
+        </div>
+         @endfor
 
-@foreach ($member as $item)
-<div class="box">
-    <img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
 
-</div>
-@endforeach
-</div>
-</div>
 
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 2
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l2',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 3
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l3',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 4
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l4',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 5
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l5',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 6
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l6',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 7
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l7',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 8
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l8',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 9
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l9',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 10
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l10',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 11
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l11',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 12
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l12',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 13
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l13',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 14
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l14',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
-
-<div class="text-center mt-4 mb-0 pb-0">
-    Level 15
-<div class="mainbox mt-0 pt-0">
-
- @php
-$member=DB::table('levels')->where('l15',Auth::user()->userid)->get();
-@endphp
-
-@foreach ($member as $item)
-<div class="box">
-<img data-id='{{$item->user_id}}' src="{{asset('download.jpg')}}" alt="" class="img-fluid">
-
-</div>
-@endforeach
-</div>
-</div>
     </div>
 </div>
 <a href="{{route('member.all')}}" class="btn btn-info">Back</a>
@@ -346,12 +98,7 @@ $member=DB::table('levels')->where('l15',Auth::user()->userid)->get();
         <p>
             Phone: <span id="phone"></span>
         </p>
-        <p>
-            Email: <span id="email"></span>
-        </p>
-        <p>
-            Adhar Card No: <span id="adhar"></span>
-        </p>
+    
         <p>
            Sponsored By: <span id="sponsor"></span>
         </p>
@@ -369,15 +116,13 @@ $member=DB::table('levels')->where('l15',Auth::user()->userid)->get();
             $(this).addClass('img');
           $id= $(this).data('id');
           $.ajax({
-              url:'{{url('loadmemberdetail')}}/'+$id,
+              url:'{{url('member/loadmemberdetail')}}/'+$id,
               type:'GET',
               dataType:'json',
               success:function(data){
                 $('#name').html(data['name'])
                 $('#userid').html(data['userid'])
-                $('#email').html(data['email'])
                 $('#phone').html(data['phone'])
-                $('#adhar').html(data['adhar'])
                 $('#sponsor').html(data['sponsor_id'])
                 $('.detail').addClass('d-block')
               }

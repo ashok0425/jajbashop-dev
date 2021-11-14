@@ -109,7 +109,7 @@ public  function activation(Request $request){
   if($check){
   $last=Epintransfer::where('epin_id',$check->id)->latest()->first();
 
-      if($last->receiver==Auth::user()->userid){
+      if(strtolower($last->receiver)==strtolower(Auth::user()->userid)){
       if($check->status=='Unused' && $check->usedBy==null ){
 
        $levelearning=new Levelearning;

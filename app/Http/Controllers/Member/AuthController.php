@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Admin;
 use App\Models\User;
 use App\Models\Level;
 use Str;
@@ -15,9 +14,39 @@ use App\Mail\Register;
 use Illuminate\Support\Facades\Mail;
 class AuthController extends Controller
 {
-    public function login(){ //login page
-        return view('member.login')->with('messege','error');
-    }
+    public function login(Request $request){ //login memeber
+
+        $request->validate([
+            'password'=>'required'
+        ]);
+        // try {
+            //code...
+
+       if(Auth::guard()->attempt($request->only('userid','password'),$request->filled('remember'))){
+
+        if(Auth::user()->isactive!=1){
+            Auth::logout();
+            session()->flush();
+            $notification=array(
+                'messege'=>'You had been block.Please contact with administration',
+                 'alert-type'=>'error'
+             );
+    
+           return redirect('/login')->with($notification);
+        }
+              return redirect()->route('member.dashboard');
+
+       }
+
+
+
+       $notification=array(
+        'messege'=>'Invalid Credientials ',
+         'alert-type'=>'error'
+     );
+
+   return redirect()->back()->with($notification);
+}
 
 
     public function show(){ //redirect after login to dasboard page
@@ -170,14 +199,7 @@ $admin->save();
              'adhar'=>'required|min:12|max:12',
             ]);
     }
-    // if(Auth::user()->status==null){
-    //     $notification=array(
-    //         'alert-type'=>'error',
-    //         'messege'=>'Your Account is not Active yet.You can\'t register new member',
-
-    //      );
-    //     return redirect()->back()->with($notification);;
-    // }
+    
     // try {
         //code...
 
@@ -214,7 +236,7 @@ $level=new Level;
 $level->user_id=$user->id;
 $level->l1=$request->sponsor;
 // looping for inserting value as much as level increased 
-for ($i=2; $i <=15 ; $i++) { 
+for ($i=2; $i <=100 ; $i++) { 
     $l='l'.$i;
     $lvid=$i-1;
     $lv='l'.$lvid;
@@ -266,7 +288,10 @@ return redirect()->back()->with($notification);;
 }
 
 
-
+public function sponsorData($val){
+    $user=User::where('userid',$val)->first();
+    return response($user->name);
+}
 
     public function destory(){
         try {
@@ -276,7 +301,7 @@ return redirect()->back()->with($notification);;
 
              );
             Auth::logout();
-         session()->flush();
+        //  session()->flush();
             return redirect()->route('member.login')->with($notification);
         } catch (\Throwable $th) {
             $notification=array(

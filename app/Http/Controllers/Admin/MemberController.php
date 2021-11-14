@@ -297,38 +297,31 @@ protected function deactive($id,$table){
 // login member directly from admin
 public function login(Request $request){ //login memeber
 
-    try {
+    // try {
         //code...
         if(session()->has('mlogin')){
-            Auth::guard('web')->logout();
-            // dd($this->guard);
-
+            Auth::logout();
         }
         session()->put('mlogin',1);
-   if(!Auth::guard('web')->attempt($request->only('userid','password'),$request->filled('remember'))){
+   if(!Auth::attempt($request->only('userid','password'),$request->filled('remember'))){
        $notification=array(
           'messege'=>'Invalid Credientials ',
            'alert-type'=>'error'
        );
-       if(session()->has('mlogin')){
-        Auth::guard('web')->logout();
-        // dd($this->guard);
-
-    }
      return redirect()->back()->with($notification);
    }
 
       return redirect()->route('member.dashboard');
 
-} catch (\Throwable $th) {
-$notification=array(
-    'messege'=>'Something went wrong.Please try again later',
-     'alert-type'=>'error'
- );
+// } catch (\Throwable $th) {
+// $notification=array(
+//     'messege'=>'Something went wrong.Please try again later',
+//      'alert-type'=>'error'
+//  );
 
-return redirect()->back()->with($notification);
+// return redirect()->back()->with($notification);
+// }
+// // }
 }
-}
-
 
 }

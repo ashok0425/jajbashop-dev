@@ -283,7 +283,7 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
                     <h5 class="card-title mb-1 ">Self BV  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
                         @if (isset($mybv))
-                        {{$mybv-__getTotalLevelbv(15,3)}}
+                        {{$mybv-__getTotalLevelbv(100,3)}}
                           @else   
                           0  
                         @endif
@@ -308,7 +308,7 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
         <div>
             <h5 class="card-title mb-1 ">Team BV  </h5>
             <h1 class="mt-1 mb-1  font-weight-bold">
-         {{__getTotalLevelbv(15,3)}}
+         {{__getTotalLevelbv(100,3)}}
             </h1>
         </div>
         <div>
@@ -330,7 +330,7 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
                     <h5 class="card-title mb-1 ">Total BV  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
                         @if (isset($mybv))
-{{$mybv}}
+{{$mybv+__getTotalLevelbv(100,3)}}
                           @else   
                           0  
                         @endif
@@ -384,7 +384,7 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
         <div>
             <h5 class="card-title mb-1 ">Team Repurchase Income  </h5>
             <h1 class="mt-1 mb-1  font-weight-bold">
-{{__getTotalrepurchasecomm(25,3)}}
+{{__getTotalrepurchasecomm(100,3)}}
             </h1>
         </div>
         <div>
@@ -408,7 +408,7 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
                     <h1 class="mt-1 mb-1  font-weight-bold">   
                         @if ($mycomission)
                            
-{{$mycomission+__getTotalrepurchasecomm(15,6)}} 
+{{$mycomission+__getTotalrepurchasecomm(100,6)}} 
 @else     
                 0            
 @endif 
@@ -435,7 +435,7 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
                     <h1 class="mt-1 mb-1  font-weight-bold">   
                         @if ($mycomission)
                            
-                        {{$mycomission +  __getTotalrepurchasecomm(10,3) }}
+                        {{$mycomission +  __getTotalrepurchasecomm(100,3)  + __getTotalLevelearning(10,3) }}
                       @endif
 
                     </h1>

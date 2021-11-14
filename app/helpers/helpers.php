@@ -100,7 +100,7 @@ function __getadminAmount($amount){
     
 // Image path from other database
     function __getimagePath($image){
-        return 'http://ecomm.jajbashop.in/'.$image;
+        return 'http://jajbashop.in/'.$image;
 
     }
 
@@ -120,17 +120,17 @@ function __getadminAmount($amount){
               if($levelincome==null){
                $earning=0;
                for ($i=1; $i <=$level ; $i++) { 
-                    $level='l'.$i;
-                  $earning+=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelearnings.'.$level.'');
+                    $levels='l'.$i;
+                  $earning+=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where("levels.$levels",Auth::user()->userid)->sum("levelearnings.$levels");
                    
                }
                  return $earning;
               }else{
                $earning=0;
                for ($i=2; $i <=$level ; $i++) { 
-                    $level='l'.$i;
-                  $earning+=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where("levels.$level",Auth::user()->userid)->sum("levelearnings.$level");
-                   
+                    $levels='l'.$i;
+                    $earning+=DB::table('levels')->join('levelearnings','levelearnings.user_id','levels.user_id')->where("levels.$levels",Auth::user()->userid)->sum("levelearnings.$levels");
+
                }
                  return $earning;
               }
@@ -217,19 +217,19 @@ function __getadminAmount($amount){
          else{
 
              if($levelincome==null){
-              $earning=0;
-              for ($i=1; $i <=$level ; $i++) { 
-                   $level='l'.$i;
-                 $earning+=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelbvs.'.$level.'');
-                  
+            $earning=0;
 
+              for ($i=1; $i <=$level; $i++) { 
+                   $levels='l'.$i;
+                 $earning+=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where("levels.$levels",Auth::user()->userid)->sum("levelbvs.$levels");
               }
-                return $earning;
+              return $earning;
+
              }else{
               $earning=0;
               for ($i=2; $i <=$level ; $i++) { 
-                   $level='l'.$i;
-                   $earning+=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelbvs.'.$level.'');
+               $levels='l'.$i;
+               $earning+=DB::table('levels')->join('levelbvs','levelbvs.user_id','levels.user_id')->where("levels.$levels",Auth::user()->userid)->sum("levelbvs.$levels");
 
                   
               }
@@ -259,16 +259,16 @@ function __getadminAmount($amount){
                 if($levelincome==null){
                  $earning=0;
                  for ($i=1; $i <=$level ; $i++) { 
-                      $level='l'.$i;
-                    $earning+=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelcomissions.'.$level.'');
+                      $levels='l'.$i;
+                    $earning+=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where("levels.$levels",Auth::user()->userid)->sum("levelcomissions.$levels");
                        
                  }
                    return $earning;
                 }else{
                  $earning=0;
                  for ($i=2; $i <=$level ; $i++) { 
-                      $level='l'.$i;
-                      $earning+=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where('levels.'.$level.'',Auth::user()->userid)->sum('levelcomissions.'.$level.'');
+                      $levels='l'.$i;
+                      $earning+=DB::table('levels')->join('levelcomissions','levelcomissions.user_id','levels.user_id')->where("levels.$levels",Auth::user()->userid)->sum("levelcomissions.$levels");
 
    
                      

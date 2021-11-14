@@ -31,37 +31,15 @@
     <td>{{$loop->iteration}}</td>
 
     <td>Level {{$id}}</td>
-
-    @if ($id==1)
-    <td>{{$item->l1}}</td>
-    @endif
-    @if ($id==2)
-    <td>{{$item->l2}}</td>
-    @endif
-    @if ($id==3)
-    <td>{{$item->l3}}</td>
-    @endif
-    @if ($id==4)
-    <td>{{$item->l4}}</td>
-    @endif
-    @if ($id==5)
-    <td>{{$item->l5}}</td>
-    @endif
-    @if ($id==6)
-    <td>{{$item->l6}}</td>
-    @endif
-    @if ($id==7)
-    <td>{{$item->l7}}</td>
-    @endif
-    @if ($id==8)
-    <td>{{$item->l8}}</td>
-    @endif
-    @if ($id==9)
-    <td>{{$item->l9}}</td>
-    @endif
-    @if ($id==10)
-    <td>{{$item->l10}}</td>
-    @endif
+    @for ($i=1;$i<=10;$i++)
+    @php
+        $l='l'.$i;
+    @endphp
+@if ($id==$i)
+<td>{{$item->$l}}</td>
+@endif
+    @endfor
+    
     <td>Referral level Income for joining of user   <b> {{DB::table('users')->where('id',$item->user_id)->value('userid')}}</b></td>
     <td>{{carbon\carbon::parse($item->created_at)->format('d F Y')}}</td>
 

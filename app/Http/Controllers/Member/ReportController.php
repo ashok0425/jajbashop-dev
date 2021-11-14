@@ -14,14 +14,7 @@ class ReportController extends Controller
 {
 
 // Note :: active,deactive,destroy,method are place in Traits/status file
-
-
     use status;
-
-
-
-    
-
     public function buy()
     {
         $product=DB::table('orders')->where('buyer',1)->where('user_id',Auth::user()->id)->get();
@@ -68,9 +61,9 @@ class ReportController extends Controller
 
     public function print($id,$orderId){      
    
-    try {
+    // try {
     $order=Order::where('id',$id)->where('order_id',$orderId)->first();
-    if($order->user_id==__getSuper()->id||$order->seller_id==__getSuper()->id){
+    if($order->user_id==Auth::user()->id){
         $set=[
             'order_id'=>$id,
         ];
@@ -86,14 +79,14 @@ class ReportController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    } catch (\Throwable $th) {
-    $notification=array(
-        'alert-type'=>'error',
-        'messege'=>'Something went wrong.Try again later',
+    // } catch (\Throwable $th) {
+    // $notification=array(
+    //     'alert-type'=>'error',
+    //     'messege'=>'Something went wrong.Try again later',
 
-    );
-    return redirect()->back()->with($notification);
-    }
+    // );
+    // return redirect()->back()->with($notification);
+    // }
 
 
     }

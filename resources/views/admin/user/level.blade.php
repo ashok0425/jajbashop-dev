@@ -244,7 +244,7 @@
 {{count($member)}}
              </td>
 
-<td><a href="{{route('member.member.level.show',['id'=>$id,'id'=>$id,'level'=>15])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
+<td><a href="{{route('member.level.show',['id'=>$id,'id'=>$id,'level'=>15])}}"><i class="fas fa-eye btn-info btn"></i></a></td>
 
 
         </tr>

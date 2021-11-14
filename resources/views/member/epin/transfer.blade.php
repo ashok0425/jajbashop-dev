@@ -58,7 +58,7 @@
                     @php
                           $epin=DB::table('epintransfers')->where('epintransfers.epin_id',$item->id)->latest()->first();
                     @endphp
-                    @if ($epin->receiver==Auth::user()->userid)
+                    @if (strtolower($epin->receiver)==strtolower(::user()->userid))
 
                     <tr>
                         <td><input type="checkbox" value="{{$item->id}}" name="epin[]"></td>

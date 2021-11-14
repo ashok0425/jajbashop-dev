@@ -35,52 +35,14 @@
     <td>{{$item->name}}</td>
     <td>{{$item->phone}}</td>
     <td>
-@if ($item->l1==Auth::user()->userid)
-Level 1
-@endif
-@if ($item->l2==Auth::user()->userid)
-Level 2
-@endif
-
-@if ($item->l3==Auth::user()->userid)
-Level 3
-@endif
-@if ($item->l4==Auth::user()->userid)
-Level 4
-@endif
-@if ($item->l5==Auth::user()->userid)
-Level 5
-@endif
-@if ($item->l6==Auth::user()->userid)
-Level 6
-@endif
-@if ($item->l7==Auth::user()->userid)
-Level 7
-@endif
-@if ($item->l8==Auth::user()->userid)
-Level 8
-@endif
-@if ($item->l9==Auth::user()->userid)
-Level 9
-@endif
-@if ($item->l10==Auth::user()->userid)
-Level 10
-@endif
-@if ($item->l11==Auth::user()->userid)
-Level 11
-@endif
-@if ($item->l12==Auth::user()->userid)
-Level 112
-@endif
-@if ($item->l13==Auth::user()->userid)
-Level 13
-@endif
-@if ($item->l14==Auth::user()->userid)
-Level 14
-@endif
-@if ($item->l15==Auth::user()->userid)
-Level 15
-@endif
+      @for ($i=1;$i<=100;$i++)
+      @php
+          $l='l'.$i;
+      @endphp
+      @if (strtolower($item->$l)==strtolower(Auth::user()->userid))
+      Level {{ $i}}
+      @endif
+      @endfor
     </td>
     <td>
         @if (!empty($item->status))

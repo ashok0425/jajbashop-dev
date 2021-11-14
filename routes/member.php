@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::middleware('guest')->group(function(){
+    Route::post('/login/store','Member\AuthController@login')->name('login.store');
+});
 
 
 // note member login route is in web route 
@@ -26,6 +29,8 @@ Route::middleware('auth')->group(function () {
    Route::post('logout','Member\AuthController@destory')->name('logout');
    Route::get('logout','Member\AuthController@destory')->name('logouts');
    Route::get('/register','Member\AuthController@register')->name('register');
+   Route::get('/load-sponsor-data/{value}','Member\AuthController@sponsorData');
+
    Route::get('/my/idcard','Member\AuthController@idcard')->name('idcard');
    Route::get('/my/level/reward/voucher','Member\AuthController@levelVoucher')->name('level.reward.voucher');
 

@@ -134,7 +134,7 @@ public function loadepin(){
     foreach ($pin as $value) {
         $last=Epintransfer::where('epin_id',$value->id)->latest()->first();
 
-        if($last->receiver==Auth::user()->userid){
+        if(strtolower($last->receiver)==strtolower(Auth::user()->userid)){
 
         $data.="<li class='pincode my-1'><span class='pincodeinner'>$value->epin</span> | ";
         if($value->package==1){
