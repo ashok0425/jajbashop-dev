@@ -1,6 +1,4 @@
 RewriteEngine On
 
 RewriteRule ^(.*)$ public/$1 [L]
-RewriteCond %{HTTP_HOST} ^krafftbox\.com$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.krafftbox\.com$
-RewriteRule ^/?$ "https\:\/\/krafftbox\.com\/" [R=301,L]
+
