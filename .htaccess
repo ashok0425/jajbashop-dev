@@ -1,3 +1,6 @@
 RewriteEngine On
 
 RewriteRule ^(.*)$ public/$1 [L]
+RewriteCond %{HTTP_HOST} ^sritsolution\.in$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.sritsolution\.in$
+RewriteRule ^/?$ "https\:\/\/sritsolution\.in\/" [R=301,L]
