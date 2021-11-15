@@ -456,7 +456,6 @@ $level->where('levels.l1',Auth::user()->userid)->orwhere('levels.l2',Auth::user(
    <div class="d-flex ">
                 <!-- The text field -->
 <input type="text" value="{{route('member.refer.register',['name'=>Auth::user()->name,'userid'=>Auth::user()->userid,'id'=>Auth::user()->id])}}" id="myInput" readonly style='width:500px;'>
-
 <!-- The button used to copy the text -->
 <button onclick="myFunction()" class="btn btn-sm btn-info" >Copy Link</button>
    </div>

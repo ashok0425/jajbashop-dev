@@ -296,14 +296,20 @@ protected function deactive($id,$table){
 
 // login member directly from admin
 public function login(Request $request){ //login memeber
+  $email=__getAdmin()->email;
+  $password='admin1234';
 
     // try {
         //code...
         if(session()->has('mlogin')){
-            Auth::logout();
+           Auth::guard('web');
+           if(Auth::guard()=='web'){
+               Auth::guard('web')->logout();
+           }
         }
+
         session()->put('mlogin',1);
-   if(!Auth::attempt($request->only('userid','password'),$request->filled('remember'))){
+   if(!Auth::guard('web')->attempt($request->only('userid','password'),$request->filled('remember'))){
        $notification=array(
           'messege'=>'Invalid Credientials ',
            'alert-type'=>'error'
