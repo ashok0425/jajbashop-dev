@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/alfacode/jajbashop.in/
+    - export DEPLOYPATH=/home/alfacode/mlm.jajbashop.in/
     - /bin/cp * $DEPLOYPATH
 
