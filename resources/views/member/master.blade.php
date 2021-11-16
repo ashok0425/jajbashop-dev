@@ -1,21 +1,56 @@
-<!DOCTYPE html>
+@php
+	$setting=DB::connection('mysql2')->table('websites')->first();
+
+@endphp
+
+@section('title')
+{{ $setting->title }}
+@endsection
+@section('descr')
+{{ $setting->descr }}
+@endsection
+@section('keyword')
+{{ $setting->title }}
+@endsection
+@section('title')
+{{ $setting->title }}
+@endsection
+@section('img')
+{{ asset($setting->image) }}
+@endsection
+@section('url')
+{{Request::url()}}
+@endsection
+@section('fev')
+{{ asset($setting->fev) }}
+
+@endsection
+<!DOCTYPE HTML>
 <html lang="en">
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Beliama Pvt ltd">
-	<meta name="author" content="Beliama">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta charset="utf-8">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="max-age=604800" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<meta name="keywords" content="Beliama Pvt ltd">
+<meta property="fb:app_id" content="160443599540603" />
+<meta property="og:url"                content="@yield('url')" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="@yield('title')" />
+<meta property="og:description"        content="@yield('descr')" />
+<meta property="og:image"              content="@yield('img')" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
-	<link rel="shortcut icon" href="{{asset('logo.png')}}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- <meta name="author" content="{{$seo->meta_author}}"> --}}
+    <meta name="keyword" content="@yield('keyword')">
+    <meta name="description" content="@yield('descr')">
 
+    <link rel="icon" href="@yield('fev')" type="image/icon type">
 
-	<title>JAJBASHOP</title>
-
+        <title>@yield('title')</title>
 
 {{-- fontawsome  --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
