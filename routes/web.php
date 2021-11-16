@@ -5,6 +5,9 @@ use App\Http\Controllers\backend\ModalController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/',function(){
+   return redirect('https://jajbashop.in/');
+ });
 
-   return redirect('http://jajbashop.in/');
+Route::get('/public',function(){
+   return redirect('https://jajbashop.in/');;
  });
