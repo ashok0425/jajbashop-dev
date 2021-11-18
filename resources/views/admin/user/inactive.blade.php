@@ -19,6 +19,8 @@
         <th>Username</th>
         <th>Name</th>
         <th>Phone</th>
+        <th>Sponsor ID</th>
+
         <th>Status</th>
         <th>Created On</th>
         <th>Action</th>
@@ -31,8 +33,10 @@
         <tr>
             <td>{{$loop->iteration}}</td>
     <td>{{$item->userid}}</td>
+
     <td>{{$item->name}}</td>
     <td>{{$item->phone}}</td>
+    <td>{{$item->sponsor_id}}</td>
 
 <td>
     @if (!empty($item->status))

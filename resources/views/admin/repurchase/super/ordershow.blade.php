@@ -33,8 +33,8 @@ if($order->seller==4){
        <div class="d-flex justify-content-between mb-3">
         <h4>Invoice Detail of order ID {{ $orderId }}</h4>
    <div class='d-flex'>
-    <a href="{{route('admin.super.order.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>
-<a href="{{ route('admin.super') }}" class="btn btn-info text-white">Back</a>
+    <button class="btn btn-danger mr-2 d_in_win openWin" data-id="{{ $id }}"><i class="fas fa-print"></i> Print</button>
+    <a href="{{route('admin.super.order.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2 "><i class="fas fa-download"></i> Download</a>
    </div>
        </div>
 
@@ -166,3 +166,39 @@ if($order->seller==4){
    </div>
 </div>
 @endsection
+
+
+@push('scripts')
+<script>
+    $('.openWin').click(function openWin()
+ {
+     id=$(this).data('id')
+     $.ajax({
+         url:'{{ url('admin/supers/order/print') }}/'+id,
+         dataType:'html',
+         type:'GET',
+         success:function($data){
+             myWindow=window;
+             myWindow.document.write($data);
+             myWindow.focus();
+             myWindow.print(); 
+             myWindow.close(); //missing code
+             location.reload()
+ 
+         }
+     })
+ 
+  
+ })
+let width=$(window).width();
+ if(width>=1000){
+    $('.d_in_win').removeClass('d-none')
+     $('.d_in_win').addClass('d-inline')
+ }else{
+    $('.d_in_win').removeClass('d-block')
+    $('.d_in_win').addClass('d-none')
+
+ }
+ </script>
+ 
+@endpush

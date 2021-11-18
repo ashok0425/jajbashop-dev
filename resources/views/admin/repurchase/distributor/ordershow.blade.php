@@ -1,5 +1,5 @@
 @php
-    define('PAGE','distributor')
+    define('PAGE','super')
 @endphp
 @extends('admin.master')
 @section('main-content')
@@ -33,8 +33,8 @@ if($order->seller==4){
        <div class="d-flex justify-content-between mb-3">
         <h4>Invoice Detail of order ID {{ $orderId }}</h4>
    <div class='d-flex'>
-    <a href="{{route('admin.distributor.order.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>
-<a href="{{ route('admin.distributor') }}" class="btn btn-info text-white">Back</a>
+    <button class="btn btn-danger mr-2 d_in_win openWin" data-id="{{ $id }}"><i class="fas fa-print"></i> Print</button>
+    <a href="{{route('admin.distributor.order.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2 "><i class="fas fa-download"></i> Download</a>
    </div>
        </div>
 
@@ -42,8 +42,9 @@ if($order->seller==4){
        <div class="col-md-6">
           <h6>SELLER DETAIL</h6>
            <div class="card shadow">
+<div class="card-body">
 
-               <table>
+               <table class="table">
                    <tr>
                        <th>Name</th>
                        <td>{{ $seller->name }}</td>
@@ -71,15 +72,21 @@ if($order->seller==4){
                    
                     <td>{{ $order->bv }}</td>
                 </tr>
+                <tr>
+                    <th>Payment Mode</th>
+                    <td>{{ $order->payment_mode }}</td>
+                </tr>
+             
                </table>
+            </div>
 
            </div>
        </div>
        <div class="col-md-6">
            <h6>BUYER DETAIL</h6>
         <div class="card shadow">
-
-            <table>
+<div class="card-body">
+            <table class="table">
                 <tr>
                     <th> Name</th>
                     <td>{{ $ship->name }}</td>
@@ -105,14 +112,14 @@ if($order->seller==4){
                     <th>City</th>
                     <td>{{ $ship->city }}</td>
                 </tr>
+                
                 <tr>
                     <th>Pin Code</th>
                     <td>{{ $ship->pincode }}</td>
                 </tr>
-             
-             
+               
             </table>
-
+        </div>
         </div>
     </div>
    </div>
@@ -130,7 +137,7 @@ if($order->seller==4){
     @foreach ($product as $item)
     <tr>
     <td>
-       <img src=" {{ asset($item->image) }}" alt="Product image" class="img-fluid" width="80">
+       <img src=" {{ __getimagePath($item->image) }}" alt="Product image" class="img-fluid" width="80">
 
     </td>
   <td>
@@ -159,3 +166,39 @@ if($order->seller==4){
    </div>
 </div>
 @endsection
+
+
+@push('scripts')
+<script>
+    $('.openWin').click(function openWin()
+ {
+     id=$(this).data('id')
+     $.ajax({
+         url:'{{ url('admin/distributor/order/print') }}/'+id,
+         dataType:'html',
+         type:'GET',
+         success:function($data){
+             myWindow=window;
+             myWindow.document.write($data);
+             myWindow.focus();
+             myWindow.print(); 
+             myWindow.close(); //missing code
+             location.reload()
+ 
+         }
+     })
+ 
+  
+ })
+let width=$(window).width();
+ if(width>=1000){
+    $('.d_in_win').removeClass('d-none')
+     $('.d_in_win').addClass('d-inline')
+ }else{
+    $('.d_in_win').removeClass('d-block')
+    $('.d_in_win').addClass('d-none')
+
+ }
+ </script>
+ 
+@endpush

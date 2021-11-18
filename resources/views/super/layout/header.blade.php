@@ -11,7 +11,7 @@
         @endphp
 
     <h4 class='font-weight-bold'>
-    Wallet Amount: {{__getPriceunit(). $earning}}
+    Wallet Amount: {{__getPriceunit(). number_format($earning,2)}}
     </h4>
         <ul class="navbar-nav navbar-align">
             {{-- back to admin after login to super --}}

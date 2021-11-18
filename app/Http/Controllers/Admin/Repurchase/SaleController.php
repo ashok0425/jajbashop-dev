@@ -68,7 +68,7 @@ class SaleController extends Controller
 
   // destroy sales cart item 
   public function destroy($id){
-      DB::table('carts')->where('id',$id)->where('buyer',3)->where('user_id',1)->delete();
+      DB::table('carts')->where('id',$id)->where('buyer',3)->where('user_id',0)->delete();
       return response()->json('Item Deleted');
 
   }
@@ -83,7 +83,6 @@ public function checkout(Request $request){
    ]);
   
   $superD=DB::table('supers')->where('email',$request->email)->where('phone',$request->phone)->first();
-  $id=$superD->id;
   if(!$superD){
     $notification=array(
       'alert-type'=>'error',
@@ -92,8 +91,11 @@ public function checkout(Request $request){
    );
   return redirect()->back()->with($notification);
   }
+
   // try {
       //code...
+  $id=$superD->id;
+
       $sale=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('carts.*','jajbashop_ecommerce.products.sc','jajbashop_ecommerce.products.bv')->where('carts.buyer',3)->where('carts.user_id',0)->get();
 
   $total=0;
@@ -167,6 +169,11 @@ public function checkout(Request $request){
     $orderdetail->comission=$item->sc;
     $orderdetail->save();
 
+    // updating product qty 
+    $product=DB::connection('mysql2')->table('products')->where('id',$item->product_id)->first();
+    $productqty=$product->qty-$item->qty;
+    DB::connection('mysql2')->table('products')->where('id',$item->product_id)->update(['qty'=>$productqty]);
+
    }
 
  //    updating inventory of login user
@@ -199,8 +206,11 @@ public function checkout(Request $request){
   'messege'=>' Sold Sucessfully.',
 
 );
-return redirect()->back()->with($notification);
-
+$orderId=$order->id;
+DB::table('carts')->where('user_id',0)->where('buyer',3)->delete();
+if($request->width>=1000){
+  return view('admin.repurchase.sales.invoice',compact('orderId'));
+}
 //    loading pdf
  $set=[
   'order_id'=>$order->id,
@@ -212,7 +222,6 @@ return redirect()->back()->with($notification);
 
 ];
  $pdf = PDF::loadView('email.checkout', $set);
- $sale=DB::table('salescarts')->where('user_id',__getSuper()->id)->where('seller',3)->delete();
 
 
 // sending email
@@ -241,7 +250,6 @@ return redirect()->back()->with($notification);
 // }
 
 }
-
 
 
 

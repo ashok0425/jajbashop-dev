@@ -166,7 +166,9 @@ Route::get('/super/edit/{id}','Admin\Repurchase\SuperController@edit')->name('su
 Route::post('/super/update/','Admin\Repurchase\SuperController@update')->name('super.update');
 
 Route::get('/super/order/detail/{id}/{orderId}','Admin\Repurchase\SuperController@orderdetail')->name('super.order.show');
-Route::get('/super/order/print/{id}/{orderId}','Admin\Repurchase\SuperController@print')->name('super.order.print');
+Route::get('/super/order/download/{id}/{orderId}','Admin\Repurchase\SuperController@download')->name('super.order.print');
+Route::get('/supers/order/print/{id}','Admin\Repurchase\SuperController@print');
+
 
 // make sales to super distributor
 Route::get('sale/create','Admin\Repurchase\SaleController@create')->name('sale.create');
@@ -175,6 +177,7 @@ Route::get('sale/store','Admin\Repurchase\SaleController@store')->name('sale.sto
 Route::get('sale/list','Admin\Repurchase\SaleController@saleslist');
 Route::get('sale/delete/{id}','Admin\Repurchase\SaleController@destroy');
 Route::post('sale/checkout','Admin\Repurchase\SaleController@checkout')->name('sale.checkout');
+
 
 
 
@@ -189,7 +192,16 @@ Route::get('/distributor/purchase/list/{id}','Admin\Repurchase\DistributorContro
 Route::get('/distributor/edit/list/{id}','Admin\Repurchase\DistributorController@edit')->name('distributor.edit');
 Route::post('/distributor/update/','Admin\Repurchase\DistributorController@update')->name('distributor.update');
 Route::get('/distributor/order/detail/{id}/{orderId}','Admin\Repurchase\DistributorController@orderdetail')->name('distributor.order.show');
-Route::get('/distributor/order/print/{id}/{orderId}','Admin\Repurchase\DistributorController@print')->name('distributor.order.print');
+Route::get('/distributor/order/download/{id}/{orderId}','Admin\Repurchase\DistributorController@print')->name('distributor.order.print');
+Route::get('/distributor/order/print/{id}','Admin\Repurchase\SuperController@print');
+
+
+
+
+
+
+
+
 
 // Repurchase 
 Route::get('/repurchase/commission/list','Admin\Repurchase\RepurchaseController@index')->name('repurchase.comission');

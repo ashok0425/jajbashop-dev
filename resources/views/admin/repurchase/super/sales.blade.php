@@ -38,7 +38,8 @@
 </td> --}}
 <td>
     <a href="{{route('admin.super.order.show',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-    <a href="{{route('admin.super.order.print',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>
+    <button class="btn btn-danger mr-2 d_in_win openWin" data-id="{{ $item->id }}"><i class="fas fa-print"></i> Print</button>
+    <a href="{{route('admin.super.order.print',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-danger mr-2 "><i class="fas fa-download"></i> Download</a>
 
 
 </td>
@@ -55,3 +56,41 @@
 
 
 @endsection
+
+
+
+
+@push('scripts')
+<script>
+    $('.openWin').click(function openWin()
+ {
+     id=$(this).data('id')
+     $.ajax({
+         url:'{{ url('admin/supers/order/print') }}/'+id,
+         dataType:'html',
+         type:'GET',
+         success:function($data){
+             myWindow=window;
+             myWindow.document.write($data);
+             myWindow.focus();
+             myWindow.print(); 
+             myWindow.close(); //missing code
+             location.reload()
+ 
+         }
+     })
+ 
+  
+ })
+let width=$(window).width();
+ if(width>=1000){
+    $('.d_in_win').removeClass('d-none')
+     $('.d_in_win').addClass('d-inline')
+ }else{
+    $('.d_in_win').removeClass('d-block')
+    $('.d_in_win').addClass('d-none')
+
+ }
+ </script>
+ 
+@endpush

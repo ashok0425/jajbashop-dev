@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @php
-       define('PAGE','distributor')
+       define('PAGE','super')
 @endphp
 @section('main-content')
 <div class="container-fluid">
@@ -10,7 +10,7 @@
 
 
    <div class="card">
-    <h3 class=" mb-3">All Distributor</h3>
+    <h3 class=" mb-3">All  Distributor</h3>
 
        <div class="card-body">
 <table id="myTable" class="table table-reponsive table-striped">
@@ -41,8 +41,7 @@
     <td>
         @if ($item->status==1)
         <div class="badge bg-success">Active</div>
-        @elseif($item->status==2)
-        <div class="badge bg-danger">Pending</div>
+       
         @else 
         <div class="badge bg-danger">Block</div>
     
@@ -51,10 +50,11 @@
 
 <td>{{carbon\carbon::parse($item->created_at)->format('d M Y')}}</td>
 <td>
-    <a href="{{route('admin.distributor.show',['id'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="Super distributor detail" class="btn-info btn"><i class="fas fa-eye "></i>
+    <a href="{{route('admin.distributor.show',['id'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="Distributor detail" class="btn-info btn"><i class="fas fa-eye "></i>
     </a>
 
-   
+ 
+
     <a href="{{route('admin.distributor.sales',['id'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="Sales Report" class="btn-info btn"><i class="fas fa-dollar-sign"  ></i>
     </a>
 
@@ -65,9 +65,9 @@
     </a>
 
     @if ($item->status==1)
-    <a  href="{{route('admin.distributor.deactive',['id'=>$item->id,'table'=>'distributors'])}}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactive SuperD"><i class="fas fa-thumbs-down"></i></a>
+    <a  href="{{route('admin.distributor.deactive',['id'=>$item->id,'table'=>'distributors'])}}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactive Distributor"><i class="fas fa-thumbs-down"></i></a>
     @else
-    <a  href="{{route('admin.distributor.active',['id'=>$item->id,'table'=>'distributors'])}}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Active SuperD"><i class="fas fa-thumbs-up"></i></a>
+    <a  href="{{route('admin.distributor.active',['id'=>$item->id,'table'=>'distributors'])}}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Active Distributor"><i class="fas fa-thumbs-up"></i></a>
     @endif
 </td>
 </tr>

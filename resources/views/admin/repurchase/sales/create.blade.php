@@ -48,7 +48,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="submit" name="btnSave" class="btn btn-primary"> Make Quick Purchase </button>
+                        <button type="submit" name="btnSave" class="btn btn-primary"> Make Quick Sale </button>
                     </div>
                 </form>
             </div>
@@ -66,9 +66,8 @@
                 <div id="purchaselist">
 
                 </div>
-                <a  class="btn btn-danger form-control my-2" onclick="return print()"><i class="fa fa-print"></i> Print Bill</a>
 
-                <button class="btn btn-info form-control" data-toggle="modal" data-target="#checkout-modal"><i class="fa fa-download " ></i> Make Purchase & Download invoice</button>
+                <button class="btn btn-info form-control" data-toggle="modal" data-target="#checkout-modal"><i class="fa fa-download " ></i> Sale & send invoice</button>
 
         </div>
     </div>
@@ -91,6 +90,7 @@
         <div class="modal-body">
         <form action="{{route('admin.sale.checkout')}}" method='POST'>
             @csrf
+            <input type="hidden" name="width" id="width">
           <div class="form-group">
               <label for="">Email Address</label>
               <input type="email" name="email" class="form-control">
@@ -185,7 +185,7 @@
             let id=$(this).data('id');
             $.ajax({
                 type: 'get',
-                url: "{{url('admin/sales/delete')}}/"+id,
+                url: "{{url('admin/sale/delete')}}/"+id,
                 dataType: 'json',
                 success: function (data) {
                     readsales();
@@ -196,7 +196,10 @@
             })
         })
 
+let width=$(window).width();
         
-
-    </script>
+        $('#width').val(width)
+  
+</script>
 @endpush
+  

@@ -50,11 +50,11 @@
                 <div>
                     <h5 class="card-title mb-1 ">Comission Amount  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-{{$earning}}
+{{number_format($earning,2)}}
                     </h1>
                 </div>
                 <div>
-                    <i class="fas fa-dollar-sign fa-3x text-success"></i>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
                 </div>
                 </div>
             </div>
@@ -70,11 +70,12 @@
                 <div>
                     <h5 class="card-title mb-1 "> Purchase Amount  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-{{$earning}}
+                        {{number_format($earning,2)}}
+
                     </h1>
                 </div>
                 <div>
-                    <i class="fas fa-dollar-sign fa-3x text-success"></i>
+                    <i class="fas fa-rupee-sign fa-3x text-success"></i>
                 </div>
                 </div>
             </div>
@@ -92,11 +93,12 @@
                 <div>
                     <h5 class="card-title mb-1 "> Sales Amount  </h5>
                     <h1 class="mt-1 mb-1  font-weight-bold">
-              {{$earning}}
+                        {{number_format($earning,2)}}
+
                     </h1>
                 </div>
                 <div>
-                    <i class="fas fa-dollar-sign fa-3x text-info"></i>
+                    <i class="fas fa-rupee-sign fa-3x text-info"></i>
                 </div>
                 </div>
             </div>

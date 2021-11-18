@@ -148,7 +148,7 @@ public function update(Request $request){
 
 
 //    loading pdf
-public function print($id,$orderId){      
+public function download($id,$orderId){      
    
     try {
         $set=[
@@ -238,5 +238,11 @@ return redirect()->back()->with($notification);;
 }
 }
 
+// printing order 
+
+public function print($id){
+$orderId=$id;
+return view('admin.repurchase.super.print',compact('orderId'));
+}
 
 }

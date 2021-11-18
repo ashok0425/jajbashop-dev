@@ -7,7 +7,7 @@
 @section('main-content')
 
 @php
-    define('PAGE','distributor')
+    define('PAGE','super')
 @endphp
 <div class="container-fluid mt-4">
 
@@ -73,7 +73,7 @@
 
 
       </div>
-    <a href="{{route('admin.distributor')}}" class="btn btn-info">Back</a>
+    <a href="{{route('admin.super')}}" class="btn btn-info">Back</a>
 
 </div>
 @endsection

@@ -19,6 +19,8 @@
         <th>Username</th>
         <th>Name</th>
         <th>Phone</th>
+        <th>SponsorID</th>
+
         <th>Status</th>
         <th>IsActive</th>
         <th>Created On</th>
@@ -39,8 +41,11 @@
 <button class="btn btn-danger"><i class="fas fa-power-off"></i></button>
     </form>
     </td>
-    <td>{{$item->name}}</td>
+    <td>{{$item->name}}
+    </td>
     <td>{{$item->phone}}</td>
+    <td>{{$item->sponsor_id}}</td>
+
 
 <td>
     @if (!empty($item->status))
