@@ -66,9 +66,7 @@
                 <div id="purchaselist">
 
                 </div>
-                <a  class="btn btn-danger form-control my-2" onclick="return print()"><i class="fa fa-print"></i> Print Bill</a>
-
-                <button class="btn btn-info form-control" data-toggle="modal" data-target="#checkout-modal"><i class="fa fa-download " ></i> Make Purchase & Download invoice</button>
+                <button class="btn btn-info form-control" data-toggle="modal" data-target="#checkout-modal"><i class="fa fa-download " ></i> Make Purchase</button>
 
         </div>
     </div>
@@ -93,10 +91,13 @@
             @csrf
           
              
-        <div class="form-group mt-3 d-flex justify-content-around">
-            <h4>Payment Mode</h4>
-            <label class="d-flex align-items-center"><input type="radio" name="payment_mode" value="cash">&nbsp;&nbsp; Cash</label>
-            <label class="d-flex align-items-center"><input type="radio" name="payment_mode" value="account">&nbsp;&nbsp; Account Fund</label>
+        <div class="form-group mt-3 row">
+            <h4 class="col-md-12 ">Payment Mode</h4>
+<hr>
+            <label class="col-md-4 d-flex align-items-center"><input type="radio" name="payment_mode" value="cash">&nbsp;&nbsp; Cod</label>
+            <label class=" col-md-4  d-flex align-items-center"><input type="radio" name="payment_mode" value="account">&nbsp;&nbsp; Account Fund</label>
+
+            <label class="col-md-4  d-flex align-items-center"><input type="radio" name="payment_mode" value="paytm">&nbsp;&nbsp; Paytm</label>
 
         </div>
         <div class="modal-footer">

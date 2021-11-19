@@ -44,11 +44,11 @@ class SaleController extends Controller
             'sales_quantity'=>'required',
             'price'=>'required',
         ]);
-        $product_id=Inventory::where('id',$request->product_id)->value('product_id');
+        $product=Inventory::where('id',$request->product_id)->first();
         $sales = new Salescart;
-        $sales->product_id =$product_id ;
+        $sales->product_id =$product->product_id ;
         $sales->qty = $request->sales_quantity;
-        $sales->price = $request->price ;
+        $sales->price = $product->price ;
         $sales->user_id = __getSuper()->id;
         $sales->seller = 3;
         $sales->save();
@@ -71,23 +71,8 @@ class SaleController extends Controller
 
 
 
-    public function order()
-    {
-        $product=DB::table('orders')->where('seller',3)->where('seller_id',__getSuper()->id)->where('status',0)->get();
-       return view('super.sales.pending',compact('product'));
-    }
-
-    
-    public function acceptorder($id)
-    {
-        $product=DB::table('orders')->where('seller',3)->where('seller_id',__getSuper()->id)->where('id',$id)->update(['status'=>1]);
-        $notification=array(
-            'alert-type'=>'success',
-            'messege'=>'Order Accepted',
-        
-         );
-       return redirect()->route('super.sale.order')->with($notification);
-    }
+  
+   
 
 // storing all the data after checkout
 public function checkout(Request $request){
@@ -95,7 +80,6 @@ public function checkout(Request $request){
         'payment_mode'=>'required',
         'email'=>'required|email',
         'phone'=>'required',
-
      ]);
     //  checking whether the distributor is available or not
     $check=Distributor::where('email',$request->email)->where('phone',$request->phone)->first();
@@ -107,10 +91,27 @@ public function checkout(Request $request){
    );
   return redirect()->back()->with($notification);
     }
-    $id=$check->id;
     // try {
+
+// making order id for next order id 
+    $prId=Order::orderBy('id','desc')->value('id');
+    $orderId=rand().$prId;
+    $id=$check->id;
+    $payment_mode=$request->payment_mode;
+    $seller=3;
+    $buyer=2;
+    $seller_id=__getSuper()->id;
+    $buyer_id=$id;
+    $ship=$check;
+
         //code...
-        $sale=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','jajbashop_ecommerce.products.dc','jajbashop_ecommerce.products.bv')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
+        $sale=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','jajbashop_ecommerce.products.dc','jajbashop_ecommerce.products.bv','jajbashop_ecommerce.products.hsn_id')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
+        if(count($sale)<=0){
+            $notification=array(
+              'alert-type'=>'error',
+              'messege'=>'Cart is empty',
+          
+           );}
     $total=0;
     $bv=0;
     $comission=0;
@@ -157,104 +158,9 @@ public function checkout(Request $request){
           $account->user_type=2;
           $account->save();
     }
-    $order=new Order;
-    $order->user_id=$id;
-    $order->seller_id=__getSuper()->id;
-    $order->total=$total;
-    $order->bv=$bv;
-    $order->comission=$comission;
-    $order->payment_mode=$request->payment_mode;
-    $order->payment_id=rand();
-    $order->order_id='JS'.uniqid();
-    $order->buyer=2;
-    $order->status=4;
-    $order->seller=3;
-    if($order->save()){
-      $ship=new Shipping;
-      $ship->name=$check->name;
-      $ship->email=$check->email;
-      $ship->phone=$check->phone;
-      $ship->state=$check->state;
-      $ship->district=$check->district;
-      $ship->city=$check->city;
-      $ship->pincode=$check->pincode;
-      $ship->order_id=$order->id;
-       $ship->save();
-    //   storing cart item
-   foreach ($sale as  $item) {
-      $orderdetail=new Order_detail;
-      $orderdetail->order_id=$order->id;
-      $orderdetail->product_id=$item->product_id;
-      $orderdetail->price=$item->price;
-      $orderdetail->qty=$item->qty;
-      $orderdetail->bv=$item->bv;
-      $orderdetail->comission=$item->dc;
-      $orderdetail->save();
-
-     }
-
-   //    updating inventory of login user
-   $datas=array();
-   foreach ($sale as $item) {
-    $check=DB::table('inventories')->where('user_id',__getSuper()->id)->where('product_id',$item->product_id)->where('buyer',3)->first();
-    $inventory=Inventory::find($check->id);
-    $inventory->qty=$inventory->qty-$item->qty;
-    $inventory->save();
-   $datas[]=$inventory;
-    }
-  //    storing all cart item to inventory
-   foreach ($sale as $item) {
-       $check=Inventory::where('user_id',$id)->where('product_id',$item->product_id)->where('buyer',2)->first();
-       if($check){
-      $inventory=Inventory::find($check->id);
-       $inventory->qty=$item->qty+$check->qty;
-       $inventory->price=$item->price;
-       $inventory->save();
-       }else{
-        $inventory=new Inventory;
-        $inventory->user_id=$id;
-        $inventory->qty=$item->qty;
-        $inventory->price=$item->price;
-        $inventory->product_id=$item->product_id;
-        $inventory->buyer=2;
-        $inventory->seller=3;
-        $inventory->save();
-       }
-   }
-//    loading pdf
-   $set=[
-    'order_id'=>$order->id,
-    'email'=>$ship->email,
-    'orderId'=>$order->order_id,
-    'date'=>$order->created_at,
-
-
-
-];
-   $sale=DB::table('salescarts')->where('user_id',__getSuper()->id)->where('seller',3)->delete();
-   $notification=array(
-    'alert-type'=>'success',
-    'messege'=>' Sold Sucessfully.',
-
- );
-   return redirect()->back()->with($notification);
-
-   $pdf = PDF::loadView('email.checkout', $set);
-
-// sending email
-   Mail::send('email.order', $set, function($message)use($set, $pdf) {
-       $message->to($set['email'])
-               ->subject("Thank you for your order. Your order number has been placed.")
-               ->attachData($pdf->output(), "orderinvoice.pdf");
-   });
-
-   $notification=array(
-    'alert-type'=>'success',
-    'messege'=>' Sold Sucessfully.',
-
- );
-return redirect()->back()->with($notification);
-    }
+   
+  $this->orderPush($orderId,$total,$comission,$bv,$payment_mode,$sale,$buyer,$seller,$seller_id,$buyer_id,$ship);
+    
 
 // } catch (\Throwable $th) {
 

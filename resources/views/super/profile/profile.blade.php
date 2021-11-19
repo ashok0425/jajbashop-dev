@@ -64,12 +64,7 @@
 
                                     <input type="" name="adhar" class="form-control"  value="{{__getSuper()->adhar}}" disabled>
                                 </div>
-                                <div class="col-md-6 my-2">
-                                    <label >Sponser ID<span class="text-danger">*</span>
-            </label>
-
-                                    <input type="text" name="sponsor" class="form-control"  disabled value="{{__getSuper()->sponsor_id}}">
-                                </div>
+                               
 
                                 <div class="col-md-6 my-2">
                                     <label >State<span class="text-danger">*</span>

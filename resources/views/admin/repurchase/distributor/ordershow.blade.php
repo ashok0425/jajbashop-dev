@@ -14,10 +14,7 @@
 
 @php
     $order=DB::table('orders')->where('id',$id)->first();
-if($order->seller==4){
-    $seller=DB::table('websites')->first();
-     $seller->name='Jajbashop';
-}elseif($order->seller==3){
+if($order->seller==3){
     $seller=DB::table('supers')->where('id',$order->seller_id)->first();
 
 }elseif($order->seller==2){
@@ -125,6 +122,7 @@ if($order->seller==4){
    </div>
    <div class="card mt-3 shadow">
        <h3>Product Details</h3>
+       <div class="card-body table-responsive">
        <table class="table table-responsive table-striped">
 <thead>
     <th>Image</th>
@@ -163,6 +161,7 @@ if($order->seller==4){
    
 </tbody>
        </table>
+    </div>
    </div>
 </div>
 @endsection

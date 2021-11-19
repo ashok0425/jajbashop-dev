@@ -35,6 +35,8 @@ Route::get('purchase/store','Super\PurchaseController@store')->name('purchase.st
 Route::get('purchase/list','Super\PurchaseController@saleslist');
 Route::get('purchase/delete/{id}','Super\PurchaseController@destroy');
 Route::post('purchase/checkout','Super\PurchaseController@checkout')->name('purchase.checkout');
+Route::get('paytm','Super\PaytmController@index')->name('paytm');
+Route::post('payment/status','Super\PaytmController@paymentCallback')->name('paytm.status');
 
 
 
@@ -62,8 +64,11 @@ Route::post('sales/checkout','Super\SaleController@checkout')->name('sale.checko
 Route::get('sale/report','Super\ReportController@sale')->name('sale.report');
 Route::get('buy/report','Super\ReportController@buy')->name('buy.report');
 Route::get('report/show/{id}/{orderId}','Super\ReportController@show')->name('report.show');
-Route::get('report/print/{id}/{orderId}','Super\ReportController@print')->name('report.print');
+Route::get('report/download/{id}/{orderId}','Super\ReportController@download')->name('report.print');
 Route::get('dealer/list','Super\ReportController@dealer')->name('distributor');
+Route::get('report/print/{id}/','Super\ReportController@print');
+
+
 
 
 // Register Distributor

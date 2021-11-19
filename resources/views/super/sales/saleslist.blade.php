@@ -1,5 +1,5 @@
 
-<x-printheader/>
+<div class="table-responsive">
 
 <table width="100%" class="table table-striped table-bordered table-hover" id="categorytable">
     <thead>
@@ -48,3 +48,4 @@
     </tr>
     </tbody>
 </table>
+</div>

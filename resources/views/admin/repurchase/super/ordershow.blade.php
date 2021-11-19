@@ -14,18 +14,13 @@
 
 @php
     $order=DB::table('orders')->where('id',$id)->first();
-if($order->seller==4){
-    $seller=DB::table('websites')->first();
-     $seller->name='Jajbashop';
-}elseif($order->seller==3){
-    $seller=DB::table('supers')->where('id',$order->seller_id)->first();
-
-}elseif($order->seller==2){
-    $seller=DB::table('distributors')->where('id',$order->seller_id)->first();
-
+    if($order->seller==4){
+    $seller=DB::connection('mysql2')->table('websites')->first();
 }else{
-
+    $seller=DB::table('supers')->where('id',$order->seller_id)->first();
+    $seller->copy_right=$seller->name;
 }
+
 
 @endphp
 <div class="container mt-5">
@@ -47,7 +42,7 @@ if($order->seller==4){
                <table class="table">
                    <tr>
                        <th>Name</th>
-                       <td>{{ $seller->name }}</td>
+                       <td>{{ $seller->copy_right }}</td>
                    </tr>
                     <tr>
                        <th>Email</th>
@@ -125,6 +120,7 @@ if($order->seller==4){
    </div>
    <div class="card mt-3 shadow">
        <h3>Product Details</h3>
+       <div class="card-body table-responsive">
        <table class="table table-responsive table-striped">
 <thead>
     <th>Image</th>
@@ -163,6 +159,7 @@ if($order->seller==4){
    
 </tbody>
        </table>
+    </div>
    </div>
 </div>
 @endsection

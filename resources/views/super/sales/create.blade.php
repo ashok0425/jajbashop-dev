@@ -74,9 +74,7 @@
                 <div id="saleslist">
 
                 </div>
-                <a   class="btn btn-danger form-control my-2" onclick="return print()"><i class="fa fa-print"></i> Print Bill</a>
-
-                <button class="btn btn-info form-control" data-toggle="modal" data-target="#checkout-modal"><i class="fa fa-download " ></i> Make Sale & Download invoice</button>
+                <button class="btn btn-info form-control" data-toggle="modal" data-target="#checkout-modal"><i class="fa fa-download " ></i> Make Sale </button>
 
         </div>
     </div>
@@ -98,10 +96,12 @@
             @csrf
         <input type="email" name="email" required  class="form-control my-2" placeholder="Email Address">
         <input type="number" name="phone" required  class="form-control my-2" placeholder="Phone number">
-        <div class="form-group mt-3 d-flex justify-content-around">
-            <h4>Payment Mode</h4>
-            <label class="d-flex align-items-center"><input type="radio" name="payment_mode" value="cash">&nbsp;&nbsp; Cash</label>
-            <label class="d-flex align-items-center"><input type="radio" name="payment_mode" value="account">&nbsp;&nbsp; Account Fund</label>
+<hr>
+
+        <h4>Payment Mode</h4>
+        <div class="form-group mt-3 d-flex justify-content-around row">
+            <label class="col-6 d-flex align-items-center"><input type="radio" name="payment_mode" value="cash">&nbsp;&nbsp; Cash</label>
+            <label class="col-6 d-flex align-items-center"><input type="radio" name="payment_mode" value="account">&nbsp;&nbsp; Account Fund</label>
 
         </div>
         <div class="modal-footer">

@@ -180,7 +180,7 @@ padding-bottom: 1rem;
        $ship=DB::table('shippings')->where('order_id',$order_id)->first();
        $cart=DB::table('order_details')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','order_details.*','order_details.gst')->where('order_id',$order_id)->get();   
        
-       if ($order->seller=3) {
+       if ($order->seller==3) {
         $web=DB::table('supers')->where('id',$order->seller_id)->first();
         $web->copy_right=$web->name;
 

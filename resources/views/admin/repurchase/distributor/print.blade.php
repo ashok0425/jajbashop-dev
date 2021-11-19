@@ -11790,11 +11790,13 @@ table {
 	$website=DB::connection('mysql2')->table('websites')->first();
 	$ship=DB::table('shippings')->where('order_id',$orderId)->first();
 	$product=DB::table('order_details')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','order_details.*','jajbashop_ecommerce.products.bv')->where('order_id',$orderId)->get();
-    if ($order->seller_id==0&&$order->seller=4) {
-        $vendor=DB::connection('mysql2')->table('websites')->first();
+    if ($order->seller==3) {
+		$vendor=DB::table('supers')->where('id',$order->seller_id)->first();
+        $vendor->copy_right=$vendor->name;
+
 
     }else{
-        $vendor=DB::table('supers')->where('id',$order->seller_id)->first();
+        $vendor=DB::table('distributor')->where('id',$order->seller_id)->first();
         $vendor->copy_right=$vendor->name;
     }
 @endphp
@@ -11812,7 +11814,6 @@ table {
                                         <div class="img-wrap">
 											
                                         <a href="https://jajbashop.in">
-											<h5>ksaf saduifsd </h5>
 											<img src="{{ asset($website->image) }}" alt="jajbashop.in" class="img-fluid">
 										</a>
                                         </div>

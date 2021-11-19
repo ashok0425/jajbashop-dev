@@ -32,7 +32,7 @@
                     
 
                 {{-- cart item  --}}
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-icon dropdown-toggle" id="alertsDropdown" title='view cart' href="{{ route('super.sale.order') }}">
                         <div class="position-relative">
                             <i class="align-middle" data-feather="shopping-cart"></i>
@@ -42,7 +42,7 @@
                             <span class="indicator">{{count($product)}}</span>
                         </div>
                     </a>
-                    </li>
+                    </li> --}}
 
 
 
@@ -69,7 +69,12 @@
   </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-    <img src="{{ asset(__getSuper()->profile_photo_path) }}" class="avatar img-fluid rounded mr-1" alt="Charles Hall" /> <span class="text-dark">{{ __getSuper()->name }}</span>
+                    @if (!empty(__getSuper()->profile_photo_path))
+                        
+    <img src="{{ asset(__getSuper()->profile_photo_path) }}" class="avatar img-fluid rounded mr-1"  /> 
+    @endif
+    
+    <span class="text-dark">{{ __getSuper()->name }}</span>
   </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{ route('super.profile') }}"><i class="align-middle mr-1" data-feather="user"></i> Profile</a>

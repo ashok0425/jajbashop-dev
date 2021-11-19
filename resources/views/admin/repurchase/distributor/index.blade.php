@@ -72,18 +72,7 @@
 </td>
 </tr>
         @endforeach
-        {{-- <tfoot>
-            <tr>
-                <td>{{$member->getOptions($member)}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>{{$member->links()}}</td>
-            </tr>
-        </tfoot> --}}
+       
 </table>
 </div>
     </div>
