@@ -34,7 +34,6 @@ class AuthController extends Controller
 
 
     public function store(Request $request){
-dd($request->all());
         $request->validate([
             'email'=>'required|email',
             'password'=>'required'
