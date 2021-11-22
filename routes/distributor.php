@@ -1,9 +1,8 @@
 <?php
 
-use GuzzleHttp\Middleware;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Distributor\AuthController;
-use Illuminate\Support\Facades\Auth;
+
 // Admin Auth
 Route::middleware('guest:distributor')->group(function(){
     Route::get('/login','Distributor\AuthController@login')->name('distributor.logins');

@@ -1,9 +1,7 @@
 <?php
 
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Super\AuthController;
-use Illuminate\Support\Facades\Auth;
+
 // Admin Auth
 Route::middleware('guest:super')->group(function(){
     Route::get('/login','Super\AuthController@login')->name('super.logins');

@@ -27,7 +27,7 @@ class SaleController extends Controller
 
     public function create()
     {
-        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->select('jajbashop_ecommerce.products.*')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->leftjoin('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','inventories.product_id')->select('alfacode_jajbashop_ecommerce.products.*')->where('inventories.buyer',3)->where('inventories.user_id',__getSuper()->id)->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','alfacode_jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
        return view('super.sales.create',compact('product'));
     }
 
@@ -57,7 +57,7 @@ class SaleController extends Controller
 
 //  sales cart item  using ajax
     public function saleslist(){
-        $sales=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('jajbashop_ecommerce.products.name','salescarts.*')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
+        $sales=DB::table('salescarts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','salescarts.product_id')->select('alfacode_jajbashop_ecommerce.products.name','salescarts.*')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
         return view('super.sales.saleslist',compact('sales'));
     }
 
@@ -105,7 +105,7 @@ public function checkout(Request $request){
     $ship=$check;
 
         //code...
-        $sale=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','jajbashop_ecommerce.products.dc','jajbashop_ecommerce.products.bv','jajbashop_ecommerce.products.hsn_id')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
+        $sale=DB::table('salescarts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','alfacode_jajbashop_ecommerce.products.dc','alfacode_jajbashop_ecommerce.products.bv','alfacode_jajbashop_ecommerce.products.hsn_id')->where('salescarts.seller',3)->where('salescarts.user_id',__getSuper()->id)->get();
         if(count($sale)<=0){
             $notification=array(
               'alert-type'=>'error',

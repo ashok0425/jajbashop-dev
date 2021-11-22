@@ -11789,7 +11789,7 @@ table {
   $order=DB::table('orders')->where('id',$orderId)->first();
 	$website=DB::connection('mysql2')->table('websites')->first();
 	$ship=DB::table('shippings')->where('order_id',$orderId)->first();
-	$product=DB::table('order_details')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','order_details.*','jajbashop_ecommerce.products.bv')->where('order_id',$orderId)->get();
+	$product=DB::table('order_details')->join('alfacode_jajbashop_ecommerceproducts','alfacode_jajbashop_ecommerceproducts.id','order_details.product_id')->select('alfacode_jajbashop_ecommerceproducts.name','alfacode_jajbashop_ecommerceproducts.image','order_details.*','alfacode_jajbashop_ecommerceproducts.bv')->where('order_id',$orderId)->get();
     if ($order->seller==4) {
         $vendor=DB::connection('mysql2')->table('websites')->first();
 

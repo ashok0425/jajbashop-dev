@@ -34,19 +34,18 @@ class AuthController extends Controller
 
 
     public function store(Request $request){
-
+dd($request->all());
         $request->validate([
             'email'=>'required|email',
             'password'=>'required'
         ]);
        if(!Auth::guard('distributor')->attempt($request->only('email','password'),$request->filled('remember'))){
-
            $notification=array(
               'messege'=>'Invalid username or password',
                'alert-type'=>'error'
            );
 
-         return redirect('/distributor/login')->with($notification);
+         return redirect()->route('distributor.logins')->with($notification);
        }
        // checking where user is block or not
        if(__getDist()->status!=1){
@@ -56,8 +55,8 @@ class AuthController extends Controller
             'messege'=>'You had been block.Please contact with administration',
              'alert-type'=>'error'
          );
+         return redirect()->route('distributor.logins')->with($notification);
 
-       return redirect('/distributor/login')->with($notification);
     }
           return redirect()->route('distributor.dashboard');
     }

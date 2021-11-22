@@ -33,11 +33,7 @@ class RedirectIfAuthenticated
 
                 }
 
-                else{
-
-                    return redirect('member/dashboard');
-                }
-
+            
 
             }
         }

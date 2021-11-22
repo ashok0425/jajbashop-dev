@@ -139,70 +139,7 @@ function __getadminAmount($amount){
           }
     }
 
-   //  rank of member 
-    function __getMyrank(){
-        $mybv=DB::table('userbvs')->where('user_id',Auth::user()->id)->sum('bv');
-       if ($mybv>=0&&$mybv<=1000){
-          return   'STAR';
-       }
 
-       if ($mybv>=1000&&$mybv<=5000){
-        return   'SILVER';
-     }
-
-
-     if ($mybv>=5001&&$mybv<=10000){
-        return   'GOLD';
-     }
-
-
-
-     if ($mybv>=10001&&$mybv<=25000){
-        return   'PLATINUM';
-     }
-
-
-     if ($mybv>=25001&&$mybv<=50000){
-        return   'TOPAZ';
-     }
-
-     if ($mybv>=50001&&$mybv<=100000){
-        return   'EMRALD';
-     }
-
-     if ($mybv>=100001&&$mybv<=250000){
-        return   'RUBY';
-     }
-
-     if ($mybv>=250001&&$mybv<=500000){
-        return   'DIAMOND';
-     }
-
-
-
-     if ($mybv>=500001&&$mybv<=1000000){
-        return   'DOUBLE DIAMOND
-        ';
-     }
-
-     if ($mybv>=1000001&&$mybv<=2500000){
-        return   'ROYAL DIAMOND
-        ';
-     }
-
-     if ($mybv>=2500001&&$mybv<=5000000){
-        return   'SAPPHIRE';
-     }
-
-     if ($mybv>=5000001&&$mybv<=10000000){
-        return   'CROWN';
-     }
-
-     if ($mybv>=10000001&&$mybv<=25000000){
-        return   'CROWN AMBASSADOR
-        ';
-     }
-    }
 
    //  finding total level income for both admin and member 
    function __getTotalLevelbv($level,$id=null,$levelincome=null){

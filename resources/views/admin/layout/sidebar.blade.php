@@ -20,10 +20,16 @@
       <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
     </a>
             </li>
-            @endif
-           
-            @if (__getAdmin()->epin==1)
 
+            <li class="sidebar-item <?php echo PAGE=='super' ? 'active':'' ?>">
+                <a class="sidebar-link" href="{{route('admin.sale.create')}}" >
+      <i class="fas fa-rupee-sign"></i> <span class="align-middle">Make Sale</span>
+    </a>
+            </li>
+            @endif
+
+            @if (__getAdmin()->epin==1)
+          
             <li class="sidebar-item   <?php echo PAGE=='pin' ? 'active':'' ?>">
                 <a data-target="#pin" data-toggle="collapse" class="sidebar-link" aria-expanded="false"> <i class="fas fa-key"></i>
        <span class="align-middle"> Manage E-pin</span>
@@ -146,7 +152,7 @@
 
                     <li class="sidebar-item"><a class="sidebar-link"  href="{{route('admin.super')}}">Super  List </a></li>
                     <li class="sidebar-item"><a class="sidebar-link"  href="{{route('admin.super.create')}}">Add New </a></li>
-                    <li class="sidebar-item"><a class="sidebar-link"  href="{{route('admin.sale.create')}}">Make Sale </a></li>
+                   
 
 
                 </ul>

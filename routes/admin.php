@@ -1,9 +1,7 @@
 <?php
 
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController;
-use Illuminate\Support\Facades\Auth;
+
 // Admin Auth
 Route::middleware('guest:admin')->group(function(){
     Route::get('/login','Admin\AuthController@index')->name('admin.logins');

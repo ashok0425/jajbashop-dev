@@ -115,7 +115,7 @@ body {
 
 		<div class="login-page">
 			<div class="form">
-			  <form class="register-form" action="{{route('super.login')}}" method="POST">
+			  <form class="register-form" action="{{route('distributor.login')}}" method="POST">
 				@csrf
 				<h1> Distributor Login</h1>
 
