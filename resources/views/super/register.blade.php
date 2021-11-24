@@ -98,7 +98,7 @@
                         <label >Super Distributor Email<span class="text-danger">*</span>
 </label>
 
-                        <input type="text" name="sponsor_id" class="form-control" required value="{{__getSuper()->email}}">
+                        <input type="text" name="sponsor_email" class="form-control" required value="{{__getSuper()->email}}">
                     </div>
                     <div class="col-md-12">
 <input type="submit" class="form-control" value="Register">

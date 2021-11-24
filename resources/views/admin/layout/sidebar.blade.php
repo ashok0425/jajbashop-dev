@@ -106,6 +106,31 @@
 
                 </ul>
             </li>
+
+
+
+
+
+
+
+            <li class="sidebar-item   <?php echo PAGE=='order' ? 'active':'' ?>">
+                <a data-target="#order" data-toggle="collapse" class="sidebar-link" aria-expanded="false"> <i class="fas fa-truck"></i>
+       <span class="align-middle"> Voucher Order</span>
+    </a>
+                <ul id="order" class="sidebar-dropdown list-unstyled collapse <?php echo PAGE=='order'?'show':'' ?>" data-parent="#sidebar" style="">
+
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.order',['status'=>0]) }}">Pending </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.order',['status'=>1]) }}">Proccessing </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.order',['status'=>2]) }}">Shipping </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.order',['status'=>3]) }}">Delivered </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.order',['status'=>4]) }}">Cancelled </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('admin.order',['status'=>7]) }}">All Order </a></li>
+
+
+
+
+                </ul>
+            </li>
             @endif
             @if (__getAdmin()->deposite==1)
 

@@ -1,23 +1,20 @@
 <?php
 namespace App\Http\Traits;
+
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Inventory;
+use App\Models\Level;
 use App\Models\Order_detail;
 use App\Models\Shipping;
+use App\Models\Vouchergift;
 use File;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 trait status
 {
-   /**
-     * Return a success JSON response.
-     *
-     * @param  array|string  $data
-     * @param  string  $message
-     * @param  int|null  $code
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     protected function active($id,$table){
         DB::table($table)->where('id',$id)->update([
              'status'=>1,
@@ -95,10 +92,10 @@ $gst=DB::connection('mysql2')->table('gsts')->where('id',$item->hsn_id)->value('
           $orderdetail->gst=$gst;
 
           if ($seller==4) {
-            $orderdetail->comission=(($item->price*$item->sc)/100)*$item->qty;
+            $orderdetail->comission=(($item->price*$item->sc)/100);
 
           }elseif($seller==3){
-          $orderdetail->comission=(($item->price*$item->dc)/100)*$item->qty;
+          $orderdetail->comission=(($item->price*$item->dc)/100);
 
           }else{
 
@@ -106,7 +103,17 @@ $gst=DB::connection('mysql2')->table('gsts')->where('id',$item->hsn_id)->value('
           $orderdetail->save();
          }
       
-       
+
+            //    Decreasing all item from inventory
+       foreach ($sale as $item) {
+        $check=Inventory::where('user_id',$seller_id)->where('product_id',$item->product_id)->where('buyer',$seller)->first();
+        if($check){
+       $inventory=Inventory::find($check->id);
+        $inventory->qty=$check->qty-$item->qty;
+        $inventory->save();
+     
+    }
+  }
        
       //    storing all cart item to inventory
        foreach ($sale as $item) {
@@ -135,6 +142,12 @@ $gst=DB::connection('mysql2')->table('gsts')->where('id',$item->hsn_id)->value('
         'date'=>$order->created_at,
       ];  
       
+
+       // calculation total monthly bv of member 
+       if($buyer==1){
+        $this->monthlybv($buyer_id);
+       }
+
       //  $pdf = PDF::loadView('email.checkout', $set);
       //  $sale=DB::table('salescarts')->where('user_id',__getSuper()->id)->where('seller',3)->delete();
          
@@ -149,5 +162,43 @@ $gst=DB::connection('mysql2')->table('gsts')->where('id',$item->hsn_id)->value('
       
         
       }
+
+       // calculation total monthly bv of member 
+      public function monthlybv($id){
+        // Total 100 voucher order place 
+        $vouchersend=Vouchergift::where('Isvoucher',0)->where('user_id',$id)->get()->count();
+    $monthlybv=Order::where('user_id',$id)->where('buyer',1)->whereMonth('created_at',date('m'))->sum('bv');
+
+    if($vouchersend<=6&&$monthlybv>=250){
+     $gift=Vouchergift::whereMonth('created_at',date('m'))->where('user_id',$id)->where('Isvoucher',0)->first();
+     if(!$gift){
+       $insertGift=new Vouchergift;
+       $insertGift->user_id=$id;
+       $insertGift->Isvoucher=0;
+       $insertGift->voucher=100;
+       $insertGift->save();
+     }
+    }
+   
+    // Total 500 voucher order place 
+    $vouchersend=Vouchergift::where('Isvoucher',1)->where('user_id',$id)->get()->count();
+
+    // if this member have four direct chile 
+    $userid=User::where('id',$id)->value('userid');
+    $four_member=Level::where('l1', $userid)->get()->count();
+      if($vouchersend<=8&&$four_member>=4){
+
+    if($monthlybv>=500){
+      $gift=Vouchergift::whereMonth('created_at',date('m'))->where('Isvoucher',1)->where('user_id',$id)->first();
+     if(!$gift){
+       $insertGift=new Vouchergift;
+       $insertGift->user_id=$id;
+       $insertGift->Isvoucher=1;
+       $insertGift->voucher=500;
+       $insertGift->save();
+     }
+    }
+      }
+    }
 
 }

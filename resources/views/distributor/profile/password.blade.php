@@ -12,7 +12,7 @@
                     <h3 class=" mb-0 mt-0 pt-0">Change Password</h3>
                 <div class="card-body">
 
-                    <form action="{{route('super.password')}}" method="POST">
+                    <form action="{{route('distributor.password')}}" method="POST">
                         @csrf
                         <div class="form-group mt-2">
 

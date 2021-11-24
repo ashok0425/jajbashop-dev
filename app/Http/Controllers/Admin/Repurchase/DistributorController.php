@@ -50,7 +50,7 @@ class DistributorController extends Controller
 
     public function orderdetail($id,$orderId){
         $ship=Shipping::where('order_id',$id)->first();
-        $product=DB::table('order_details')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->where('order_details.order_id',$id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','order_details.*')->orderBy('order_details.id','desc')->get();
+        $product=DB::table('order_details')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','order_details.product_id')->where('order_details.order_id',$id)->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','alfacode_jajbashop_ecommerce.products.id as pid','order_details.*')->orderBy('order_details.id','desc')->get();
        return view('admin.repurchase.distributor.ordershow',compact('product','ship','orderId','id'));
     }
 

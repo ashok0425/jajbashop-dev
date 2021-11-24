@@ -5,16 +5,12 @@ namespace App\Http\Controllers\Super;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Traits\status;
-use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 use App\Models\Salescart;
 use App\Models\Inventory;
 use App\Models\Distributor;
 use App\Models\Account;
 use App\Models\Order;
-use App\Models\Order_detail;
-use App\Models\Shipping;
-use Illuminate\Support\Facades\Mail;
 class SaleController extends Controller
 {
 
@@ -161,6 +157,10 @@ public function checkout(Request $request){
    
   $this->orderPush($orderId,$total,$comission,$bv,$payment_mode,$sale,$buyer,$seller,$seller_id,$buyer_id,$ship);
     
+  DB::table('salescarts')->where('salescarts.user_id',__getSuper()->id)->where('seller',3)->delete();
+  
+// printing invoice on sale 
+return view('super.sales.invoice',compact('orderId'));
 
 // } catch (\Throwable $th) {
 

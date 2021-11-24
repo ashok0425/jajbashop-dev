@@ -55,7 +55,7 @@ class PurchaseController extends Controller
 
 //  sales cart item  using ajax
   public function saleslist(){
-      $sales=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('jajbashop_ecommerce.products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
+      $sales=DB::table('carts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','carts.product_id')->select('alfacode_jajbashop_ecommerce.products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
  
       return view('super.purchase.saleslist',compact('sales'));
   }
@@ -85,11 +85,11 @@ public function checkout(Request $request){
     $payment_mode=$request->payment_mode;
     $seller=4;
     $buyer=3;
-    $seller_id=0123;
+    $seller_id=0;
     $buyer_id=$id;
     $ship=__getSuper();
       //code...
-      $sale=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('carts.*','jajbashop_ecommerce.products.sc','jajbashop_ecommerce.products.bv','jajbashop_ecommerce.products.hsn_id')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
+      $sale=DB::table('carts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','carts.product_id')->select('carts.*','alfacode_jajbashop_ecommerce.products.sc','alfacode_jajbashop_ecommerce.products.bv','alfacode_jajbashop_ecommerce.products.hsn_id')->where('carts.buyer',3)->where('carts.user_id',__getSuper()->id)->get();
 
       if(count($sale)<=0){
         $notification=array(
@@ -168,6 +168,9 @@ if($payment_mode=='paytm'){
   // calling orderpush method in order to store order into database from status trait
   $this->orderPush($orderId,$total,$comission,$bv,$payment_mode,$sale,$buyer,$seller,$seller_id,$buyer_id,$ship);
   DB::table('carts')->where('carts.user_id',__getSuper()->id)->where('buyer',3)->delete();
+  
+// printing invoice on sale 
+return view('super.purchase.invoice',compact('orderId'));
 // } catch (\Throwable $th) {
 
 //   $notification=array(

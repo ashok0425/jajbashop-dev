@@ -161,7 +161,7 @@ if($order->seller==4){
     </td>
 
     <td>
-        <p>{{ $item->comission*$item->comission }}</p>
+        <p>{{ $item->comission*$item->qty }}</p>
 
         {{ $item->comission }}/Each
     </td>

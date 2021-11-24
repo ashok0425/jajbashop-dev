@@ -60,11 +60,8 @@ Route::get('loaduserdata/{data}','Distributor\SaleController@userdata');
 Route::get('sale/report','Distributor\ReportController@sale')->name('sale.report');
 Route::get('buy/report','Distributor\ReportController@buy')->name('buy.report');
 Route::get('report/show/{id}/{orderId}','Distributor\ReportController@show')->name('report.show');
-Route::get('report/print/{id}/{orderId}','Distributor\ReportController@print')->name('report.print');
-Route::get('report/print/{id}/{orderId}','Distributor\ReportController@print')->name('report.print');
-Route::get('dealer/list','Distributor\ReportController@dealer')->name('distributor');
-
-
+Route::get('report/download/{id}/{orderId}','Distributor\ReportController@download')->name('report.print');
+Route::get('report/print/{id}/','Distributor\ReportController@print');
 // Register Distributor
 Route::get('/distributor/register','Distributor\AuthController@register')->name('distributor.register');
 Route::post('/distributor/register/store','Distributor\AuthController@registerstore')->name('distributor.store');

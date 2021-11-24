@@ -2,7 +2,6 @@
        define('PAGE','report')
 @endphp
 @extends('distributor.master')
-
 @section('main-content')
 <div class="container">
     <div class="card">
@@ -13,14 +12,9 @@
     <tr>
         <th>#</th>
         <th>Order ID</th>
-        <th> Amount {{__getPriceunit()}}</th>
-        <th> BV</th>
+        <th> Amount ( {{__getPriceunit()}} )</th>
+        <th> Bv</th>
         <th>Action</th>
-
-
-
-
-
     </tr>
 </thead>
 <tbody>
@@ -36,11 +30,13 @@
     {{$item->total}}
 </td>
 <td>
-    {{$item->bv}}
+    {{number_format($item->bv)}}
 </td>
 <td>
     <a href="{{route('distributor.report.show',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-     <a href="{{route('distributor.report.print',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>
+    <button class="d_in_win btn btn-danger mr-2 openWin" data-id="{{ $item->id }}"><i class="fas fa-print"></i> Print</button>
+
+    <a href="{{route('distributor.report.print',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-danger mr-2"><i class="fas fa-download"></i> Download</a>
 
 
 </td>
@@ -56,3 +52,30 @@
 
 
 @endsection
+
+@push('scripts')
+<script>
+    $('.openWin').click(function openWin()
+ {
+     id=$(this).data('id')
+     $.ajax({
+         url:'{{ url('distributor/report/print') }}/'+id,
+         dataType:'html',
+         type:'GET',
+         success:function($data){
+             myWindow=window;
+             myWindow.document.write($data);
+             myWindow.focus();
+             myWindow.print(); 
+             myWindow.close(); //missing code
+             location.reload()
+ 
+         }
+     })
+ 
+  
+ })
+
+ </script>
+ 
+@endpush

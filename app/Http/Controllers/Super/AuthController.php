@@ -217,7 +217,7 @@ $admin->save();
       'name'=>'required',
       'email'=>'required|email|unique:distributors',
       'phone'=>'required|min:10|max:10|unique:distributors',
-      'sponsor_id'=>'required',
+      'sponsor_email'=>'required',
 
 
   ]);
@@ -230,7 +230,7 @@ $admin->save();
   try {
       //code...
 
-      $check=Super::where('email',$request->sponsor_id)->first();
+      $check=Super::where('email',$request->sponsor_email)->first();
   if($check){
 
 $phone=$request->phone;

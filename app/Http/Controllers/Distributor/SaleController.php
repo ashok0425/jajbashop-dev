@@ -28,16 +28,14 @@ class SaleController extends Controller
 
 
     use status;
-
     public function create()
     {
-        $product=DB::table('inventories')->leftjoin('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','inventories.product_id')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->leftjoin('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','inventories.product_id')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','alfacode_jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
 
        return view('distributor.sales.create',compact('product'));
     }
 
 // Stroing  product  using ajax like qty and price from inventory
-
     public function getData($pid){
         $product=DB::table('inventories')->where('buyer',2)->where('user_id',__getDist()->id)->where('id',$pid)->first();
       return response()->json($product);
@@ -74,9 +72,10 @@ class SaleController extends Controller
 
 //  sales cart item  using ajax
     public function saleslist(){
-        $sales=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('jajbashop_ecommerce.products.name','salescarts.*','products.bv')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
+        $sales=DB::table('salescarts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','salescarts.product_id')->select('alfacode_jajbashop_ecommerce.products.name','salescarts.*','products.bv')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
         return view('distributor.sales.saleslist',compact('sales'));
     }
+
 
     // destroy sales cart item 
     public function destroy($id){
@@ -91,7 +90,6 @@ class SaleController extends Controller
 // storing all the data after checkout
 public function checkout(Request $request){
     $request->validate([
-        'payment_mode'=>'required',
         'userid'=>'required',
      ]);
 
@@ -110,8 +108,26 @@ public function checkout(Request $request){
     $id=$check->id;
 
     // try {
+        // making order id for next order id 
+    $prId=Order::orderBy('id','desc')->value('id');
+    $orderId=rand().$prId;
+    $id=$check->id;
+    $payment_mode=$request->payment_mode;
+    $seller=2;
+    $buyer=1;
+    $seller_id=__getDist()->id;
+    $buyer_id=$id;
+    $ship=$check;
         //code...
-        $sale=DB::table('salescarts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','jajbashop_ecommerce.products.dc','jajbashop_ecommerce.products.bv')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
+        $sale=DB::table('salescarts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','salescarts.product_id')->select('salescarts.*','alfacode_jajbashop_ecommerce.products.dc','alfacode_jajbashop_ecommerce.products.bv','alfacode_jajbashop_ecommerce.products.hsn_id')->where('salescarts.seller',2)->where('salescarts.user_id',__getDist()->id)->get();
+
+        if(count($sale)<=0){
+            $notification=array(
+                'messege'=>'No item in cart',
+                 'alert-type'=>'error'
+             );
+            return redirect()->back()->with($notification);
+        }
     $total=0;
     $bv=0;
     foreach($sale as $item){
@@ -119,9 +135,8 @@ public function checkout(Request $request){
         $bv+=$item->qty*$item->bv;
     }
 
-    if($request->payment_mode!='voucher'){//cheking whether payment mode is not voucher 
-     //storing or updating bv to userbv table 
     $userbv=Userbv::where('user_id',$id)->first();
+ 
     if($userbv){
             $userbv->bv=$userbv->bv+$bv;
             $userbv->save();
@@ -132,6 +147,7 @@ public function checkout(Request $request){
           $userbv->save();
 
     }
+    
     //  for not active user if they are repurchase directly
     if($check->status==null){
         if($userbv->bv>=500){
@@ -198,6 +214,7 @@ for ($i=2; $i <=100 ; $i++) {
     $levelM='l'.$i;
     $preId=$i-1;
     $prelevel='l'.$preId;
+    
 //for level $i2
 if(!empty($level->$levelM)){
     __getpercentdata($level->$levelM,$bv,$level->$prelevel,$levelbv,$levelM,$levelcom);
@@ -206,75 +223,14 @@ if(!empty($level->$levelM)){
 
     }
 
-    }
-
-    $order=new Order;
-    $order->user_id=$id;
-    $order->seller_id=__getDist()->id;
-    $order->total=$total;
-    $order->bv=$bv;
-    $order->comission=$comissionbv;//this comission bv on current repurchase of member
-    $order->payment_mode=$request->payment_mode;
-    $order->payment_id=rand();
-    $order->order_id='JS'.uniqid();
-    $order->buyer=1;
-    $order->seller=2;
-    if($order->save()){
-      $ship=new Shipping;
-      $ship->name=$check->name;
-      $ship->email=$check->email;
-      $ship->phone=$check->phone;
-      $ship->state=$check->state;
-      $ship->district=$check->district;
-      $ship->city=$check->city;
-      $ship->pincode=$check->pincode;
-      $ship->order_id=$order->id;
-      $ship->save();
-
-    //   storing cart item
-   foreach ($sale as  $item) {
-      $orderdetail=new Order_detail;
-      $orderdetail->order_id=$order->id;
-      $orderdetail->product_id=$item->product_id;
-      $orderdetail->price=$item->price;
-      $orderdetail->qty=$item->qty;
-      $orderdetail->bv=$item->bv;
-      $orderdetail->save();
-     }
-
-   //    updating inventory of login user
-   foreach ($sale as $item) {
-    $check=DB::table('inventories')->where('user_id',__getDist()->id)->where('product_id',$item->product_id)->where('buyer',2)->first();
-    $inventory=Inventory::find($check->id);
-    $inventory->qty=$inventory->qty-$item->qty;
-    $inventory->save();
-    }
-
-//    loading pdf
-   $set=[
-    'order_id'=>$order->id,
-    'email'=>$ship->email,
-    'orderId'=>$order->order_id,
-    'date'=>$order->created_at,
-];
-//    $pdf = PDF::loadView('email.checkout', $set);
-//    $sale=DB::table('salescarts')->where('user_id',__getDist()->id)->where('seller',2)->delete();
+    // pushing order 
+    $this->orderPush($orderId,$total,0,$bv,'cash',$sale,$buyer,$seller,$seller_id,$buyer_id,$ship);
+    DB::table('salescarts')->where('salescarts.user_id',__getDist()->id)->where('seller',2)->delete();
+  
 
 
-// // sending email
-//    Mail::send('email.order', $set, function($message)use($set, $pdf) {
-//        $message->to($set['email'])
-//                ->subject("Thank you for your order. Your order number has been placed.")
-//                ->attachData($pdf->output(), "orderinvoice.pdf");
-//    });
-
-   $notification=array(
-    'alert-type'=>'success',
-    'messege'=>' Sold Sucessfully.',
-
- );
-return redirect()->back()->with($notification);
-    }
+// printing invoice on sale 
+  return view('distributor.sales.invoice',compact('orderId'));
 
 // } catch (\Throwable $th) {
 
@@ -287,6 +243,8 @@ return redirect()->back()->with($notification);
 // }
 
 }
+
+
 
 
 public function userdata($data){

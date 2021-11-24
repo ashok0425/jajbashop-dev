@@ -196,8 +196,7 @@
             })
         })
 
-let width=$(window).width();
-        
+       let width=$(window).width();
         $('#width').val(width)
   
 </script>

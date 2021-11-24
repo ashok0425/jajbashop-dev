@@ -185,7 +185,8 @@ padding-bottom: 1rem;
         $web->copy_right=$web->name;
 
     }else{
-        $web=DB::connection('mysql2')->table('websites')->first();
+        $web=DB::table('distributors')->where('id',$order->seller_id)->first();
+        $web->copy_right=$web->name;
     }
             ?>
 

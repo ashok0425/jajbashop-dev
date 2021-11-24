@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaydatasTable extends Migration
+class CreateVouchergiftsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreatePaydatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('paydatas', function (Blueprint $table) {
+        Schema::create('vouchergifts', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('Isvoucher')->default(0);
+            $table->float('voucher');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreatePaydatasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paydatas');
+        Schema::dropIfExists('vouchergifts');
     }
 }

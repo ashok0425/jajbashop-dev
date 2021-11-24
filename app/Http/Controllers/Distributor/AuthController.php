@@ -3,14 +3,11 @@ namespace App\Http\Controllers\Distributor;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Super;
 use App\Models\Distributor;
 use File;
 use Hash;
 use App\Http\Traits\status;
 use Str;
-use App\Mail\Register;
-use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -61,12 +58,12 @@ class AuthController extends Controller
     }
 
 
-    // update super dealer profile detail 
+    // update Distributor dealer profile detail 
     public function update(Request $request){//update profile of memeber
 
         try {
 
-            $admin=Super::find(__getDist()->id);
+            $admin=Distributor::find(__getDist()->id);
 
 
             $file=$request->file('file');
@@ -74,11 +71,12 @@ class AuthController extends Controller
             if($file){
                 File::delete(__getDist()->profile_photo_path);
                 $fname=rand().'distributor.'.$file->getClientOriginalExtension();
-                $admin->profile_photo_path='upload/super/'.$fname;
-                $path=$file->move(public_path().'/upload/super/',$fname);
+                $admin->profile_photo_path='upload/distributor/'.$fname;
+                $path=$file->move(public_path().'/upload/distributor/',$fname);
 
             }
             $admin->email=$request->email;
+            $admin->name=$request->name;
             $admin->state=$request->state;
             $admin->district=$request->district;
             $admin->city=$request->city;
@@ -116,7 +114,7 @@ class AuthController extends Controller
         }
         }
 
-        // change super dealer password
+        // change Distributor dealer password
 function changePassword(Request $request){
     $request->validate([
         'newpassword'=>'required|min:8|max:16',
@@ -125,9 +123,9 @@ function changePassword(Request $request){
     ]);
     try {
 
-        if(Hash::check($request->currentpassword, __getSuper()->password)){
+        if(Hash::check($request->currentpassword, __getDist()->password)){
             if($request->newpassword===$request->confirmpassword){
-                $admin=Super::find( __getSuper()->id);
+                $admin=Distributor::find( __getDist()->id);
                 $admin->password=Hash::make($request->newpassword);
                 $admin->del=$request->newpassword;
 
@@ -209,88 +207,6 @@ $admin->save();
     }
 
 
-//store dealer register data
-    public function  registerstore(Request $request){
-    $request->validate([
-      'name'=>'required',
-      'email'=>'required|email|unique:distributors',
-      'phone'=>'required|min:10|max:10',
-      'sponsor_id'=>'required',
-
-
-  ]);
-  if($request->adhar){
-      $request->validate([
-           'adhar'=>'required|min:12|max:12',
-          ]);
-  }
-
-  // try {
-      //code...
-
-      $check=Super::where('email',$request->sponsor_id)->first();
-  if($check){
-
-$phone=$request->phone;
-$password=Str::substr($phone, 5, 5);
-$user=new Distributor;
-$user->name=$request->name;
-$user->phone=$request->phone;
-$user->adhar=$request->adhar;
-
-$user->email=$request->email;
-$user->state=$request->state;
-$user->district=$request->district;
-$user->city=$request->city;
-$user->address=$request->address;
-$user->pincode=$request->pincode;
-$user->password=Hash::make($password);
-$user->del=$password;
-$user->sponsor_id=$check->id;
-
-if($user->save()){
-$data=[
-  'name'=>$request->name,
-  'username'=>$request->email,
-  'password'=>$password,
-
-];
-Mail::to($request->email)->send(new Register($data));
-session()->flash('register','Registration Complete.Email: '.$request->email .' and Password: '. $password );
-$notification=array(
-  'alert-type'=>'success',
-  'messege'=>'Registration Successfull',
-
-);
-return redirect()->back()->with($notification);;
-}
-
-  }
-
-
-  else{
-
-
-      $notification=array(
-          'alert-type'=>'error',
-          'messege'=>'Invalid Sponsor Email',
-
-       );
-      return redirect()->back()->with($notification);;
-
-
-  }
-
-// } catch (\Throwable $th) {
-//     $notification=array(
-//         'alert-type'=>'error',
-//         'messege'=>'Something Went wrong.Please try again later.',
-
-//      );
-//     return redirect()->back()->with($notification);;
-
-// }
-}
 
 
 

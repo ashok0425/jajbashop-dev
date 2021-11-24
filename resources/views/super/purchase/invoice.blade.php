@@ -11790,8 +11790,13 @@ table {
 	$website=DB::connection('mysql2')->table('websites')->first();
 	$ship=DB::table('shippings')->where('order_id',$order->id)->first();
 	$product=DB::table('order_details')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','order_details.product_id')->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','order_details.*','alfacode_jajbashop_ecommerce.products.bv')->where('order_id',$order->id)->get();
-     $vendor=DB::connection('mysql2')->table('websites')->first();
-    
+
+    if ($order->seller==4) {
+        $vendor=DB::connection('mysql2')->table('websites')->first();
+    }else{
+        $vendor=DB::table('supers')->where('id',$order->seller_id)->first();
+        $vendor->copy_right=$vendor->name;
+    }
 @endphp
 
     <section>
@@ -11815,7 +11820,7 @@ table {
                                     <div class="text-end">
                                         <h1 class="custom-fs-30 custom-fw-700">Order Invoice
                                         </h1>
-                                        <p class="custom-fs-25 text-end">Invoice for Order No: {{ $orderId }}</p>
+                                        <p class="custom-fs-25 text-end">Invoice for Order No: {{ $order->order_id }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -11857,7 +11862,7 @@ table {
                             <div class="row">
                                 <div class="col-6 align-self-end mb-4">
                                     <p class="custom-fs-25 custom-fw-700">Order Number : <span
-                                            class="custom-fw-500">{{ $orderId }}</span>
+                                            class="custom-fw-500">{{ $order->order_id }}</span>
                                     </p>
                                     <p class="custom-fs-25 custom-fw-700">Order Date : <span
                                             class="custom-fw-500">{{ carbon\carbon::parse($order->created_at)->format('d M Y H:i:s') }}</span>
@@ -11904,7 +11909,6 @@ table {
                                             $grandtotal=0;
                                             $totalbv=0;
 
-
                                         @endphp
                                         @foreach ($product as $item)     
                                         @php
@@ -11950,7 +11954,7 @@ table {
                                                 : </td>
                                                 <td class="border border-2 border-dark" >{{ __getPriceunit().$nettotal }}</td>
                                             <td class="border border-2 border-dark" >{{ __getPriceunit(). $totalgst }}</td>
-                                            <td class="border border-2 border-dark" >{{ $totalbv }}</td>
+                                            <td class="border border-2 border-dark" >{{  $totalbv }}</td>
 
                                             <td class="border border-2 border-dark">{{__getPriceunit(). $grandtotal }}</td>
                                         </tr>

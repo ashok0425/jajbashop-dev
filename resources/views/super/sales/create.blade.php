@@ -198,25 +198,7 @@
             })
         })
 
-        // function printorder() {
-        //         $.ajax({
-        //             url: "{{url('sales-allpdf')}}",
-        //             type: 'get',
-        //             dataType: 'html',
-        //             success:function(data) {
-        //                 var mywindow = window.open('', 'Sabaiko Live Bakery', 'height=400,width=600');
-        //                 mywindow.document.write('<html><head><title></title>');
-        //                 mywindow.document.write('</head><body>');
-        //                 mywindow.document.write(data);
-        //                 mywindow.document.write('</body></html>');
-        //                 mywindow.document.close();
-        //                 mywindow.focus();
-        //                 mywindow.print();
-        //                 mywindow.close();
-
-        //             }
-        //         });
-        // }
+       
 
     </script>
 @endpush

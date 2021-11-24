@@ -3,20 +3,12 @@
 namespace App\Http\Controllers\Super;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Traits\status;
-use App\Models\Sale;
 use App\Models\Order;
-use App\Models\Order_detail;
 use App\Models\Shipping;
-use App\Models\Distributor;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use File;
-use App\Models\Inventory;
-use App\Models\Account;
 class ReportController extends Controller
 {
 
@@ -29,14 +21,14 @@ class ReportController extends Controller
 
     public function dealer()
     {
-        $dealer=DB::table('distributors')->where('sponsor_id',__getSuper()->id)->get();
+        $dealer=DB::table('distributors')->where('sponsor_id',__getSuper()->id)->orderBy('id','desc')->get();
        return view('super.report.dealer',compact('dealer'));
     }
 
 
     public function buy()
     {
-        $product=DB::table('orders')->where('buyer',3)->where('user_id',__getSuper()->id)->get();
+        $product=DB::table('orders')->where('buyer',3)->where('user_id',__getSuper()->id)->orderBy('id','desc')->get();
        return view('super.report.buy',compact('product'));
     }
 
@@ -58,7 +50,7 @@ class ReportController extends Controller
        $order=Order::where('id',$id)->where('order_id',$orderId)->first();
        if($order->user_id==__getSuper()->id||$order->seller_id==__getSuper()->id){
         $ship=Shipping::where('order_id',$id)->first();
-        $product=DB::table('order_details')->join('orders','orders.id','order_details.order_id')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->where('order_details.order_id',$id)->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','jajbashop_ecommerce.products.id as pid','order_details.*')->orderBy('order_details.id','desc')->get();
+        $product=DB::table('order_details')->join('orders','orders.id','order_details.order_id')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','order_details.product_id')->where('order_details.order_id',$id)->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','alfacode_jajbashop_ecommerce.products.id as pid','order_details.*')->orderBy('order_details.id','desc')->get();
        return view('super.report.show',compact('product','ship','orderId','id'));
     }else{
         $notification=array(

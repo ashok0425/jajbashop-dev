@@ -11790,7 +11790,7 @@ table {
 	$website=DB::connection('mysql2')->table('websites')->first();
 	$ship=DB::table('shippings')->where('order_id',$order->id)->first();
 	$product=DB::table('order_details')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','order_details.product_id')->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','order_details.*','alfacode_jajbashop_ecommerce.products.bv')->where('order_id',$order->id)->get();
-     $vendor=DB::connection('mysql2')->table('websites')->first();
+     $vendor=DB::table('distributors')->where('id',$order->seller_id)->first();
     
 @endphp
 
@@ -11822,7 +11822,7 @@ table {
                             <div class="row">
                                 <div class="col-6 mb-4">
  <p class="custom-fs-25 custom-fw-700 ">Sold By :</p>
- <p class="custom-fs-25 custom-fw-500 lh-sm">{{ $vendor->copy_right }}
+ <p class="custom-fs-25 custom-fw-500 lh-sm">{{ $vendor->name }}
 	 </p>
  <p class="custom-fs-25 custom-fw-500 lh-sm">{{ $vendor->email }}</p>
  <p class="custom-fs-25 custom-fw-500 lh-sm">{{ $vendor->phone }}</p>

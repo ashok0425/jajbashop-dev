@@ -178,7 +178,7 @@ padding-bottom: 1rem;
        $web=DB::table('websites')->first();
        $order=DB::table('orders')->where('id',$order_id)->first();
        $ship=DB::table('shippings')->where('order_id',$order_id)->first();
-       $cart=DB::table('order_details')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','order_details.*','order_details.gst')->where('order_id',$order_id)->get();
+       $cart=DB::table('order_details')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','order_details.product_id')->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','order_details.*','order_details.gst')->where('order_id',$order_id)->get();
 
        if($order->seller==4){
          $seller=DB::table('websites')->first();

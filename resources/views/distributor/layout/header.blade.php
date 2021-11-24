@@ -7,7 +7,7 @@
 
     <div class="navbar-collapse collapse">
       @php
-            $earning=DB::table('accounts')->where('user_id',__getDist()->id)->where('user_type',3)->sum('amount');
+            $earning=DB::table('accounts')->where('user_id',__getDist()->id)->where('user_type',2)->sum('amount');
         @endphp
 
     <h4 class='font-weight-bold'>

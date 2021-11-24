@@ -38,7 +38,7 @@
     <a href="{{route('super.report.show',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
     <button class="d_in_win btn btn-danger mr-2 openWin" data-id="{{ $item->id }}"><i class="fas fa-print"></i> Print</button>
 
-     <a href="{{route('super.report.print',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-danger mr-2"><i class="fas fa-print"></i>Print</a>
+     <a href="{{route('super.report.print',['id'=>$item->id,'orderId'=>$item->order_id])}}" class="btn btn-danger mr-2"><i class="fas fa-download"></i>Download</a>
 
 
 </td>
@@ -78,15 +78,7 @@
  
   
  })
-let width=$(window).width();
- if(width>=1000){
-    $('.d_in_win').removeClass('d-none')
-     $('.d_in_win').addClass('d-inline')
- }else{
-    $('.d_in_win').removeClass('d-block')
-    $('.d_in_win').addClass('d-none')
 
- }
  </script>
  
 @endpush

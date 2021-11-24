@@ -75,15 +75,7 @@
  
   
  })
-let width=$(window).width();
- if(width>=1000){
-    $('.d_in_win').removeClass('d-none')
-     $('.d_in_win').addClass('d-inline')
- }else{
-    $('.d_in_win').removeClass('d-block')
-    $('.d_in_win').addClass('d-none')
 
- }
  </script>
  
 @endpush

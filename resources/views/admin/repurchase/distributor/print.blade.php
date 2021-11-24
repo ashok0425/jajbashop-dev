@@ -11789,7 +11789,7 @@ table {
   $order=DB::table('orders')->where('id',$orderId)->first();
 	$website=DB::connection('mysql2')->table('websites')->first();
 	$ship=DB::table('shippings')->where('order_id',$orderId)->first();
-	$product=DB::table('order_details')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','order_details.product_id')->select('jajbashop_ecommerce.products.name','jajbashop_ecommerce.products.image','order_details.*','jajbashop_ecommerce.products.bv')->where('order_id',$orderId)->get();
+	$product=DB::table('order_details')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','order_details.product_id')->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','order_details.*','alfacode_jajbashop_ecommerce.products.bv')->where('order_id',$orderId)->get();
     if ($order->seller==3) {
 		$vendor=DB::table('supers')->where('id',$order->seller_id)->first();
         $vendor->copy_right=$vendor->name;
@@ -11910,6 +11910,8 @@ table {
                                             $totalgst=0;
                                             $nettotal=0;
                                             $grandtotal=0;
+                                            $grandbv=0;
+
 
                                         @endphp
                                         @foreach ($product as $item)     
@@ -11920,6 +11922,7 @@ table {
                                         $totalgst+=$gst_amount;
                                         $nettotal+=$net;
                                         $grandtotal+=$total;
+                                        $totalbv=$item->qty*$item->bv;
 
 
                                     @endphp
@@ -11954,7 +11957,9 @@ table {
                                             <td class="border border-2 border-dark custom-fw-700" colspan="4">Total
                                                 : </td>
                                                 <td class="border border-2 border-dark" >{{ __getPriceunit().$nettotal }}</td>
-                                            <td class="border border-2 border-dark" colspan="2">{{ __getPriceunit(). $totalgst }}</td>
+                                            <td class="border border-2 border-dark">{{ __getPriceunit(). $totalgst }}</td>
+                                            <td class="border border-2 border-dark">{{  $totalbv }}</td>
+
                                             <td class="border border-2 border-dark">{{__getPriceunit(). $grandtotal }}</td>
                                         </tr>
                                        

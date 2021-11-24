@@ -55,9 +55,9 @@
 
                         @endphp
                     @endforeach
-                    <div class="d-flex justify-content-between">
-                        <h4> Total Amount :{{$total}}</h4>
-                        <h4>Total Bv  : {{$bv}}</h4>
+                    <div class="d-flex justify-content-between ">
+                        <h4 class="mt-2"> Total Amount :{{$total}}</h4>
+                        <h4 class="mt-2">Total Bv  : {{$bv}}</h4>
                 
                     </div>
                 @endif

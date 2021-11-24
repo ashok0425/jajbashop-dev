@@ -91,17 +91,9 @@
                 
                 <form action="{{route('distributor.sale.checkout')}}" method='POST'>
                     @csrf
-                    <div class="form-group mt-2 ">
-                        <h4>Payment Mode</h4>
-                        <label class="d-flex align-items-center">
-                            <input type="radio" name="payment_mode" value="cash" required>&nbsp;&nbsp; Cash</label>
-                        <label class="d-flex align-items-center"><input type="radio" name="payment_mode" value="account" required>&nbsp;&nbsp; Account Fund</label>
-            
-                    </div>
-                <a   class="btn btn-danger form-control my-2" onclick="return print()" ><i class="fa fa-print"></i> Print Bill</a>
-
-                    <input type="hidden" name="userid" id="user_id" required>
-                <button class="btn btn-info form-control" ><i class="fa fa-download " ></i> Make Sale & Download invoice</button>
+             <hr>
+             <input type="hidden" name="userid" id="user_id" required>
+              <button class="btn btn-info form-control" ><i class="fa fa-download " ></i> Make Sale </button>
     </form>
 
 
@@ -228,5 +220,7 @@
             }
         })
 
+        let width=$(window).width();
+        $('#width').val(width)
     </script>
 @endpush

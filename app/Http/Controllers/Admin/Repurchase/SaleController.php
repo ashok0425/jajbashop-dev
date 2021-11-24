@@ -61,7 +61,7 @@ class SaleController extends Controller
 
 //  sales cart item  using ajax
   public function saleslist(){
-    $sales=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('jajbashop_ecommerce.products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',0)->get();
+    $sales=DB::table('carts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','carts.product_id')->select('alfacode_jajbashop_ecommerce.products.name','carts.*')->where('carts.buyer',3)->where('carts.user_id',0)->get();
 
       return view('admin.repurchase.sales.saleslist',compact('sales'));
   }
@@ -94,9 +94,18 @@ public function checkout(Request $request){
 
   // try {
       //code...
-  $id=$superD->id;
+      $id=$superD->id;
+      $prId=Order::orderBy('id','desc')->value('id');
+      $orderId=rand().$prId;
+      $id=$superD->id;
+      $payment_mode=$request->payment_mode;
+      $seller=4;
+      $buyer=3;
+      $seller_id=0;
+      $buyer_id=$id;
+      $ship=$superD;
 
-      $sale=DB::table('carts')->join('jajbashop_ecommerce.products','jajbashop_ecommerce.products.id','carts.product_id')->select('carts.*','jajbashop_ecommerce.products.sc','jajbashop_ecommerce.products.bv')->where('carts.buyer',3)->where('carts.user_id',0)->get();
+      $sale=DB::table('carts')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','carts.product_id')->select('carts.*','alfacode_jajbashop_ecommerce.products.sc','alfacode_jajbashop_ecommerce.products.bv','alfacode_jajbashop_ecommerce.products.hsn_id')->where('carts.buyer',3)->where('carts.user_id',0)->get();
 
   $total=0;
   $bv=0;
@@ -136,109 +145,15 @@ public function checkout(Request $request){
         $account->user_type=3;
         $account->save();
   }
-  $order=new Order;
-  $order->user_id=$id;
-  $order->seller_id=0;
-  $order->total=$total;
-  $order->bv=$bv;
-  $order->comission=$comission;
-  $order->payment_mode=$request->payment_mode;
-  $order->payment_id=rand();
-  $order->order_id='JS'.uniqid();
-  $order->buyer=3;
-  $order->seller=4;
-  if($order->save()){
-    $ship=new Shipping;
-    $ship->name=$superD->name;
-    $ship->email=$superD->email;
-    $ship->phone=$superD->phone;
-    $ship->state=$superD->state;
-    $ship->district=$superD->district;
-    $ship->city=$superD->city;
-    $ship->pincode=$superD->pincode;
-    $ship->order_id=$order->id;
-     $ship->save();
-  //   storing cart item
- foreach ($sale as  $item) {
-    $orderdetail=new Order_detail;
-    $orderdetail->order_id=$order->id;
-    $orderdetail->product_id=$item->product_id;
-    $orderdetail->price=$item->price;
-    $orderdetail->qty=$item->qty;
-    $orderdetail->bv=$item->bv;
-    $orderdetail->comission=$item->sc;
-    $orderdetail->save();
-
-    // updating product qty 
-    $product=DB::connection('mysql2')->table('products')->where('id',$item->product_id)->first();
-    $productqty=$product->qty-$item->qty;
-    DB::connection('mysql2')->table('products')->where('id',$item->product_id)->update(['qty'=>$productqty]);
-
-   }
-
- //    updating inventory of login user
- $datas=array();
  
-//    storing all cart item to inventory
- foreach ($sale as $item) {
-     $check=Inventory::where('user_id',$id)->where('product_id',$item->product_id)->where('buyer',3)->first();
-     if($check){
-    $inventory=Inventory::find($check->id);
-     $inventory->qty=$item->qty+$check->qty;
-     $inventory->price=$item->price;
-     
-     $inventory->save();
-     }else{
-      $inventory=new Inventory;
-      $inventory->user_id=$id;
-      $inventory->qty=$item->qty;
-      $inventory->price=$item->price;
-      $inventory->product_id=$item->product_id;
-      $inventory->buyer=3;
-      $inventory->seller=4;
-      
-      $inventory->save();
-     }
- }
 
- $notification=array(
-  'alert-type'=>'success',
-  'messege'=>' Sold Sucessfully.',
+    // pushing order 
+    $this->orderPush($orderId,$total,$comission,$bv,$payment_mode,$sale,$buyer,$seller,$seller_id,$buyer_id,$ship);
+  // deletecart item 
+    DB::table('carts')->where('user_id',0)->where('buyer',3)->delete();
 
-);
-$orderId=$order->id;
-DB::table('carts')->where('user_id',0)->where('buyer',3)->delete();
-if($request->width>=1000){
+// printing invoice on sale 
   return view('admin.repurchase.sales.invoice',compact('orderId'));
-}
-//    loading pdf
- $set=[
-  'order_id'=>$order->id,
-  'email'=>$ship->email,
-  'orderId'=>$order->order_id,
-  'date'=>$order->created_at,
-
-
-
-];
- $pdf = PDF::loadView('email.checkout', $set);
-
-
-// sending email
- Mail::send('email.order', $set, function($message)use($set, $pdf) {
-     $message->to($set['email'])
-             ->subject("Thank you for your order. Your order number has been placed.")
-             ->attachData($pdf->output(), "orderinvoice.pdf");
- });
-
- $notification=array(
-  'alert-type'=>'success',
-  'messege'=>' Sold Sucessfully.',
-
-);
-return redirect()->back()->with($notification);
-  }
-
 // } catch (\Throwable $th) {
 
 //   $notification=array(

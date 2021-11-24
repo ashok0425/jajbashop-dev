@@ -195,7 +195,15 @@ Route::get('/distributor/order/print/{id}','Admin\Repurchase\SuperController@pri
 
 
 
-
+  //  Voucher order
+  Route::get('/order/{status}','Admin\Repurchase\OrderController@order')->name('order');
+  Route::get('order/filter/list','Admin\Repurchase\OrderController@filter');
+  Route::post('order/status','Admin\Repurchase\OrderController@changestatus')->name('order.status');
+  Route::get('/order/show/{order_id}/{vendor_order_id}','Admin\Repurchase\OrderController@show')->name('order.show');
+  Route::get('/order/label/print/','Admin\Repurchase\OrderController@genertaeLabel')->name('order.label.print');
+ 
+  Route::get('/order/track/{tracking_code?}','Admin\Repurchase\OrderController@trackOrder')->name('order.track');
+ 
 
 
 
