@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use File;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Cookie;
 
 class MemberController extends Controller
 {
@@ -296,9 +297,7 @@ protected function deactive($id,$table){
 
 // login member directly from admin
 public function login(Request $request){ //login memeber
-  $email=__getAdmin()->email;
-  $password='admin1234';
-
+ 
     // try {
         //code...
         if(session()->has('mlogin')){
@@ -309,15 +308,12 @@ public function login(Request $request){ //login memeber
         }
 
         session()->put('mlogin',1);
-   if(!Auth::guard('web')->attempt($request->only('userid','password'),$request->filled('remember'))){
-       $notification=array(
-          'messege'=>'Invalid Credientials ',
-           'alert-type'=>'error'
-       );
-     return redirect()->back()->with($notification);
-   }
+        Cookie::make('jajbamemberlogin',[
+            'userid'=>$request->userid,
+            'password'=>$request->email,
+        ]);
+    //    return redirect('https://jajbashop.in/login/store');
 
-      return redirect()->route('member.dashboard');
 
 // } catch (\Throwable $th) {
 // $notification=array(

@@ -30,7 +30,7 @@ class SaleController extends Controller
     use status;
     public function create()
     {
-        $product=DB::table('inventories')->leftjoin('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','inventories.product_id')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','alfacode_jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
+        $product=DB::table('inventories')->join('alfacode_jajbashop_ecommerce.products','alfacode_jajbashop_ecommerce.products.id','inventories.product_id')->where('inventories.buyer',2)->where('inventories.user_id',__getDist()->id)->select('alfacode_jajbashop_ecommerce.products.name','alfacode_jajbashop_ecommerce.products.image','alfacode_jajbashop_ecommerce.products.id as pid','inventories.*')->orderBy('inventories.id','desc')->get();
 
        return view('distributor.sales.create',compact('product'));
     }
