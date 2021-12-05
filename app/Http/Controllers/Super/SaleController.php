@@ -11,6 +11,8 @@ use App\Models\Inventory;
 use App\Models\Distributor;
 use App\Models\Account;
 use App\Models\Order;
+use App\Models\Ecommerce\Product;
+
 class SaleController extends Controller
 {
 

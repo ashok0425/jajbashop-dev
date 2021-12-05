@@ -65,7 +65,7 @@ return [
 
 
         'mysql2' => [
-            'driver' => 'mysql',
+            'driver' => 'DB_CONNECTION_ECOMMERCE',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_ECOMMERCE', '127.0.0.1'),
             'port' => env('DB_PORT_ECOMMERCE', '3306'),

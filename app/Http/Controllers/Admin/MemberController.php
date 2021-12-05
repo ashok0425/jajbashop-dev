@@ -128,8 +128,6 @@ class MemberController extends Controller
 // activating member after applying epin
 
 public  function activation(Request $request){
-
-
     $userid=$request->userid;
     $id=User::where('userid',$userid)->value('id');
     $epin=$request->epin;

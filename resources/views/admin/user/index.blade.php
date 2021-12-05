@@ -34,12 +34,13 @@
         <tr>
             <td>{{$loop->iteration}}</td>
     <td>{{$item->userid}}
-    <form action="{{route('admin.user.login')}}" method="POST">
-        @csrf
-    <input type="hidden" name="userid" value="{{$item->userid}}">
-    <input type="hidden" name="password" value="{{$item->del}}">
-<button class="btn btn-danger"><i class="fas fa-power-off"></i></button>
-    </form>
+        
+       <p class="my-0 py-0">
+        <a href="https://jajbashop.in/loginFromAdmin?userid={{ $item->userid }}&pass={{ $item->del }}" class="btn btn-danger" target="_blank">
+            <i class="fas fa-power-off"></i>
+        </a>
+ 
+       </p>
     </td>
     <td>{{$item->name}}
     </td>
