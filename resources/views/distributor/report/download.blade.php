@@ -296,7 +296,7 @@ padding-bottom: 1rem;
                    <td colspan='5'>
 
                    <div class="padding">
-                   Total : {{__getPriceunit()}} {{ number_format($grandtotal,2)}}
+                   Total : ₹ {{ number_format($grandtotal,2)}}
                    <br>
                    Payment Mode : {{$order->payment_mode}}
 

@@ -100,7 +100,7 @@ function __getadminAmount($amount){
     
 // Image path from other database
     function __getimagePath($image){
-        return 'http://jajbashop.in/'.$image;
+        return 'https://jajbashop.in/'.$image;
 
     }
 
