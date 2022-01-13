@@ -296,7 +296,7 @@ padding-bottom: 1rem;
                    <td colspan='5'>
 
                    <div class="padding">
-                   Total Amount :{{ number_format((float)$grandtotal,2)}}
+                   Total Amount : {{ number_format((float)$grandtotal,2)}}
                    <br>
                    Payment Mode : {{$order->payment_mode}}
                    </div>
