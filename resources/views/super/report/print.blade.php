@@ -11811,7 +11811,7 @@ table {
                                     <div class="logo">
                                         <div class="img-wrap">
                                         <a href="https://jajbashop.in">
-											<img src="{{ asset($website->image) }}" alt="jajbashop.in" class="img-fluid">
+											<img src="{{ __getImagepath($website->image) }}" alt="jajbashop.in" class="img-fluid">
 										</a>
                                         </div>
                                     </div>

@@ -211,7 +211,7 @@
                                 <div class="col-6">
                                     <div class="logo">
                                         <div class="img-wrap">
-                                            <img src="{{ asset($website->image) }}" alt="baratodeal.in" class="img-fluid">
+                                            <img src="{{__getimagePath($webiste->image)}}" alt="baratodeal.in" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>

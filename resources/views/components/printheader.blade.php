@@ -30,7 +30,7 @@
 <div class="print_header">
     <!-- The best way to take care of the future is to take care of the present moment. - Thich Nhat Hanh -->
 <center >
-    <img src="{{ asset('logo.png') }}" alt="" class="img-fluid " width="100">
+    <img src="{{__getimagePath($webiste->image)}}" alt="" class="img-fluid " width="100">
     <h1> <span class='text-danger  py-0 my-0'>Jajba</span><span class='text-info'>Shop</span></h1>
 </center>
 <br>

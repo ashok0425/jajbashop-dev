@@ -196,24 +196,9 @@ padding-bottom: 1rem;
                         <tr>
                             <td class="title ">
                               <a href="https://jajbashop.in" class='add' >
-                                    <img src="{{ asset('logo.png') }}"  style="width: 110px!important;"/>
+                                    <img src="{{__getimagePath($webiste->image)}}"  style="width: 110px!important;"/>
                               </a>
-                          <div class="text">
-
-
-                            <div class='add'>
-                                &nbsp;&nbsp;{{$website->phone}}
-
-                                     </div>
-                              <div class='add'>
-                                &nbsp;&nbsp; <a href="mailto::{{$website->email}}" style="color:#000;">{{$website->email}}</a>
-
-                              </div>
-                              <div class='add'>
-                                {{-- &nbsp;&nbsp;{{$web->address}} --}}
-
-                                     </div>
-                          </div>
+                          
                             </td>
                         </tr>
                     </table>
