@@ -11786,6 +11786,8 @@ table {
 
 <body class="custom-text-black custom-body" id="body">
 @php
+       $website=DB::connection('mysql2')->table('websites')->first();
+
   $order=DB::table('orders')->where('order_id',$orderId)->first();
 	$website=DB::connection('mysql2')->table('websites')->first();
 	$ship=DB::table('shippings')->where('order_id',$order->id)->first();
@@ -11806,7 +11808,7 @@ table {
                                     <div class="logo">
                                         <div class="img-wrap">
                                         <a href="https://jajbashop.in">
-											<img src="{{__getimagePath($webiste->image)}}" alt="jajbashop.in" class="img-fluid">
+											<img src="{{__getimagePath($website->image)}}" alt="jajbashop.in" class="img-fluid">
 										</a>
                                         </div>
                                     </div>

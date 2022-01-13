@@ -71,7 +71,7 @@ class ReportController extends Controller
 
     public function download($id,$orderId){      
    
-    try {
+    // try {
     $order=Order::where('id',$id)->where('order_id',$orderId)->first();
     if($order->user_id==__getDist()->id||$order->seller_id==__getDist()->id){
         $set=[
@@ -89,14 +89,14 @@ class ReportController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    } catch (\Throwable $th) {
-    $notification=array(
-        'alert-type'=>'error',
-        'messege'=>'Something went wrong.Try again later',
+    // } catch (\Throwable $th) {
+    // $notification=array(
+    //     'alert-type'=>'error',
+    //     'messege'=>'Something went wrong.Try again later',
 
-    );
-    return redirect()->back()->with($notification);
-    }
+    // );
+    // return redirect()->back()->with($notification);
+    // }
 
 
     }

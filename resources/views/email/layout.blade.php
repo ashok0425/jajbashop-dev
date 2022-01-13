@@ -184,7 +184,7 @@ padding-bottom: 1rem;
                         <tr>
                             <td class="title ">
                               <a href="{{route('/')}}" class='add' >
-                                    <img src="{{__getimagePath($webiste->image)}}"  style="width: 110px!important;"/>
+                                    <img src="{{__getimagePath($website->image)}}"  style="width: 110px!important;"/>
                               </a>
                           <div class="text">
 
