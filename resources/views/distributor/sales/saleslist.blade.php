@@ -1,4 +1,3 @@
-<x-printheader/>
 <style>
     .dataTables_info{
         display: none!important;
