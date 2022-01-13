@@ -104,7 +104,7 @@ class ReportController extends Controller
 // print report 
 public function print($id){
     $orderId=$id;
-    return view('super.report.print',compact('orderId'));
+    return view('distributor.report.print',compact('orderId'));
     }
 
 }
