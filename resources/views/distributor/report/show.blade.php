@@ -137,7 +137,6 @@ if($order->seller==3){
     @foreach ($product as $item)
     <tr>
     <td>
-        {{ __getimagePath($item->image) }}
        <img src="{{ __getimagePath($item->image) }}" alt="Product image" class="img-fluid" width="80">
 
     </td>
