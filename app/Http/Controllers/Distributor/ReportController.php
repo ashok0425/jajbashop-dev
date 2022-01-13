@@ -77,7 +77,7 @@ class ReportController extends Controller
         $set=[
             'order_id'=>$id,
         ];
-    $pdf = PDF::loadView('email.checkout', $set);
+    $pdf = PDF::loadView('distributor.report.download', $set);
     return $pdf->download('invoice.pdf');
 
 }else{
