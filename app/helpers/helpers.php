@@ -23,7 +23,7 @@ function __getSuper(){
 
 
 function __getPriceunit(){
-return '₹ ';
+return '₹';
 }
 
 // Get repurchase level topup price 

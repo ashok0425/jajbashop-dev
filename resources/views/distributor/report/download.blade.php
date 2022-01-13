@@ -201,11 +201,6 @@ padding-bottom: 1rem;
                               </a>
                           <div class="text">
 
-
-                            <div class='add'>
-                                &nbsp;&nbsp;{{$website->phone}}
-
-                                     </div>
                               <div class='add'>
                                 &nbsp;&nbsp; <a href="mailto::{{$website->email}}" style="color:#000;">{{$website->email}}</a>
 
