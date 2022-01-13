@@ -31,8 +31,8 @@ if($order->seller==3){
    <div class='d-flex'>
     <button class="btn btn-danger mr-2 d_in_win openWin" data-id="{{ $id }}"><i class="fas fa-print"></i> Print</button>
 
-    <a href="{{route('super.report.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2"><i class="fas fa-download"></i>Download</a>
-<a href="{{ route('super.buy.report') }}" class="btn btn-info text-white">Back</a>
+    <a href="{{route('distributor.report.print',['id'=>$id,'orderId'=>$orderId])}}" class="btn btn-danger mr-2"><i class="fas fa-download"></i>Download</a>
+<a href="{{ route('distributor.buy.report') }}" class="btn btn-info text-white">Back</a>
    </div>
        </div>
 
@@ -184,7 +184,7 @@ if($order->seller==3){
  {
      id=$(this).data('id')
      $.ajax({
-         url:'{{ url('super/report/print') }}/'+id,
+         url:'{{ url('distributor/report/print') }}/'+id,
          dataType:'html',
          type:'GET',
          success:function($data){
